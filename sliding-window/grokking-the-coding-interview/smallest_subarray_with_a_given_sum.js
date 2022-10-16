@@ -4,14 +4,11 @@ function find_smallest_subarray_with_given_sum(S, arr) {
   let windowSum = 0
   let windowStart = 0
   let minLength = Math.pow(10, 1000)
-  let subArray = []
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
     windowSum += arr[windowEnd];
-    subArray += arr[windowEnd]
     while (windowSum >= S) {
-      minLength = math.Min(subArray.length, minLength)
+      minLength = math.Min(windowEnd - windowStart + 1, minLength)
       windowSum -= arr[windowStart]
-      subArray -= arr[windowStart]
       windowStart += 1
     }
   }
