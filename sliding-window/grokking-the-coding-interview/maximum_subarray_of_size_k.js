@@ -5,7 +5,7 @@ function find_max_sum_subarray(K, arr) {
   let windowSum = 0
   let windowStart = 0
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-    windowSum += arr[windowEnd];
+    windowSum += arr[windowEnd]
 
     if (windowEnd >= K - 1) {
       maxSum = math.Max(windowSum, maxSum)
