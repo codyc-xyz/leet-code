@@ -3,7 +3,7 @@
 function find_largest_substring_with_K_distinct_characters(K, string) {
   let arr = string.split('')
   let substring = []
-  let largestSubstring = []
+  let largestLength = 0
   let windowStart = 0
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
     while (substring.uniq <= K) {
