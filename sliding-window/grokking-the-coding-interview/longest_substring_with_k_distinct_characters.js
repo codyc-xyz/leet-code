@@ -9,7 +9,7 @@ function find_largest_substring_with_K_distinct_characters(K, string) {
     while (substring.uniq <= K) {
       substring += arr[windowEnd]
     }
-      largestLength = math.Max(largestSubstring.length, substring.length)
+      largestLength = math.Max(largestLength, substring.length)
       substring -= arr[windowStart]
       windowStart += 1
   }
