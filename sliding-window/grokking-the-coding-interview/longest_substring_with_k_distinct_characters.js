@@ -16,3 +16,7 @@ function find_largest_substring_with_K_distinct_characters(K, string) {
   }
   return largestLength
 }
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
