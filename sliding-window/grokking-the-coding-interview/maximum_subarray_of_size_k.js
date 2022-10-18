@@ -8,7 +8,7 @@ function find_max_sum_subarray(K, arr) {
     windowSum += arr[windowEnd]
 
     if (windowEnd >= K - 1) {
-      maxSum = math.Max(windowSum, maxSum)
+      maxSum = Math.max(windowSum, maxSum)
       windowSum -= arr[windowStart]
       windowStart += 1
     }
