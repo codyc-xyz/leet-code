@@ -7,7 +7,7 @@ function fruits_into_baskets(arr) {
   let mostFruits = 0
   let substring = []
   for(let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
-    while (substring.uniq <= 2) {
+    while (substring.filter(onlyUnique).length < 2) {
       substring += arr[windowEnd]
       windowEnd += 1
     }
@@ -16,4 +16,8 @@ function fruits_into_baskets(arr) {
     windowStart += 1
   }
   return mostFruits
+}
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
 }
