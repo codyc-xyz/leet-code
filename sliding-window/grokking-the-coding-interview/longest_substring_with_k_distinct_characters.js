@@ -8,6 +8,7 @@ function find_largest_substring_with_K_distinct_characters(K, string) {
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
     while (substring.uniq <= K) {
       substring += arr[windowEnd]
+      windowEnd += 1
     }
       largestLength = math.Max(largestLength, substring.length)
       substring -= arr[windowStart]
