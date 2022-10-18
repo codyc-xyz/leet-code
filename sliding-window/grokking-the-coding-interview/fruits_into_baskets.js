@@ -11,7 +11,7 @@ function fruits_into_baskets(arr) {
       substring += arr[windowEnd]
       windowEnd += 1
     }
-    mostFruits = math.Max(mostFruits, substring.length)
+    mostFruits = Math.max(mostFruits, substring.length)
     substring -= arr[windowStart]
     windowStart += 1
   }

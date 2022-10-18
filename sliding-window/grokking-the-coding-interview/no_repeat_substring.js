@@ -10,7 +10,7 @@ function no_repeat_substring(string) {
       substring += arr[windowEnd]
       windowEnd += 1
     }
-    longestSubstring = math.Max(longestSubstring, substring.length)
+    longestSubstring = Math.max(longestSubstring, substring.length)
     substring -= arr[windowStart]
     windowStart += 1
   }

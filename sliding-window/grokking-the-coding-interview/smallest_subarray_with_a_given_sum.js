@@ -7,7 +7,7 @@ function find_smallest_subarray_with_given_sum(S, arr) {
   for (let windowEnd = 0; windowEnd < arr.length; windowEnd++) {
     windowSum += arr[windowEnd]
     while (windowSum >= S) {
-      minLength = math.Min(windowEnd - windowStart + 1, minLength)
+      minLength = Math.min(windowEnd - windowStart + 1, minLength)
       windowSum -= arr[windowStart]
       windowStart += 1
     }
