@@ -9,6 +9,7 @@ function longest_substring_with_same_letters_after_replacement(string, K) {
     while(arr[windowEnd] === arr[windowEnd + 1]) {
       substring += arr[windowEnd]
       windowEnd += 1
+      
     }
     maxRepeatLetterCount = Math.max(maxRepeatLetterCount, substring.length + 1)
     substring -= arr[windowStart]
