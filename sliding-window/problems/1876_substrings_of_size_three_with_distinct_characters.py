@@ -11,9 +11,9 @@ def countGoodSubstrings(self, s: str) -> int:
             while c in hm.values():
                 hm.pop(windowStart)
                 windowStart += 1
-            if len(hm) + 1 == 3:
+            hm[windowEnd] = c
+            if len(hm) == 3:
                 count += 1
                 hm.pop(windowStart)
                 windowStart += 1
-            hm[windowEnd] = c
         return count
