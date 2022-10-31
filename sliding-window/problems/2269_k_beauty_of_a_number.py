@@ -15,8 +15,6 @@ class Solution:
             return 0
             
             
-        
-    
     def divisorSubstrings(self, num: int, k: int) -> int:
         count = 0
         string = str(num)
