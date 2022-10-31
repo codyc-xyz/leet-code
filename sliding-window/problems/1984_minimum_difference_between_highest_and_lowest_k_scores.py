@@ -5,7 +5,15 @@
 
 class Solution:
     def minimumDifference(self, nums: List[int], k: int) -> int:
-        
+        numbers = sorted(nums)
+        windowStart, windowEnd = 0, k - 1
+        minDiff = float("inf")
+        while windowEnd < len(numbers):
+            minDiff = min(minDiff, numbers[windowEnd] - numbers[windowStart])
+            windowEnd += 1
+            windowStart += 1
+        return minDiff
+                
 
 
 
