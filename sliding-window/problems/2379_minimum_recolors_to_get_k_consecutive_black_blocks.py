@@ -3,20 +3,23 @@
 # In one operation, you can recolor a white block such that it becomes a black block.
 # Return the minimum number of operations needed such that there is at least one occurrence of k consecutive black blocks.
 
-def minimumRecolors(self, blocks: str, k: int) -> int:
-        minRecolors, windowStart = float("inf"), 0
-        for i in range(len(blocks)):
-            recolors, iterations, windowEnd = 0, 0, windowStart + k
-            string = blocks[windowStart:windowEnd]
-            if len(string) != k:
-                break
-            while iterations < k:
-                if string[iterations] == 'W':
+class Solution:
+        
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        minRecolors = float("inf")
+        for i in range(len(blocks) + 1 - k):
+            recolors = 0
+            string = blocks[i:i + k]
+            for c in range(k):
+                if string[c] == 'W':
                     recolors += 1
-                iterations += 1
             if recolors < minRecolors:
                  minRecolors = recolors
-            windowStart += 1
+
         return minRecolors
+                    
+            
+                 
+            
 
 
