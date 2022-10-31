@@ -13,12 +13,10 @@ class Solution:
             for c in range(k):
                 if string[c] == 'W':
                     recolors += 1
-            if recolors < minRecolors:
-                 minRecolors = recolors
+            minRecolors = min(minRecolors, recolors)
 
         return minRecolors
                     
-            
                  
             
 
