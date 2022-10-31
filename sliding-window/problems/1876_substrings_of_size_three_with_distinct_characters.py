@@ -17,3 +17,4 @@ def countGoodSubstrings(self, s: str) -> int:
                 hm.pop(windowStart)
                 windowStart += 1
         return count
+# O(n) time complexity
