@@ -9,4 +9,5 @@ class Solution:
                 return True
             hm[n] = i
         return False
+# O(n) time complexity
             
