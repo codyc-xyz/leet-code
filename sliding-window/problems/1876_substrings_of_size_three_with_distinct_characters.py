@@ -22,12 +22,11 @@ def countGoodSubstrings(self, s: str) -> int:
 class Solution:
     def countGoodSubstrings(self, s: str) -> int:
         count = 0
-        sub = s[:3]
-        for c in range(1, len(s)):
-            if len(set(sub)) == 3:
-                count += 1
+        for c in range(len(s)):
             sub = s[c:3 + c]
             if len(sub) != 3:
-              break
+                break
+            if len(set(sub)) == 3:
+                count += 1
         return count
             
