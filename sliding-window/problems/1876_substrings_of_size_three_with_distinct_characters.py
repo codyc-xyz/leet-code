@@ -27,5 +27,7 @@ class Solution:
             if len(set(sub)) == 3:
                 count += 1
             sub = s[c:3 + c]
+            if len(sub) != 3:
+              break
         return count
             
