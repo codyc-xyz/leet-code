@@ -18,3 +18,14 @@ def countGoodSubstrings(self, s: str) -> int:
                 windowStart += 1
         return count
 # O(n) time complexity
+
+class Solution:
+    def countGoodSubstrings(self, s: str) -> int:
+        count = 0
+        sub = s[:3]
+        for c in range(1, len(s)):
+            if len(set(sub)) == 3:
+                count += 1
+            sub = s[c:3 + c]
+        return count
+            
