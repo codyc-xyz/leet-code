@@ -14,15 +14,15 @@ class Solution:
         
     def longestNiceSubstring(self, s: str) -> str:
         longestSubstring = ""
-        windowStart, windowEnd = 0, 1
+        windowStart = 0
         for n in range(len(s)):
+            windowEnd = windowStart + 1
             while windowEnd <= len(s):
                 sub = s[windowStart:windowEnd]
                 if self.isNice(sub) and len(sub) > len(longestSubstring):
                     longestSubstring = sub
                 windowEnd += 1
             windowStart += 1
-            windowEnd = windowStart + 1
         return longestSubstring
 
 # O(n^3) time complexity
