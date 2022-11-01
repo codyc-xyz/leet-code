@@ -22,10 +22,8 @@ def countGoodSubstrings(self, s: str) -> int:
 class Solution:
     def countGoodSubstrings(self, s: str) -> int:
         count = 0
-        for c in range(len(s)):
+        for c in range(len(s) - 2):
             sub = s[c:3 + c]
-            if len(sub) != 3:
-                break
             if len(set(sub)) == 3:
                 count += 1
         return count
