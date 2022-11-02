@@ -17,6 +17,18 @@ class Solution:
             minRecolors = min(minRecolors, recolors)
 
         return minRecolors
+
+
+class Solution:
+        
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        minRecolors = k
+        length = len(blocks) - k + 1
+        for i in range(length):
+            sub = blocks[i:i+k]
+            recolors = sub.count('W')
+            minRecolors = min(minRecolors, recolors)
+        return minRecolors
                     
                  
             
