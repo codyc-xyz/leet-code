@@ -5,8 +5,8 @@
 
 class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
-        res, k = 0, 1
-        maxLen = windowStart = 0
+        windowStart = maxLen = 0
+        k = 1
         for windowEnd in range(len(nums)):
             if nums[windowEnd] == 0:
                 k -= 1
