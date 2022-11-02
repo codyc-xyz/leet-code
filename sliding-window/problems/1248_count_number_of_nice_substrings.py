@@ -7,14 +7,15 @@ class Solution:
         count = 0
         for i in range(len(nums)):
             windowStart = 0
+            k1 = k
             for windowEnd in range(len(nums) - i):
                 if nums[windowEnd + i] % 2 != 0:
-                    k -= 1
-                if k == 0:
+                    k1 -= 1
+                if k1 == 0:
                     count += 1
-                if 0 > k:
+                if 0 > k1:
                     if nums[windowStart + i] % 2 != 0:
-                        k += 1
+                        k1 += 1
                     windowStart += 1
         return count
 
