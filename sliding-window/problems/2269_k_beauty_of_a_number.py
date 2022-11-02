@@ -29,3 +29,17 @@ class Solution:
 
   # O(N) time complexity
 
+  class Solution:
+    def divisorSubstrings(self, num: int, k: int) -> int:
+        count = 0
+        nums = str(num)
+        for n in range(len(nums)):
+            sub = nums[n:n + k]
+            if len(sub) != k:
+                break
+            if int(sub) == 0:
+                continue
+            if num % int(sub) == 0:
+                count += 1
+        return count
+
