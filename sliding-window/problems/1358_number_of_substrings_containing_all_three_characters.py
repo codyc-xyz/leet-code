@@ -2,19 +2,25 @@
 # Return the number of substrings containing at least one occurrence of all these characters a, b and c.
 
 class Solution:
-    def unique(self, sub):
-        if 'a' not in sub or 'b' not in sub or 'c' not in sub:
-            return False
-        return True
-
+ 
     def numberOfSubstrings(self, s: str) -> int:
         windowStart = count = 0
-        for c in range(len(s)):
-            windowEnd = windowStart + 2
-            while windowEnd <= len(s):
-                sub = s[windowStart:windowEnd]
-                if self.unique(sub):
-                    count += 1
-                windowEnd += 1
-            windowStart += 1
+        a = b = c = 0
+        for windowEnd in range(len(s)):
+            if s[windowEnd] == 'a':
+                a+= 1
+            elif s[windowEnd] == 'b':
+                b+= 1
+            else:
+                c += 1
+            while a > 0 and b > 0 and c > 0:
+                count += len(s) - windowEnd
+                if s[windowStart] == 'a':
+                    a -= 1
+                elif s[windowStart] == 'b':
+                    b -= 1
+                else:
+                    c -= 1
+                windowStart += 1
         return count
+        
