@@ -5,14 +5,15 @@ class Solution:
     def maxVowels(self, s: str, k: int) -> int:
         sub = s[:k]
         count = 0
+        vowels = {'a', 'e', 'i', 'o', 'u'}
         for i in range(k):
-            if sub[i] == 'a' or sub[i] == 'e' or sub[i] == 'i' or sub[i] == 'o' or sub[i] == 'u':
+            if sub[i] in vowels:
                 count += 1
         maxCount = count
         for c in range(k, len(s)):
-            if s[c] == 'a' or s[c] == 'e' or s[c] == 'i' or s[c] == 'o' or s[c] == 'u':
+            if s[c] in vowels:
                 count += 1
-            if s[c-k] == 'a' or s[c - k] == 'e' or s[c - k] == 'i' or s[c - k] == 'o' or s[c - k] == 'u':
+            if s[c-k] in vowels:
                 count -= 1
             maxCount = max(maxCount, count)
         return maxCount
