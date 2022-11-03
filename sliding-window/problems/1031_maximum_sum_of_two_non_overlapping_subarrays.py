@@ -4,24 +4,22 @@
 # A subarray is a contiguous part of an array.
 
 class Solution:
-    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:    
+    
+    def findMax(self, nums, firstLen, secondLen):
+        max1 = sum1 = sum(nums[:firstLen])
+        sum2 = sum(nums[firstLen:firstLen + secondLen])
+        cumMax = max1 + sum2
         
-        res = firstMaxSum = secondMaxSum = 0
-        for i in range(1, len(nums)):
-            nums[i] += nums[i-1]
-
-        for i2 in range(firstLen, len(nums) - secondLen):
-            secondWindowSum = nums[i2 + secondLen] - nums[i2]
-            firstMaxSum = max(firstMaxSum, nums[i2] - nums[i2 - firstLen])
-            res = max(res, secondWindowSum + firstMaxSum)
-            
-        for i3 in range(secondLen, len(nums) - firstLen):
-            firstWindowSum = nums[i3 + firstLen] - nums[i3]
-            secondMaxSum = max(secondMaxSum, nums[i3] - nums[i3 - secondLen])
-            res = max(res, firstWindowSum + secondMaxSum)
-        return res
-
-
-
+      
+        for i in range(firstLen + secondLen, len(nums)):
+            sum1 += nums[i - secondLen] - nums[i - firstLen - secondLen]
+            sum2 += nums[i] - nums[i - secondLen]
+            max1 = max(max1, sum1)
+            cumMax = max(cumMax, max1+sum2)
+        return cumMax
+    
+    
+    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:    
+        return max(self.findMax(nums, firstLen, secondLen), self.findMax(nums, secondLen, firstLen))
 
 
