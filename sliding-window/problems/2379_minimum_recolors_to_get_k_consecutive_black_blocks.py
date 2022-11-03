@@ -29,6 +29,22 @@ class Solution:
             recolors = sub.count('W')
             minRecolors = min(minRecolors, recolors)
         return minRecolors
+
+class Solution:
+        
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        recolors = 0
+        for i in range(k):
+            if blocks[i] == 'W':
+                recolors += 1
+        minRecolors = recolors
+        for c in range(k, len(blocks)):
+            if blocks[c] == 'W':
+                recolors += 1
+            if blocks[c-k] == 'W':
+                recolors -= 1
+            minRecolors = min(minRecolors, recolors)
+        return minRecolors
                     
                  
             
