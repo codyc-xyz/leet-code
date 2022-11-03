@@ -5,15 +5,17 @@
 
 class Solution:
     def maximumUniqueSubarray(self, nums: List[int]) -> int:
-        maxScore = score = 0
-        sub = []
-        for i in range(len(nums)):
-            while nums[i] in sub:
-                sub.pop(0)
-            sub.append(nums[i])
-            score = sum(sub)
+        counter = defaultdict(int)
+        maxScore = score = windowStart = 0
+        for windowEnd in range(len(nums)):
+            score += nums[windowEnd]
+            counter[nums[windowEnd]] += 1
+            while windowStart < windowEnd and counter[nums[windowEnd]] > 1:
+                score -= nums[windowStart]
+                counter[nums[windowStart]] -= 1
             maxScore = max(maxScore, score)
-           
+            
         return maxScore
-
+                
+            
 
