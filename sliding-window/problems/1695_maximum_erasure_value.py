@@ -13,6 +13,7 @@ class Solution:
             while windowStart < windowEnd and counter[nums[windowEnd]] > 1:
                 score -= nums[windowStart]
                 counter[nums[windowStart]] -= 1
+                windowStart += 1
             maxScore = max(maxScore, score)
             
         return maxScore
