@@ -8,13 +8,12 @@ class Solution:
         maxScore = score = 0
         sub = []
         for i in range(len(nums)):
-            sub.append(nums[i])
-            if len(set(sub)) == len(sub):
-                score = sum(sub)
-                maxScore = max(maxScore, score)
-            while len(set(sub)) != len(sub):
+            while nums[i] in sub:
                 sub.pop(0)
+            sub.append(nums[i])
+            score = sum(sub)
+            maxScore = max(maxScore, score)
+           
         return maxScore
-
 
 
