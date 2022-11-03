@@ -12,12 +12,27 @@
 
 #bReturn the maximum number of customers that can be satisfied throughout the day.
 
-
-        
-
-
-
-
-
-
-
+class Solution:
+    
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        unsatisfied = windowStart = count = 0
+       
+        for i in range(minutes):
+            if grumpy[i] == 1:
+                unsatisfied += customers[i]
+            else:
+                count += customers[i]
+        maxCount = count + unsatisfied
+        maxUnsatisfied = unsatisfied
+            
+        for windowEnd in range(minutes, len(customers)):
+            if grumpy[windowEnd] == 0:
+                count += customers[windowEnd]
+            else:
+                unsatisfied += customers[windowEnd]
+            if grumpy[windowStart] == 1:
+                unsatisfied -= customers[windowStart]
+            maxUnsatisfied = max(maxUnsatisfied, unsatisfied)
+            windowStart += 1
+            
+        return count + maxUnsatisfied
