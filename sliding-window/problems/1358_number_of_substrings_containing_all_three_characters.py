@@ -23,4 +23,21 @@ class Solution:
                     c -= 1
                 windowStart += 1
         return count
+
+
+class Solution:
+ 
+    def numberOfSubstrings(self, s: str) -> int:
+        counter = defaultdict(int)
+        count = windowStart = res = 0
+        
+        for windowEnd in range(len(s)):
+            counter[s[windowEnd]] += 1
+            while counter['a'] > 0 and counter['b'] > 0 and counter['c'] > 0:
+                count += 1
+                counter[s[windowStart]] -= 1
+                windowStart += 1
+            res += count
+        return res
+                
         
