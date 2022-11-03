@@ -8,7 +8,17 @@
 
 # Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
 
-
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        total = sum(cardPoints)
+        currSum = sum(cardPoints[k:])
+        ans = total - currSum
+        
+        for i in range(1, k + 1):
+            currSum += cardPoints[k - i] - cardPoints[len(cardPoints) - i]
+            ans = max(ans, total - currSum)
+        return ans
+            
 
 
 
