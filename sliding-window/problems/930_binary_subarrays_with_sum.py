@@ -5,12 +5,10 @@
 class Solution:
      
     def atmost(self, nums, goal):
-        res = count = windowStart = 0
+        res = windowStart = 0
         for windowEnd in range(len(nums)):
-            if goal < 0:
-                return 0
             goal -= nums[windowEnd]
-            while goal < 0:
+            while goal < 0 and windowEnd >= windowStart:
                 goal += nums[windowStart]
                 windowStart += 1
             res += windowEnd - windowStart + 1
@@ -20,3 +18,4 @@ class Solution:
          
         return self.atmost(nums, goal) - self.atmost(nums, goal - 1)
      
+            
