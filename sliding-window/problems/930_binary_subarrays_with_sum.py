@@ -4,7 +4,7 @@
 
 class Solution:
      
-    def atmost(self, nums, goal):
+    def atMost(self, nums, goal):
         res = windowStart = 0
         for windowEnd in range(len(nums)):
             goal -= nums[windowEnd]
@@ -16,6 +16,6 @@ class Solution:
     
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
          
-        return self.atmost(nums, goal) - self.atmost(nums, goal - 1)
+        return self.atMost(nums, goal) - self.atMost(nums, goal - 1)
      
             
