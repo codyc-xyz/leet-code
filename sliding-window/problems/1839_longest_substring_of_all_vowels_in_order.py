@@ -56,5 +56,22 @@ class Solution:
             if windowEnd >= len(word):
                 break
         return maxCount
+
+
+
+class Solution:
+    def longestBeautifulSubstring(self, word: str) -> int:
+        maxCount = windowStart = 0
+        chars = set()
+        for windowEnd in range(len(word)):
+            if word[windowEnd-1] > word[windowEnd]:
+                windowStart = windowEnd
+                chars = set()
+            chars.add(word[windowEnd])
+            if len(chars) > 4:
+                maxCount = max(maxCount, windowEnd - windowStart + 1)
+        return maxCount
+                
+        
                 
 
