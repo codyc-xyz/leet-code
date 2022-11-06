@@ -11,5 +11,49 @@
 
 # A substring is a contiguous sequence of characters in a string.
 
-
+class Solution:
+    def longestBeautifulSubstring(self, word: str) -> int:
+        maxCount = count = windowEnd = 0
+        if len(word) < 5:
+            return 0
+        
+        for windowStart in range(len(word)):
+            if word[windowEnd] == 'a' and windowEnd < len(word) - 4:
+                count += 1
+                while word[windowEnd] == 'a' and windowEnd < len(word) - 4: 
+                    count += 1
+                    windowEnd += 1
+                if word[windowEnd] == 'e' and windowEnd < len(word) - 3:
+                    while word[windowEnd] == 'e' and windowEnd < len(word) - 3:
+                        count += 1
+                        windowEnd += 1
+                    if word[windowEnd] == 'i' and windowEnd < len(word) - 2:
+                        while word[windowEnd] == 'i' and windowEnd < len(word) - 2:
+                            count += 1
+                            windowEnd += 1
+                        if word[windowEnd] == 'o' and windowEnd < len(word) - 1:
+                            while word[windowEnd] == 'o' and windowEnd < len(word) - 1:
+                                count += 1
+                                windowEnd += 1
+                            if word[windowEnd] == 'u' and windowEnd < len(word):
+                                while windowEnd < len(word) and word[windowEnd] == 'u':
+                                    count += 1
+                                    windowEnd += 1
+                            else:
+                                count = 0
+                        else:
+                            count = 0
+                    else:
+                        count = 0
+                else:
+                    count = 0 
+            else:
+                count = 0
+              
+            windowEnd += 1
+            maxCount = max(maxCount, count)
+            if windowEnd >= len(word):
+                break
+        return maxCount
+                
 
