@@ -22,6 +22,24 @@ class Solution:
                 windowStart += 1
             longestSub = max(longestSub, windowEnd - windowStart + 1)
         return longestSub
+
+
+from sortedcontainers import SortedList
+
+class Solution:
+
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        longestSub = 0
+        sortList = SortedList()
+        windowStart = 0
+        for windowEnd in range(len(nums)):
+            sortList.add(nums[windowEnd])
+            while sortList[-1] - sortList[0] > limit:
+                sortList.remove(nums[windowStart])
+                windowStart += 1
+            longestSub = max(longestSub, len(sortList))
+        return longestSub
+    
     
 
     
