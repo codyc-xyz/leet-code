@@ -16,8 +16,8 @@ class Solution:
         maxCount = count = windowEnd = 0
         if len(word) < 5:
             return 0
-        
         for windowStart in range(len(word)):
+            k = windowEnd
             if word[windowEnd] == 'a' and windowEnd < len(word) - 4:
                 while word[windowEnd] == 'a' and windowEnd < len(word) - 4: 
                     count += 1
@@ -49,8 +49,10 @@ class Solution:
             else:
                 count = 0
               
-            windowEnd += 1
+            if k == windowEnd:
+                windowEnd += 1
             maxCount = max(maxCount, count)
+            count = 0
             if windowEnd >= len(word):
                 break
         return maxCount
