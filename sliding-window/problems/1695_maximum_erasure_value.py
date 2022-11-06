@@ -18,6 +18,23 @@ class Solution:
             maxScore = max(maxScore, score)
             
         return maxScore
+
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        seen = set()
+        windowStart = score = maxScore = 0
+        for windowEnd in range(len(nums)):
+            score += nums[windowEnd]
+            while nums[windowEnd] in seen:
+                score -= nums[windowStart]
+                seen.remove(nums[windowStart])
+                windowStart += 1
+            seen.add(nums[windowEnd])
+            maxScore = max(maxScore, score)
+        return maxScore
+    
+    
+                
                 
             
 

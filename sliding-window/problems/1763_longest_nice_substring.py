@@ -12,7 +12,7 @@ class Solution:
                 return False
         return True
         
-    def longestNiceSubstring(self, s: str) -> str:
+     def longestNiceSubstring(self, s: str) -> str:
         longestSubstring = ""
         windowStart = 0
         for n in range(len(s)):
