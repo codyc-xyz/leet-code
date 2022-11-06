@@ -19,7 +19,6 @@ class Solution:
         
         for windowStart in range(len(word)):
             if word[windowEnd] == 'a' and windowEnd < len(word) - 4:
-                count += 1
                 while word[windowEnd] == 'a' and windowEnd < len(word) - 4: 
                     count += 1
                     windowEnd += 1
