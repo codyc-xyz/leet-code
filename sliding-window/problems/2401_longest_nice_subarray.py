@@ -26,4 +26,25 @@ class Solution:
             sub.append(n)
             longest = max(longest, windowEnd - windowStart + 1)
         return longest
+
+class Solution:
+    def isNice(self, sub, n):
+        if len(sub) >= 1:
+            for c in sub:
+                if n & c != 0:
+                    return False
+        return True
+    
+    def longestNiceSubarray(self, nums: List[int]) -> int:
+        longest = 0
+        sub = deque()
+        for i, n in enumerate(nums):
+            while self.isNice(sub, n) == False:
+                sub.popleft()
+            sub.append(n)
+            longest = max(longest, len(sub))
+        return longest
+            
+                
+                
             
