@@ -14,10 +14,6 @@ class Solution:
             elif len(closest) >= k and abs(arr[windowEnd] - x) < abs(closest[0] - x):
                 closest.popleft()
                 closest.append(arr[windowEnd])
-            elif len(closest) >= k and (abs(arr[windowEnd] - x) == abs(closest[0] - x) and arr[windowEnd] < closest[0]):
-                closest.popleft()
-                closest.appen(arr[windowEnd])
         return closest
-        
 
 
