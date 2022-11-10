@@ -15,13 +15,13 @@ class Solution:
         if len(s) < 10:
             return None
         
-        for windowEnd in range(9, len(s)):
+        for windowEnd in range(10, len(s) + 1):
             counter[s[windowStart:windowEnd]] += 1
             if counter[s[windowStart:windowEnd]] > 1:
                 uniq.add(s[windowStart:windowEnd])
             windowStart += 1
         
-                
         return uniq
                 
+        
         
