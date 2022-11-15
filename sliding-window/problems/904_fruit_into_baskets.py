@@ -15,18 +15,19 @@
 
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        basket = deque()
+        basket = {}
         mostFruits = windowStart = 0
         
         for windowEnd in range(len(fruits)):
-            basket.append(fruits[windowEnd])
+            basket[fruits[windowEnd]] = basket.get(fruits[windowEnd], 0) + 1
             
-            while len(set(basket)) > 2:
-                basket.popleft()
+            if len(basket) > 2:
+                basket[fruits[windowStart]] -= 1
+                if basket[fruits[windowStart]] <= 0:
+                    del basket[fruits[windowStart]]
                 windowStart += 1
-            mostFruits = max(mostFruits, windowEnd - windowStart + 1)
         
-        return mostFruits
+        return windowEnd - windowStart + 1
             
         
 
