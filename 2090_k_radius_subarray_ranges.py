@@ -13,16 +13,20 @@
 class Solution:
     def getAverages(self, nums: List[int], k: int) -> List[int]:
         avgs = [-1] * len(nums)
-        windowStart = sumNums = 0
+        windowStart, curSum, diameter = 0, 0, k + k + 1
         if k > len(nums):
             return avgs
         if k <= 0:
             return nums
-        for windowEnd in range(k, len(nums) - k):
-            avgs[windowEnd] = sum(nums[windowEnd - k:windowEnd + k + 1]) // ((k * 2) + 1)
+        
+        for windowEnd in range(len(nums)):
+            curSum += nums[windowEnd]
+            if windowEnd - windowStart + 1 >= diameter:
+                avgs[windowStart + k] = curSum // diameter
+                curSum -= nums[windowStart]
+                windowStart += 1
         return avgs
-
-
+                
 
 
 
