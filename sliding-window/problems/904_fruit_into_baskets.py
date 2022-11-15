@@ -13,7 +13,22 @@
 
 # Given the integer array fruits, return the maximum number of fruits you can pick.
 
-
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        basket = deque()
+        mostFruits = windowStart = 0
+        
+        for windowEnd in range(len(fruits)):
+            basket.append(fruits[windowEnd])
+            
+            while len(set(basket)) > 2:
+                basket.popleft()
+                windowStart += 1
+            mostFruits = max(mostFruits, windowEnd - windowStart + 1)
+        
+        return mostFruits
+            
+        
 
 
 
