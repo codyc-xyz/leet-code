@@ -10,6 +10,17 @@
 
 # For example, the average of four elements 2, 3, 1, and 5 is (2 + 3 + 1 + 5) / 4 = 11 / 4 = 2.75, which truncates to 2.
 
+class Solution:
+    def getAverages(self, nums: List[int], k: int) -> List[int]:
+        avgs = [-1] * len(nums)
+        windowStart = sumNums = 0
+        if k > len(nums):
+            return avgs
+        if k <= 0:
+            return nums
+        for windowEnd in range(k, len(nums) - k):
+            avgs[windowEnd] = sum(nums[windowEnd - k:windowEnd + k + 1]) // ((k * 2) + 1)
+        return avgs
 
 
 
