@@ -9,6 +9,8 @@ class Solution:
         windowStart = 0
         target = sum(nums) - x
         maxLen = 0
+        if target == 0:
+            return len(nums)
         for windowEnd in range(len(nums)):
             target -= nums[windowEnd]
             while windowStart <= windowEnd and target < 0:
@@ -21,6 +23,7 @@ class Solution:
         else:
             return -1
                 
+            
             
         
 
