@@ -11,11 +11,22 @@
 
 class Solution:
     def maximumSubarraySum(self, nums: List[int], k: int) -> int:
-        maxSum = windowStart = 0
+        seen = collections.Counter(nums[:k])
+        currSum = sum(nums[:k])
+        windowStart = 0
         
-        for windowEnd in range(k, len(nums) + 1):
-            if len(set(nums[windowStart:windowEnd])) == k:
-                maxSum = max(maxSum, sum(nums[windowStart:windowEnd]))
-            
+        if len(seen) == k:
+            maxSum = currSum
+        else:
+            maxSum = 0
+        
+        for windowEnd in range(k, len(nums)):
+            currSum += nums[windowEnd] - nums[windowStart]
+            seen[nums[windowEnd]] += 1
+            seen[nums[windowStart]] -= 1
+            if seen[nums[windowStart]] == 0:
+                del seen[nums[windowStart]]
+            if len(seen) == k:
+                maxSum = max(maxSum, currSum)
             windowStart += 1
         return maxSum
