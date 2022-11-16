@@ -8,3 +8,14 @@
 # If no subarray meets the conditions, return 0.
 
 # A subarray is a contiguous non-empty sequence of elements within an array.
+
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        maxSum = windowStart = 0
+        
+        for windowEnd in range(k, len(nums) + 1):
+            if len(set(nums[windowStart:windowEnd])) == k:
+                maxSum = max(maxSum, sum(nums[windowStart:windowEnd]))
+            
+            windowStart += 1
+        return maxSum
