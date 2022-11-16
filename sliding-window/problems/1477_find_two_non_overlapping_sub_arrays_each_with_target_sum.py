@@ -10,16 +10,21 @@ class Solution:
         minLen = float("inf")
         testTarget = target
         diffs = []
-        windowStart = 0
-        for windowEnd in range(len(arr)):
+        windowStart = windowEnd = 0
+        repeat = False
+        while windowEnd < len(arr):
             testTarget -= arr[windowEnd]
             while windowStart <= windowEnd and testTarget < 0:
                 testTarget += arr[windowStart]
                 windowStart += 1
-            if testTarget == 0:
+            if testTarget == 0 and repeat == False:
                 diffs.append(windowEnd - windowStart + 1)
-                windowStart = windowEnd + 1
+                windowStart = windowEnd
                 testTarget = target
+                repeat = True
+            else:
+                repeat = False
+                windowEnd += 1
         sortedDiffs = sorted(diffs)
         if len(diffs) > 1:
             return sortedDiffs[1] + sortedDiffs[0]
