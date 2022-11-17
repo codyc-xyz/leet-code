@@ -18,6 +18,21 @@ class Solution:
             currSum += cardPoints[k - i] - cardPoints[len(cardPoints) - i]
             ans = max(ans, total - currSum)
         return ans
+
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        length = len(cardPoints) - k
+        windowStart = 0
+        totSum = sum(cardPoints)
+        currSum = sum(cardPoints[:length])
+        maxSum = totSum - currSum 
+        
+        for windowEnd in range(length, len(cardPoints)):
+            currSum += cardPoints[windowEnd] - cardPoints[windowStart]
+            maxSum = max(maxSum, totSum - currSum)
+            windowStart += 1
+        return maxSum
+        
             
 
 
