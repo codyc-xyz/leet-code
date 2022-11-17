@@ -11,3 +11,18 @@ class Solution:
             if len(set(sub)) <= maxLetters:
                 d[sub] += 1
         return max(d.values()) if d else 0 
+
+class Solution:
+    def maxFreq(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
+        counter = defaultdict(int)
+        maxOccur = windowStart = 0
+        
+        for windowEnd in range(len(s)):
+            sub = s[windowStart:windowEnd + minSize]
+            if len(sub) != minSize:
+                break
+            counter[sub] += 1
+            if len(set(sub)) <= maxLetters:
+                maxOccur = max(maxOccur, counter[sub])
+            windowStart += 1
+        return maxOccur
