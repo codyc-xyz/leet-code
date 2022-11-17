@@ -36,3 +36,26 @@ class Solution:
             windowStart += 1
             
         return count + maxUnsatisfied
+
+    class Solution:
+        def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+            
+            unsatisfied = satisfied = windowStart = 0
+            for i in range(len(customers)):
+                if grumpy[i] == 0:
+                    satisfied += customers[i]
+            
+            for i in range(minutes):
+                if grumpy[i] == 1:
+                    unsatisfied += customers[i]
+            
+            maxUnsatisfied = unsatisfied 
+            
+            for windowEnd in range(minutes, len(customers)):
+                if grumpy[windowEnd] == 1:
+                    unsatisfied += customers[windowEnd]
+                if grumpy[windowStart] == 1:
+                    unsatisfied -= customers[windowStart]
+                maxUnsatisfied = max(maxUnsatisfied, unsatisfied)
+                windowStart += 1
+            return maxUnsatisfied + satisfied
