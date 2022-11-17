@@ -3,19 +3,16 @@
 
 class Solution:
     def maxVowels(self, s: str, k: int) -> int:
-        sub = s[:k]
-        count = 0
+        maxCount = count = windowStart = 0
         vowels = {'a', 'e', 'i', 'o', 'u'}
-        for i in range(k):
-            if sub[i] in vowels:
+        for windowEnd in range(len(s)):
+            if s[windowEnd] in vowels:
                 count += 1
-        maxCount = count
-        for c in range(k, len(s)):
-            if s[c] in vowels:
-                count += 1
-            if s[c-k] in vowels:
-                count -= 1
-            maxCount = max(maxCount, count)
+            if windowEnd - windowStart + 1 == k:
+                maxCount = max(maxCount, count)
+                if s[windowStart] in vowels:
+                    count -= 1
+                windowStart += 1
         return maxCount
         
 
