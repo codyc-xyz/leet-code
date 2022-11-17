@@ -8,38 +8,14 @@
 # A substring is a contiguous sequence of characters in a string.
 
 class Solution:
-    def isBeauty(self, n, num): 
-        if n != 0 and num % n == 0: 
-            return 1
-        else:
-            return 0
-            
-            
     def divisorSubstrings(self, num: int, k: int) -> int:
-        count = 0
-        string = str(num)
-        for windowStart in range(len(string)):
-            sub = string[windowStart:windowStart + k]
-            if len(sub) != k:
-                break
-            count += self.isBeauty(int(sub), num)
-            windowStart += 1
-            
-        return count
-
-  # O(N) time complexity
-
-  class Solution:
-    def divisorSubstrings(self, num: int, k: int) -> int:
-        count = 0
         nums = str(num)
-        for n in range(len(nums)):
-            sub = nums[n:n + k]
-            if len(sub) != k:
-                break
-            if int(sub) == 0:
-                continue
-            if num % int(sub) == 0:
-                count += 1
+        count = windowStart = 0
+        for windowEnd in range(len(nums) + 1):
+            if windowEnd - windowStart == k:
+                n = int(nums[windowStart:windowEnd])
+                if n and num % n == 0:
+                    count += 1
+                windowStart += 1
         return count
 
