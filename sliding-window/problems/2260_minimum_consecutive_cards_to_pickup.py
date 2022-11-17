@@ -7,13 +7,12 @@
 class Solution:
     def minimumCardPickup(self, cards: List[int]) -> int:
         hm = {}
-        diff, minDiff = 0, float("inf")
-        for i, c in enumerate(cards):
-            if c in hm:
-                diff = i - hm[c] + 1
-                minDiff = min(minDiff, diff)
-            hm[c] = i
-        if diff != 0:
-             return minDiff 
+        minConsec = float("inf")
+        for windowEnd, card in enumerate(cards):
+            if card in hm:
+                minConsec = min(minConsec, windowEnd - hm[card] + 1)
+            hm[card] = windowEnd
+        if minConsec != float("inf"):
+            return minConsec
         else:
             return -1
