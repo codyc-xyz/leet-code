@@ -6,15 +6,16 @@
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        windowStart = count = maxCount = 0
-        counter = defaultdict(int)
+        count = defaultdict(int)
+        longest = windowStart = 0
+        
         for windowEnd in range(len(s)):
-            counter[s[windowEnd]] += 1
-            if windowEnd - windowStart < max(counter.values()) + k:
-                count = windowEnd - windowStart + 1
+            count[s[windowEnd]] += 1
+            
+            if windowEnd - windowStart < max(count.values()) + k:
+                longest = max(longest, windowEnd - windowStart + 1)
             else:
-                counter[s[windowStart]] -= 1
+                count[s[windowStart]] -= 1
                 windowStart += 1
-            maxCount = max(maxCount, count)
-        return maxCount
+        return longest
 
