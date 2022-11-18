@@ -5,3 +5,12 @@
 # nums[k] - nums[j] == diff.
 # Return the number of unique arithmetic triplets.
 
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        count = 0
+        hm = {}
+        for i in range(len(nums)):
+            if (nums[i] - diff in hm) and (nums[i] - (diff + diff)) in hm:
+                count += 1
+            hm[nums[i]] = i
+        return count
