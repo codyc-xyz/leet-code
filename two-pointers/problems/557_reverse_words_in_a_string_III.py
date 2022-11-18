@@ -2,33 +2,16 @@
 
 class Solution:
     def reverseWords(self, s: str) -> str:
-        left = right = 0
+        l = r = 0
         reverse = ""
-        while right < len(s):
-            if s[right] == " " and left == 0:
-                i = right - 1
-                while i >= left:
-                    reverse += s[i]
-                    i -= 1
-                left = right + 1
-            elif s[right] == " ":
-                i = right
-                while i >= left:
-                    reverse += s[i]
-                    i -= 1
-                left = right + 1
-            elif right + 1 == len(s) and left == 0:
-                i = right
-                while i >= left:
-                    reverse += s[i]
-                    i -= 1
-            elif right + 1 == len(s) and left != 0:
+        while l < len(s):
+            while r < len(s) and s[r] != " ":
+                r += 1
+            reverse += s[l:r][::-1]
+            if r < len(s) and s[r] == " ":
                 reverse += " "
-                i = right
-                while i >= left:
-                    reverse += s[i]
-                    i -= 1
-            right += 1    
+            l = r + 1
+            r += 1
         return reverse
             
         
