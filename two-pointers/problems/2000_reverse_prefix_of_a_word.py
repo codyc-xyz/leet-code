@@ -6,6 +6,21 @@
 
 # Return the resulting string.
 
-
-
-
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        right = 0
+        reWord = ""
+        
+        while right < len(word):
+            if word[right] == ch:
+                newEdge = right + 1
+                while 0 <= right:
+                    reWord += word[right]
+                    right -= 1
+                right = newEdge 
+                while right < len(word):
+                    reWord += word[right]
+                    right += 1
+                return reWord
+            right += 1
+        return word
