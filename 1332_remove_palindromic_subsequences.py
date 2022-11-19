@@ -6,3 +6,11 @@
 
 # A string is called palindrome if is one that reads the same backward as well as forward.
 
+class Solution:
+    def removePalindromeSub(self, s: str) -> int:
+        if s == s[::-1]:
+            return 1
+        elif len(s) == 0:
+            return 0
+        else:
+            return 2
