@@ -11,3 +11,14 @@
 # Return the number of distinct averages calculated using the above process.
 
 # Note that when there is a tie for a minimum or maximum number, any can be removed.
+
+class Solution:
+    def distinctAverages(self, nums: List[int]) -> int:
+        sortNums = sorted(nums)
+        arr = []
+        while sortNums:
+            r = sortNums.pop(len(sortNums) - 1)
+            l = sortNums.pop(0)
+            arr.append(float((r + l) / 2))
+            
+        return len(set(arr))
