@@ -3,3 +3,15 @@
 
 # Substrings that occur multiple times are counted the number of times they occur.
 
+class Solution:
+    def countBinarySubstrings(self, s: str) -> int:
+        ans = 0
+        arr = [1]
+        for i in range(1, len(s)):
+            if s[i] == s[i - 1]:
+                arr[-1] += 1
+            else:
+                arr.append(1)
+        for i in range(1, len(arr)):
+            ans += min(arr[i], arr[i - 1])
+        return ans
