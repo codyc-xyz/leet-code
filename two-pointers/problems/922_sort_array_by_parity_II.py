@@ -4,3 +4,16 @@
 
 # Return any answer array that satisfies this condition.
 
+class Solution:
+    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
+        
+        even, odd = 0, 1
+        arr = [None] * len(nums)
+        for i in range(len(nums)):
+            if nums[i] % 2 == 0:
+                arr[even] = nums[i]
+                even += 2
+            else:
+                arr[odd] = nums[i]
+                odd += 2
+        return arr
