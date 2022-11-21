@@ -6,19 +6,18 @@
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        queue = deque()
-        k = 0
+        arr = []
         for i in range(len(nums)):
-            if nums[i] not in queue:
-                queue.append(nums[i])
-                k += 1
-        d = 0
-        while queue:
-            nums[d] = queue.popleft()
-            d += 1
+            if nums[i] not in arr:
+                arr.append(nums[i])
+            
+      
+        left, right = 0, len(nums) - 1
         
-        a = len(nums) - 1
-        
-        while a >= k:
-            nums.pop(k)
-            a -= 1
+        while left <= right:
+            if left < len(arr):
+                nums[left] = arr[left]
+                left += 1
+            else:
+                nums.pop(right)
+                right -= 1
