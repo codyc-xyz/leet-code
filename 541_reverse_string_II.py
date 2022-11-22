@@ -3,3 +3,11 @@
 # If there are fewer than k characters left, reverse all of them. 
 # If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and leave the other as original.
 
+class Solution:
+    def reverseStr(self, s: str, k: int) -> str:
+        arr = list(s)
+        
+        for i in range(0, len(s), 2 * k):
+            arr[i:i+k] = arr[i:i+k][::-1]     
+            
+        return "".join(arr)
