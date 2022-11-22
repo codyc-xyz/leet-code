@@ -5,3 +5,16 @@
 # If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. 
 # Your goal is to maximize the number of your content children and output the maximum number.
 
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        sortGreed = sorted(g)
+        sortSize = sorted(s)
+        length = max(len(g), len(s))
+        a = b = 0
+        for i in range(length):
+            if a >= len(g) or b >= len(s):
+                break
+            if sortGreed[a] <= sortSize[b]:
+                a += 1
+            b += 1
+        return a
