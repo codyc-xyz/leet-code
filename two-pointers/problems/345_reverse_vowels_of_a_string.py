@@ -5,7 +5,6 @@
 class Solution:
     def reverseVowels(self, s: str) -> str:
         vowels = {'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U'}
-        dq = deque()
         a = list(s)
         left, right = 0, len(s) - 1
         
