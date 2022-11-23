@@ -10,25 +10,16 @@
 
 class Solution:
     def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
-        left, right = 0, len(nums) - 1
-        less = deque()
-        more = deque()
-        k = 0
+        k = nums.count(pivot)
+        res = []
+        less = 0
+        
+        for i in range(k):
+            res.append(pivot)
         for i in range(len(nums)):
             if nums[i] < pivot:
-                less.append(nums[i])
+                res.insert(less, nums[i])
+                less += 1    
             elif nums[i] > pivot:
-                more.append(nums[i])
-            else:
-                k += 1
-        while less:
-            nums[left] = less.popleft()
-            left += 1
-        while more:
-            nums[right] = more.pop()
-            right -= 1
-        while k > 0:
-            nums[left] = pivot
-            left += 1
-            k -= 1
-        return nums
+                res.append(nums[i])
+        return res
