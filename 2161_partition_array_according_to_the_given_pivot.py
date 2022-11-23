@@ -10,16 +10,12 @@
 
 class Solution:
     def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
-        k = nums.count(pivot)
-        res = []
-        less = 0
-        
-        for i in range(k):
-            res.append(pivot)
+        left, right, piv = [], [], []
         for i in range(len(nums)):
             if nums[i] < pivot:
-                res.insert(less, nums[i])
-                less += 1    
+                left.append(nums[i])
             elif nums[i] > pivot:
-                res.append(nums[i])
-        return res
+                right.append(nums[i])
+            elif nums[i] == pivot:
+                piv.append(nums[i])
+        return left + piv + right
