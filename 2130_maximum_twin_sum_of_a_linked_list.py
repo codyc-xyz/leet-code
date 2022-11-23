@@ -7,3 +7,19 @@
 
 # Given the head of a linked list with even length, return the maximum twin sum of the linked list.
 
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        maxSum = 0
+        dq = deque()
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        while slow:
+            dq.append(slow.val)
+            slow = slow.next
+        
+        while dq:
+            maxSum = max(maxSum, dq.pop() + head.val)
+            head = head.next
+        return maxSum
