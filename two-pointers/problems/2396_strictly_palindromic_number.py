@@ -4,3 +4,7 @@
 
 # A string is palindromic if it reads the same forward and backward.
 
+class Solution:
+    def isStrictlyPalindromic(self, n: int) -> bool:
+    
+        return False
