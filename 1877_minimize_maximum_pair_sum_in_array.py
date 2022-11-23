@@ -4,6 +4,18 @@
 # Given an array nums of even length n, pair up the elements of nums into n / 2 pairs such that:
   # Each element of nums is in exactly one pair, and
   # The maximum pair sum is minimized.
-  
+
 # Return the minimized maximum pair sum after optimally pairing up the elements.
 
+class Solution:
+    def minPairSum(self, nums: List[int]) -> int:
+        maxPairSum = 0
+        sortNums = sorted(nums)
+        left, right = 0, len(nums) - 1
+        
+        while right > left:
+            maxPairSum = max(maxPairSum, sortNums[left] + sortNums[right])
+            right -= 1
+            left += 1
+        return maxPairSum
+        
