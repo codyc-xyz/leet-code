@@ -6,3 +6,20 @@
 
 # Return the maximum number of matchings between players and trainers that satisfy these conditions.
 
+class Solution:
+    def matchPlayersAndTrainers(self, players: List[int], trainers: List[int]) -> int:
+        
+        players.sort()
+        trainers.sort()
+        match = 0
+        player = len(players) - 1
+        trainer = len(trainers) - 1
+        
+        while player >= 0 and trainer >= 0:
+            if trainers[trainer] >= players[player]:
+                match += 1
+                player -= 1
+                trainer -= 1
+            else:
+                player -= 1
+        return match
