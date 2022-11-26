@@ -19,5 +19,5 @@ class Solution:
             right -= 1
         if left == right:
             ans += sums[right - 1]
-        return ans 
+        return ans%((10**9) + 7)
             
