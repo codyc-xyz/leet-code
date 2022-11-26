@@ -9,3 +9,19 @@
 
 # For arr = [6, -3, 7, 2, 11], n = 5 and the median is obtained by sorting the array arr = [-3, 2, 6, 7, 11] and the median is arr[m] where m = ((5 - 1) / 2) = 2. The median is 6.
 # For arr = [-7, 22, 17, 3], n = 4 and the median is obtained by sorting the array arr = [-7, 3, 17, 22] and the median is arr[m] where m = ((4 - 1) / 2) = 1. The median is 3.
+
+class Solution:
+    def getStrongest(self, arr: List[int], k: int) -> List[int]:
+        arr.sort()
+        m = (len(arr) - 1) // 2
+        median = arr[m]
+        ans = []
+        left, right = 0, len(arr) - 1
+        while len(ans) < k:
+            if abs(arr[left] - median) > abs(arr[right] - median):
+                ans.append(arr[left])
+                left += 1
+            else:
+                ans.append(arr[right])
+                right -= 1
+        return ans
