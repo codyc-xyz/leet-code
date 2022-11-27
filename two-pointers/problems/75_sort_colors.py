@@ -4,3 +4,24 @@
 
 # You must solve this problem without using the library's sort function.
 
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        red = 0
+        white = 0
+        blue = 0
+        for i in range(len(nums)):
+            if nums[i] == 2:
+                blue += 1
+            elif nums[i] == 1:
+                white += 1
+            else:
+                red += 1
+        for i in range(red):
+            nums[i] = 0
+        for i in range(white):
+            nums[red + i] = 1
+        for i in range(blue):
+            nums[red + white + i] = 2
