@@ -6,3 +6,16 @@
 
 # Notice that you may not slant the container.
 
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        mostWater = 0
+        left, right = 0, len(height) - 1
+        
+        while right > left:
+            if height[right] > height[left]:
+                mostWater = max(mostWater, height[left] * (right - left))
+                left += 1
+            else:
+                mostWater = max(mostWater, height[right] * (right - left))
+                right -= 1
+        return mostWater
