@@ -9,19 +9,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        red = 0
-        white = 0
-        blue = 0
-        for i in range(len(nums)):
-            if nums[i] == 2:
-                blue += 1
-            elif nums[i] == 1:
+        red, white, blue = 0, 0, len(nums) -  1
+        
+        while white <= blue:
+            if nums[white] == 0:
+                nums[white], nums[red] = nums[red], nums[white]
+                red += 1
+                white += 1
+            elif nums[white] == 1:
                 white += 1
             else:
-                red += 1
-        for i in range(red):
-            nums[i] = 0
-        for i in range(white):
-            nums[red + i] = 1
-        for i in range(blue):
-            nums[red + white + i] = 2
+                nums[white], nums[blue] = nums[blue], nums[white]
+                blue -= 1
