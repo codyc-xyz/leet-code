@@ -8,3 +8,22 @@
 
 # Return the largest possible score you can achieve after playing any number of tokens.
 
+class Solution:
+    def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
+        tokens.sort()
+        score = 0
+        left, right = 0, len(tokens) - 1
+        ans = 0
+        while right >= left:
+            if tokens[left] <= power:
+                power -= tokens[left]
+                score += 1
+                left += 1
+                ans = max(ans, score)
+            elif score > 0:
+                power += tokens[right]
+                right -= 1
+                score -= 1
+            else:
+                break
+        return ans
