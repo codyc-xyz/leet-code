@@ -6,3 +6,17 @@
 
 # Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        
+        counter = defaultdict(int)
+        k = len(nums)
+        i = 0
+        while i < k:
+            counter[nums[i]] += 1
+            if counter[nums[i]] > 2:
+                nums.pop(i)
+                i -= 1
+                k -= 1
+            i += 1
+        return k
