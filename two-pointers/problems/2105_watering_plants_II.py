@@ -9,3 +9,29 @@
 
 # Given a 0-indexed integer array plants of n integers, where plants[i] is the amount of water the ith plant needs, and two integers capacityA and capacityB representing the capacities of Alice's and Bob's watering cans respectively, return the number of times they have to refill to water all the plants.
 
+class Solution:
+    def minimumRefill(self, plants: List[int], capacityA: int, capacityB: int) -> int:
+        
+        left, right = 0, len(plants) - 1
+        a = capacityA
+        b = capacityB
+        res = 0
+        while right > left:
+            if a < plants[left]:
+                a = capacityA
+                a -= plants[left]
+                res += 1
+            else:
+                a -= plants[left]
+            if b < plants[right]:
+                b = capacityB
+                b -= plants[right]
+                res += 1
+            else:
+                b -= plants[right]
+            right -= 1
+            left += 1
+        if right == left:
+            if max(a - plants[left], b - plants[right]) < 0:
+                res += 1
+        return res
