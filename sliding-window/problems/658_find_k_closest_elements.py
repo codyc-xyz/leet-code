@@ -7,13 +7,14 @@
 
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        closest = deque()
-        for windowEnd in range(len(arr)):
-            if len(closest) < k:
-                closest.append(arr[windowEnd])
-            elif len(closest) >= k and abs(arr[windowEnd] - x) < abs(closest[0] - x):
-                closest.popleft()
-                closest.append(arr[windowEnd])
-        return closest
+        
+        dq = deque()
+        for i, n in enumerate(arr):
+            if len(dq) < k:
+                dq.append(n)
+            elif abs(n - x) < abs(dq[0] - x):
+                dq.popleft()
+                dq.append(n)
+        return dq
 
 
