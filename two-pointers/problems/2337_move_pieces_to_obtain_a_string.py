@@ -8,22 +8,19 @@
 
 class Solution:
     def canChange(self, start: str, target: str) -> bool:
-        start = list(start)
-        target = list(target)
-        filtered_start = [pos for pos in start if pos != '_']
-        filtered_target = [pos for pos in target if pos != '_']
-        left = []
-        right = []
-        if filtered_start != filtered_target:
+        if start.replace('_', '') != target.replace('_', ''):
             return False
-        for i, n in enumerate(target):
-            if n == 'L':
-                left.append(i)
-            if n == 'R':
-                right.append(i)
-        for i, n in enumerate(start):
-            if n == 'L' and i < max(left):
+        
+        s = t = 0
+        length = len(start) 
+        while s < length and t < length:
+            while s < length and start[s] == '_':
+                s += 1
+            while t < length and target[t] == '_':
+                t += 1
+            if (s < length and t < length) and (start[s] == 'L' and s < t or start[s] == 'R' and s > t):
                 return False
-            if n == 'R' and i > min(right):
-                return False
+            s += 1
+            t += 1
         return True
+        
