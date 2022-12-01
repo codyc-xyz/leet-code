@@ -18,20 +18,17 @@ class Solution:
         res = 0
         while right > left:
             if a < plants[left]:
-                a = capacityA
-                a -= plants[left]
+                a = capacityA - plants[left]
                 res += 1
             else:
                 a -= plants[left]
             if b < plants[right]:
-                b = capacityB
-                b -= plants[right]
+                b = capacityB - plants[right]
                 res += 1
             else:
                 b -= plants[right]
             right -= 1
             left += 1
-        if right == left:
-            if max(a - plants[left], b - plants[right]) < 0:
+        if right == left and max(a - plants[left], b - plants[right]) < 0:
                 res += 1
         return res
