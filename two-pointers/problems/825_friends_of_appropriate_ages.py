@@ -11,4 +11,18 @@
 
 # Return the total number of friend requests made.
 
-
+class Solution:
+    def numFriendRequests(self, ages: List[int]) -> int:
+        
+        counter = collections.Counter(ages)
+        res = 0
+        for ageA, countA in counter.items():
+            for ageB, countB in counter.items():
+                if ageB <= (0.5 * ageA) + 7:
+                    continue
+                if ageB > ageA:
+                    continue
+                res += countA * countB
+                if ageA == ageB:
+                    res -= countA
+        return res
