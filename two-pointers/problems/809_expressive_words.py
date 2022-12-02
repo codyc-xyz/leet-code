@@ -12,3 +12,38 @@
 
 # Return the number of query strings that are stretchy.
 
+class Solution:
+    def expressiveWords(self, s: str, words: List[str]) -> int:
+        
+        res = 0
+        
+        for word in words:
+            flag = True
+            a = b = 0
+            while b < len(s):
+                if a >= len(word):
+                    flag = False
+                    break
+                countA = countB = 0
+                while b < len(s) and s[b] == word[a]:
+                    b += 1
+                    countB += 1
+                while a < len(word) and b - 1 < len(s) and s[b - 1] == word[a]:
+                    a += 1
+                    countA += 1
+                if (a < len(word) and word[a] not in s) or (b < len(s) and s[b] not in word):
+                    flag = False
+                    break
+                    
+                if a < len(word) and b < len(s) and word[a] != s[b]:
+                    flag = False
+                    break
+    
+                if countB == countA or (countB > 2 and countB > countA):
+                    continue
+                else:
+                    flag = False
+                    break
+            if flag == True:
+                res += 1
+        return res
