@@ -7,15 +7,20 @@
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         nums.sort()
-        hm = {}
+        prevSum = float("inf")
+        ans = float("inf")
         for i in range(len(nums)):
             left, right = i + 1, len(nums) - 1
             curr = 0
             while right > left:
                 curr = nums[i] + nums[left] + nums[right]
-                hm[curr] = abs(curr-target)
+                if abs(curr-target) < prevSum:
+                    prevSum = abs(curr - target)
+                    ans = curr
                 if curr > target:
                     right -= 1
-                else:
+                elif curr < target:
                     left += 1
-        return min(hm, key = hm.get)
+                else:
+                    return curr
+        return ans
