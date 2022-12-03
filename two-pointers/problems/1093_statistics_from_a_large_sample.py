@@ -11,3 +11,32 @@
 
 # Return the statistics of the sample as an array of floating-point numbers [minimum, maximum, mean, median, mode]. Answers within 10-5 of the actual answer will be accepted.
 
+class Solution:
+    def sampleStats(self, nums: List[int]) -> List[float]:
+        res = count = 0
+        smallest = None
+        most = 0
+        mode = None
+        arr = []
+        for n, c in enumerate(nums):
+            if c > 0:
+                if smallest == None:
+                    smallest = float(n)
+                for i in range(c):
+                    arr.append(n)
+                largest = float(n)
+                res += n * c
+                count += c
+            if c > most:
+                most = c
+                mode = float(n)
+       
+        if count % 2 != 0:
+            median = arr[(count) // 2]
+        else:
+            median1 = arr[(count - 1) // 2]
+            median2 = arr[(count) // 2]
+            median = float((median1 + median2) / 2)
+        
+        return [smallest, largest, res / count, median, mode]
+        
