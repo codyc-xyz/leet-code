@@ -22,8 +22,6 @@ class Solution:
             if c > 0:
                 if smallest == None:
                     smallest = float(n)
-                for i in range(c):
-                    arr.append(n)
                 largest = float(n)
                 res += n * c
                 count += c
@@ -31,11 +29,14 @@ class Solution:
                 most = c
                 mode = float(n)
        
+        for i in range(255):
+            nums[i + 1] += nums[i]
+        
         if count % 2 != 0:
-            median = arr[(count) // 2]
+            median = bisect.bisect(nums, count / 2)
         else:
-            median1 = arr[(count - 1) // 2]
-            median2 = arr[(count) // 2]
+            median1 = bisect.bisect(nums, (count - 1) / 2)
+            median2 = bisect.bisect(nums, count / 2)
             median = float((median1 + median2) / 2)
         
         return [smallest, largest, res / count, median, mode]
