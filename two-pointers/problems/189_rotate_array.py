@@ -7,15 +7,15 @@ class Solution:
         """
         
         arr = []
-        end = len(nums) - k
-        start = len(nums) - k
-        i = 0
-        while k > 0:
+        modK = k % len(nums)
+        end = len(nums) - modK
+        while modK > 0:
             arr.append(nums[end])
             end += 1
-            k -= 1
+            modK -= 1
         
-        while i < start:
+        start = len(nums) - modK
+        for i in range(start):
             arr.append(nums[i])
             i += 1
         
