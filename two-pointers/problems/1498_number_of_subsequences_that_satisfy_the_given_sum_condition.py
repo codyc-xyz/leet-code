@@ -7,11 +7,11 @@ class Solution:
         nums.sort()
         
         count = left = 0
+        right = len(nums) - 1
         while left < len(nums) and nums[left] * 2 <= target:
-            right = left
-            while right < len(nums) and nums[left] + nums[right] <= target:
-                right += 1
-            count += pow(2, right - left) // 2
+            while nums[left] + nums[right] > target:
+                right -= 1
+            count += pow(2, right - left)
             left += 1
             
         return count%(10**9 + 7)
