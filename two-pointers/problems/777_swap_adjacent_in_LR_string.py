@@ -3,18 +3,20 @@
 
 class Solution:
     def canTransform(self, start: str, end: str) -> bool:
-        if start.replace('X', '') != end.replace('X', ''):
+        n = len(start)
+        
+        if start.replace("X", "") != end.replace("X", ""):
             return False
         
-        s = t = 0
-        length = len(start) 
-        while s < length and t < length:
-            while s < length and start[s] == 'X':
+        s = e = 0
+        
+        while s < n and e < n:
+            while s < n and start[s] == "X":
                 s += 1
-            while t < length and end[t] == 'X':
-                t += 1
-            if (s < length and t < length) and (start[s] == 'L' and s < t or start[s] == 'R' and s > t):
+            while e < n and end[e] == "X":
+                e += 1
+            if (s < n and (start[s] == "L" and s < e)) or (e < n and (start[s] == "R" and s > e)):
                 return False
             s += 1
-            t += 1
+            e += 1
         return True
