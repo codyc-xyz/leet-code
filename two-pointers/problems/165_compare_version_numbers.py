@@ -11,3 +11,27 @@
 # If version1 < version2, return -1.
 # If version1 > version2, return 1.
 # Otherwise, return 0.
+
+class Solution:
+    def compareVersion(self, version1: str, version2: str) -> int:
+        
+        i = a = b = 0
+        
+        split1 = version1.split(".")
+        split2 = version2.split(".")
+    
+        while i < len(split1) and i < len(split2):
+            if int(split1[i]) > int(split2[i]):
+                return 1
+            elif int(split1[i]) < int(split2[i]):
+                return -1
+            i += 1
+        while i < len(split1):
+            if int(split1[i]) > 0:
+                return 1
+            i += 1
+        while i < len(split2):
+            if int(split2[i]) > 0:
+                return -1
+            i += 1
+        return 0
