@@ -8,8 +8,7 @@
 
 class Solution:
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
-        a = 0
-        res = []
+        res = a = 0
         while a < len(houses):
             b = 0
             maxDist = float("inf")
@@ -17,6 +16,6 @@ class Solution:
                 dist = abs(heaters[b] - houses[a])
                 maxDist = (min(maxDist, dist))
                 b += 1
-            res.append(maxDist)
+            res = max(res, maxDist)
             a += 1
-        return max(res)
+        return res
