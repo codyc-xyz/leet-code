@@ -2,3 +2,25 @@
 
 # Notice that the solution set must not contain duplicate triplets.
 
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        i = 0
+        while i < len(nums) - 2:
+            while i > 0 and i < len(nums) - 2 and nums[i] == nums[i - 1]:
+                i += 1
+            target = nums[i]
+            left, right = i + 1, len(nums) - 1
+            while right > left:
+                if nums[right] + nums[left] + target > 0:
+                    right -= 1
+                elif nums[right] + nums[left] + target < 0:
+                    left += 1
+                else:  
+                    res.append([nums[left], nums[i], nums[right]])
+                    right -= 1
+                    while right > left and nums[right] == nums[right + 1]:
+                        right -= 1
+            i += 1
+        return res
