@@ -17,7 +17,7 @@ class Solution:
             right -= 1
             
         minN = min(nums[left:right + 1])
-        maxN = max(nums[left:right + 1])
+        maxN = max(nums[left:right636 + 1])
         
         while left > 0 and nums[left - 1] > minN:
             left -= 1
