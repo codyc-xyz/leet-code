@@ -6,4 +6,12 @@
 
 # Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
 
-
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        res = s.split()
+        
+        res.reverse()
+        
+        ans = str(" ".join(res))
+        
+        return ans
