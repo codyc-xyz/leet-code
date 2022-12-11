@@ -15,3 +15,23 @@
 # Return the latest time you may arrive at the bus station to catch a bus. You cannot arrive at the same time as another passenger.
 
 # Note: The arrays buses and passengers are not necessarily sorted.
+
+class Solution:
+    def latestTimeCatchTheBus(self, buses: List[int], passengers: List[int], capacity: int) -> int:
+        
+        passengers.sort()
+        buses.sort()
+        l = 0
+        ans = 0
+        for i in range(len(buses)):
+            count = 0
+            while l < len(passengers) and count < capacity and passengers[l] <= buses[i]:
+                count += 1
+                
+                if l == 0 or passengers[l] - 1 > passengers[l - 1]:
+                    ans = passengers[l] - 1
+                l += 1
+            if count < capacity:
+                if l == 0 or passengers[l - 1] < buses[i]:
+                    ans = buses[i]
+        return ans
