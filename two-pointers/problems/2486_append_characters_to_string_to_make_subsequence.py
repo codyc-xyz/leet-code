@@ -4,3 +4,13 @@
 
 # A subsequence is a string that can be derived from another string by deleting some or no characters without changing the order of the remaining characters.
 
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        j = 0
+        for i in range(len(s)):
+            if j == len(t):
+                return 0
+            elif s[i] == t[j]:
+                j += 1
+                
+        return len(t) - j
