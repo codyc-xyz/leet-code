@@ -6,4 +6,18 @@
 # f(x, y) < f(x + 1, y)
 # f(x, y) < f(x, y + 1)
 
-
+class Solution:
+    def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]:
+        
+        x, y, res = 1, 1000, []
+        
+        while y >= 1 and x <= 1000:
+            if customfunction.f(x, y) > z:
+                y -= 1
+            elif customfunction.f(x, y) < z:
+                x += 1
+            else:
+                res.append([x, y])
+                x += 1
+                y -= 1
+        return res
