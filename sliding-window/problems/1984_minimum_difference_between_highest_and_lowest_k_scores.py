@@ -5,23 +5,14 @@
 
 class Solution:
     def minimumDifference(self, nums: List[int], k: int) -> int:
-        numbers = sorted(nums)
-        windowStart, windowEnd = 0, k - 1
+        nums.sort()
+        l, r = 0, k - 1
         minDiff = float("inf")
-        while windowEnd < len(numbers):
-            minDiff = min(minDiff, numbers[windowEnd] - numbers[windowStart])
-            windowEnd += 1
-            windowStart += 1
+        while r < len(nums):
+            minDiff = min(minDiff, nums[r] - nums[l])
+            r += 1
+            l += 1
         return minDiff
-
-class Solution:
-    def minimumDifference(self, nums: List[int], k: int) -> int:
-        ordered = sorted(nums)
-        minRes = float("inf")
-        k -= 1
-        for i in range(len(nums) - k):
-            minRes = min(minRes, ordered[i+k] - ordered[i])
-        return minRes
 
 
 
