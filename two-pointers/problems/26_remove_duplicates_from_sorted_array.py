@@ -6,18 +6,10 @@
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        arr = []
-        for i in range(len(nums)):
-            if nums[i] not in arr:
-                arr.append(nums[i])
-            
-      
-        left, right = 0, len(nums) - 1
         
-        while left <= right:
-            if left < len(arr):
-                nums[left] = arr[left]
-                left += 1
+        i = 1
+        while i < len(nums):
+            if nums[i] == nums[i - 1]:
+                nums.pop(i)
             else:
-                nums.pop(right)
-                right -= 1
+                i += 1
