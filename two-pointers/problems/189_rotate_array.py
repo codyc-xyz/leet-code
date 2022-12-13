@@ -23,3 +23,13 @@ class Solution:
             nums[j] = arr[j]
             j += 1
         
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        modK = k % len(nums)        
+        nums.reverse()
+        nums[:modK] = nums[:modK][::-1]
+        nums[modK:] = nums[modK:][::-1]
