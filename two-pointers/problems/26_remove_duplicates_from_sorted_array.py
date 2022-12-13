@@ -13,3 +13,14 @@ class Solution:
                 nums.pop(i)
             else:
                 i += 1
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        
+        l, i = 0, 1
+        while i < len(nums):
+            if nums[i] != nums[l]:
+                l += 1
+                nums[l] = nums[i]
+            i += 1
+        return l + 1
