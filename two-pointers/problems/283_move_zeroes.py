@@ -7,15 +7,14 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """   
-        count = pops = 0
-        arr = []
-        for i in range(len(nums)):
+        i = pops = 0
+        n = len(nums)
+        while i + pops < n:
             if nums[i] == 0:
-                arr.append(i)
-                count += 1
-        for n in arr:
-            nums.pop(n - pops)
-            pops += 1
-        for i in range(count):
+                nums.pop(i)
+                pops += 1
+            else:
+                i += 1
+        
+        for i in range(pops):
             nums.append(0)
-        return nums
