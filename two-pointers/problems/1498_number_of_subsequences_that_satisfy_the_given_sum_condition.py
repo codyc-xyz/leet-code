@@ -5,31 +5,14 @@
 class Solution:
     def numSubseq(self, nums: List[int], target: int) -> int:
         nums.sort()
-        
-        count = left = 0
-        right = len(nums) - 1
-        while left < len(nums) and nums[left] * 2 <= target:
-            while nums[left] + nums[right] > target:
-                right -= 1
-            count += pow(2, right - left)
-            left += 1
+        l, r = 0, len(nums) - 1
+        ans = 0
+        mod = 10**9+7
+        while l <= r and nums[l] * 2 <= target:
             
-        return count%(10**9 + 7)
-
-
-  class Solution:
-    def numSubseq(self, nums: List[int], target: int) -> int:
-        nums.sort()
-        n = len(nums)
-        res = 0
-        mod = 10**9 + 7
-        r = n-1
-        
-        
-        for l in range(n):
-            while l <= r and nums[l] + nums[r] > target:
+            while nums[l] + nums[r] > target:
                 r -= 1
-            if l <= r:
-                res += pow(2, r- l, mod)
-                res %= mod
-        return res
+            ans += pow(2, r - l, mod)
+            ans %= mod
+            l += 1
+        return ans
