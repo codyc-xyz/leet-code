@@ -4,3 +4,15 @@
 
 # Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        windowStart = maxProfit = 0
+        while windowStart < len(prices) - 1:
+            windowEnd = windowStart + 1
+            while windowEnd < len(prices):
+                maxProfit = max(maxProfit, prices[windowEnd] - prices[windowStart])
+                windowEnd += 1
+            windowStart += 1
+            
+        return maxProfit
