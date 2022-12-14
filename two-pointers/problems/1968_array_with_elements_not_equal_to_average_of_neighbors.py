@@ -17,3 +17,17 @@ class Solution:
                 i += 1
             
         return nums
+
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        l, r = 0, len(nums) - 1
+        nums.sort()
+        res = []
+        
+        while len(res) != len(nums):
+            res.append(nums[l])
+            l += 1
+            if l <= r:
+                res.append(nums[r])
+            r -= 1
+        return res
