@@ -9,10 +9,6 @@ class Solution:
         
         windowStart = maxProfit = 0
         while windowStart < len(prices) - 1:
-            windowEnd = windowStart + 1
-            while windowEnd < len(prices):
-                maxProfit = max(maxProfit, prices[windowEnd] - prices[windowStart])
-                windowEnd += 1
+            maxProfit = max(maxProfit, max(prices[windowStart + 1:]) - prices[windowStart])
             windowStart += 1
-            
         return maxProfit
