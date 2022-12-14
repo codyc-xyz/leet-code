@@ -3,19 +3,10 @@
 
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        sort1 = sorted(s1)     
-        windowEnd = len(s1) 
-        sort2 = list(s2[:windowEnd])
         
-        if sorted(sort2) == sort1:
-            return True
-        
-        while windowEnd < len(s2):
-            sort2.append(s2[windowEnd])
-            sort2.pop(0)
-            if sorted(sort2) == sort1:
+        s1 = sorted(s1)
+        length = len(s1)
+        for windowStart in range(len(s2) - length + 1):
+            if sorted(s2[windowStart:windowStart + length]) == s1:
                 return True
-            windowEnd += 1
-        
-
-            
+        return False
