@@ -6,9 +6,11 @@
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        
+        minN = float("inf")
         windowStart = maxProfit = 0
         while windowStart < len(prices) - 1:
-            maxProfit = max(maxProfit, max(prices[windowStart + 1:]) - prices[windowStart])
+            if prices[windowStart] < minN:
+                minN = prices[windowStart]
+                maxProfit = max(maxProfit, max(prices[windowStart + 1:]) - minN)
             windowStart += 1
         return maxProfit
