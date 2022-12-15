@@ -3,3 +3,29 @@
 
 # The testcases will be generated such that the answer is unique.
 
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        countT = collections.Counter(t)
+        countS = defaultdict(int)
+        seen = deque()
+        windowStart = 0
+        minLen = float("inf")
+        res = ""
+        if s == t:
+            return t
+        for windowEnd, n in enumerate(s):
+            countS[n] += 1
+            
+            if n not in seen and n in countT and countS[n] >= countT[n]:
+                seen.append(n)
+                
+            while len(seen) == len(set(t)):
+                if windowEnd - windowStart + 1 < minLen:
+                    res = s[windowStart:windowEnd + 1]
+                    minLen = windowEnd - windowStart + 1
+                countS[s[windowStart]] -= 1
+                if s[windowStart] in countT and countS[s[windowStart]] < countT[s[windowStart]]:
+                    seen.remove(s[windowStart])
+                windowStart += 1
+                
+        return res
