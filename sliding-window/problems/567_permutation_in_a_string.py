@@ -13,29 +13,27 @@ class Solution:
 
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        
         counter1 = defaultdict(int)
         counter2 = defaultdict(int)
+        
         if len(s1) > len(s2):
             return False
-        for i in range(len(s1)):
-            counter1[s1[i]] += 1
+        
+        for i, n in enumerate(s1):
+            counter1[n] +=1 
         
         for i in range(len(s1)):
             counter2[s2[i]] += 1
-            
-        if counter1 == counter2:
-            return True
-        windowStart, windowEnd = 0, len(s1)
         
-        while windowEnd < len(s2):
-            counter2[s2[windowStart]] -= 1
-            if counter2[s2[windowStart]] == 0:
-                del counter2[s2[windowStart]]
-            counter2[s2[windowEnd]] += 1
+        l, r = 0, len(s1)
+        while r < len(s2):
             if counter1 == counter2:
                 return True
-            windowStart += 1
-            windowEnd += 1
-        return False
+            counter2[s2[r]] += 1
+            counter2[s2[l]] -= 1
+            if counter2[s2[l]] == 0:
+                del counter2[s2[l]]
+            r += 1
+            l += 1
+        return counter1 == counter2
             
