@@ -6,14 +6,14 @@
 # Return the maximum possible frequency of an element after performing at most k operations.
 
 
-  class Solution:
+class Solution:
     def maxFrequency(self, nums: List[int], k: int) -> int:
-        sortedNums = sorted(nums)
-        windowStart = 0
-        for windowEnd in range(len(sortedNums)):
-            k += sortedNums[windowEnd]
-            if k < sortedNums[windowEnd] * (windowEnd - windowStart + 1):
-                k -= sortedNums[windowStart]
+        nums.sort()
+        windowEnd = windowStart = 0
+        while windowEnd < len(nums):
+            k += nums[windowEnd]
+            if k < nums[windowEnd] * (windowEnd - windowStart + 1):
+                k -= nums[windowStart]
                 windowStart += 1
-                
-        return windowEnd - windowStart + 1
+            windowEnd += 1
+        return windowEnd - windowStart
