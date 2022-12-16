@@ -5,31 +5,30 @@
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        countT = collections.Counter(t)
         countS = defaultdict(int)
+        countT = collections.Counter(t)
         seen = set()
-        windowStart = 0
+        need = len(set(t))
         minLen = float("inf")
-        chars = len(set(t))
-        r = 0
-        for windowEnd, n in enumerate(s):
-            countS[n] += 1
-            
-            if n not in seen and n in countT and countS[n] >= countT[n]:
-                seen.add(n)
-            else:
-                continue
-                
-            while len(seen) == chars:
-                if windowEnd - windowStart + 1 < minLen:
-                    l, r = windowStart, windowEnd + 1
-                    minLen = windowEnd - windowStart + 1
-                countS[s[windowStart]] -= 1
-                if s[windowStart] in countT and countS[s[windowStart]] < countT[s[windowStart]]:
-                    seen.remove(s[windowStart])
-                windowStart += 1
-                
-        if r != 0:
-            return s[l:r]
+        l = r = 0
+        flag = False
+        while r < len(s):
+            c = s[r]
+            countS[c] += 1
+            if c in t and c not in seen and countS[c] >= countT[c]:
+                seen.add(c)
+            while len(seen) == need:
+                if r - l + 1 < minLen:
+                    right, left = r + 1, l
+                    minLen = right - left
+                    flag = True
+                j = s[l]
+                countS[j] -= 1
+                if j in seen and countS[j] < countT[j]:
+                    seen.remove(j)
+                l += 1
+            r += 1
+        if flag == True:
+            return s[left:right]
         else:
             return ""
