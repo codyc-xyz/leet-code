@@ -25,3 +25,20 @@ class Solution:
             if stack:
                 stack.append(stack.popleft())
         return len(stack)
+
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        students = deque(students)
+        for sandwich in sandwiches:
+            if sandwich in students:
+                while sandwich in students:
+                    if students[0] != sandwich:
+                        students.append(students.popleft())
+                    else:
+                        students.popleft()
+                        break
+            else: 
+                return len(students)
+        return 0
+            
+            
