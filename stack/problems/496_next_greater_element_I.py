@@ -10,19 +10,14 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         ans = []
-
-        for i, n in enumerate(nums1):
-            j = 0
-            res = -1
-            while j < len(nums2):
-                if nums2[j] == n:
-                    t = j + 1
-                    break
-                j += 1
-            while t < len(nums2):
-                if nums2[t] > nums2[j]:
-                    res = nums2[t]
-                    break
-                t += 1
-            ans.append(res)
+        for n in nums1:
+            dq = deque(nums2)
+            while dq[0] != n:
+                dq.popleft()
+            while dq and dq[0] <= n:
+                dq.popleft()
+            if dq:
+                ans.append(dq[0])
+            else:
+                ans.append(-1)
         return ans
