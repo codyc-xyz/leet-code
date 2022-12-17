@@ -11,3 +11,15 @@
 
 # Notice that an empty string is also good.
 
+class Solution:
+    def makeGood(self, s: str) -> str:
+        stack = []
+        for c in s:
+            stack.append(c)
+            if (len(stack) > 1): 
+                while (stack[-2].islower() and stack[-2].upper() == stack[-1]) or (stack[-2].isupper() and stack[-2].lower() == stack[-1]):
+                    stack.pop()
+                    stack.pop()
+                    if len(stack) < 2:
+                        break
+        return "".join(stack)
