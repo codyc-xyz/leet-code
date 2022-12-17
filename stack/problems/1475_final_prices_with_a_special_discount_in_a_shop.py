@@ -8,20 +8,9 @@
 
 class Solution:
     def finalPrices(self, prices: List[int]) -> List[int]:
-        ans = []
-        
-        for i in range(len(prices) - 1):
-            j = i + 1
-            flag = False
-            while j < len(prices):
-                if prices[j] <= prices[i]:
-                    flag = True
-                    break
-                else:
-                    j += 1
-            if flag == True:
-                ans.append(prices[i] - prices[j])
-            else:
-                ans.append(prices[i])
-        ans.append(prices[i + 1])
-        return ans
+        stack = []
+        for i, c in enumerate(prices):
+            while stack and prices[stack[-1]] >= c:
+                prices[stack.pop()] -= c
+            stack.append(i)
+        return prices
