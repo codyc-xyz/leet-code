@@ -39,3 +39,20 @@ class Solution:
                         ans[hm[n]] = nums2[j]
                         break
         return ans
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans = [-1] * len(nums1)
+        hm = {}
+        stack = []
+        
+        for i, n in enumerate(nums1):
+            hm[n] = i
+            
+        for i, n in enumerate(nums2):
+            while stack and n > stack[-1]:
+                ans[hm[stack.pop()]] = n
+            if n not in nums1:
+                continue
+            stack.append(n)
+        return ans
