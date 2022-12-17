@@ -14,3 +14,17 @@
 
 # The test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.
 
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        scores = []
+        
+        for i, c in enumerate(operations):
+            if c.isnumeric() or c.startswith("-"):
+                scores.append(int(c))
+            elif c == '+':
+                scores.append(scores[-1] + scores[-2])
+            elif c == 'D':
+                scores.append(scores[-1] * 2)
+            elif c == 'C':
+                scores.pop()
+        return sum(scores)
