@@ -12,3 +12,16 @@
 # (i = 0 is the top of the stack) and students[j] is the preference of the j​​​​​​th student in the initial queue (j = 0 is the front of the queue). 
 # Return the number of students that are unable to eat.
 
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        stack = deque(students)
+        sandwiches = deque(sandwiches)
+        k = collections.Counter(students)
+        while sandwiches and stack and k[0] > 0 and k[1] > 0:
+            while sandwiches and stack and sandwiches[0] == stack[0]:
+                k[stack[0]] -= 1
+                stack.popleft()
+                sandwiches.popleft()
+            if stack:
+                stack.append(stack.popleft())
+        return len(stack)
