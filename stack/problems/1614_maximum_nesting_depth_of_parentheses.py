@@ -13,3 +13,13 @@
 
 # Given a VPS represented as string s, return the nesting depth of s.
 
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        maxDepth = depth = 0
+        for c in s:
+            if c == '(':
+                depth += 1
+                maxDepth = max(maxDepth, depth)
+            elif c == ')':
+                depth -= 1
+        return maxDepth
