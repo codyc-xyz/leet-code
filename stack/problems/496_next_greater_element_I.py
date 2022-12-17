@@ -21,3 +21,21 @@ class Solution:
             else:
                 ans.append(-1)
         return ans
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans = [-1] * len(nums1)
+        hm = {}
+        
+        for i, n in enumerate(nums1):
+            hm[n] = i
+            
+        for i, n in enumerate(nums2):
+            if n not in hm:
+                continue
+            else:
+                for j in range(i + 1, len(nums2)):
+                    if nums2[j] > n:
+                        ans[hm[n]] = nums2[j]
+                        break
+        return ans
