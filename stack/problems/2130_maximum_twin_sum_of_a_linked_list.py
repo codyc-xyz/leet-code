@@ -5,3 +5,23 @@
 
 # Given the head of a linked list with even length, return the maximum twin sum of the linked list.
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        stack = []
+        maxTwin = l = 0
+        r = -1
+        while head:
+            stack.append(head.val)
+            head = head.next
+            r += 1
+        
+        while r > l:
+            maxTwin = max(maxTwin, stack[r] + stack[l])
+            r -= 1
+            l += 1
+        return maxTwin
