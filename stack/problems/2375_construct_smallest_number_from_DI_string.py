@@ -6,3 +6,26 @@
 # If pattern[i] == 'D', then num[i] > num[i + 1].
 
 # Return the lexicographically smallest possible string num that meets the conditions.
+
+class Solution:
+    def smallestNumber(self, pattern: str) -> str:
+        
+        stack = [1]
+        tmp = []
+        i = 2
+        ans = ""
+        for p in pattern:
+            if p == 'I':
+                while tmp:
+                    stack.append(tmp.pop())
+                stack.append(i)
+            else:
+                tmp.append(stack.pop())
+                stack.append(i)
+            i += 1
+        while tmp:
+            stack.append(tmp.pop())
+            
+        for c in stack:
+            ans += str(c)
+        return ans
