@@ -9,3 +9,15 @@
 
 # Return the minimum number of swaps to make s balanced.
 
+class Solution:
+    def minSwaps(self, s: str) -> int:
+        
+        stack = []
+        
+        for i, c in enumerate(s):
+            if c == '[':
+                stack.append(c)
+            elif c == ']' and stack:
+                stack.pop()
+    
+        return (len(stack) + 1) // 2
