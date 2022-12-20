@@ -16,3 +16,25 @@
 
 # Return an answer array (of length seq.length) that encodes such a choice of A and B:  answer[i] = 0 if seq[i] is part of A, else answer[i] = 1.  Note that even though multiple answers may exist, you may return any of them.
 
+class Solution:
+    def maxDepthAfterSplit(self, seq: str) -> List[int]:
+        
+        stack = []
+        opened = 0
+        ans = []
+        
+        for p in seq:
+            if p == '(' and len(stack) == 0:
+                stack.append(p)
+            elif p == '(':
+                stack.append(p)
+                opened += 1
+            ans.append(opened % 2)
+            if p == ')' and len(stack) > 1:
+                stack.pop()
+                opened -= 1
+            elif p == ')':
+                stack.pop()
+            
+        return ans
+            
