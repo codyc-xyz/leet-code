@@ -21,3 +21,17 @@ class Solution:
                 stack.pop()
     
         return (len(stack) + 1) // 2
+
+class Solution:
+    def minSwaps(self, s: str) -> int:
+        
+        maxCount = count = 0
+        
+        for i, c in enumerate(s):
+            if c == '[':
+                count -= 1
+            elif c == ']':
+                count += 1
+            maxCount = max(maxCount, count)
+            
+        return (maxCount + 1) // 2
