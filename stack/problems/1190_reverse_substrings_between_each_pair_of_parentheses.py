@@ -4,3 +4,18 @@
 
 # Your result should not contain any brackets.
 
+class Solution:
+    def reverseParentheses(self, s: str) -> str:
+            
+        stack = []
+
+        for n in s:
+            if n != ')':
+                stack.append(n)
+            else:
+                tmp = []
+                while stack[-1] != '(':
+                    tmp.append(stack.pop())
+                stack.pop()
+                stack += tmp
+        return "".join(stack)
