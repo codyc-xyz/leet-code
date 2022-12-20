@@ -17,7 +17,6 @@
 class Solution:
     def buildArray(self, target: List[int], n: int) -> List[str]:
         
-        i = 1
         ans = []
         res = []
         j = 0
