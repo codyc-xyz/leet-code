@@ -10,7 +10,6 @@ class Solution:
             while stack and n > stack[-1][0]:
                 idx = stack[-1][1]
                 ans[idx] = i - idx
-                lastidx = idx
                 stack.pop()
             stack.append([n,i])
         return ans
