@@ -37,4 +37,3 @@ class Solution:
                 stack.pop()
             
         return ans
-            
