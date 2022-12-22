@@ -4,3 +4,14 @@
 
 # Return the minimum number of deletions needed to make s balanced.
 
+class Solution:
+    def minimumDeletions(self, s: str) -> int:
+        stack = []
+        count = 0
+        for c in s:
+            if stack and c == 'a' and stack[-1] == 'b':
+                count += 1
+                stack.pop()
+            else:
+                stack.append(c)
+        return count
