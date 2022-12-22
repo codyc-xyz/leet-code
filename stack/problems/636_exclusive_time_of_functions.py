@@ -12,3 +12,23 @@
 # For example, if a function is called twice, one call executing for 2 time units and another call executing for 1 time unit, the exclusive time is 2 + 1 = 3.
 
 # Return the exclusive time of each function in an array, where the value at the ith index represents the exclusive time for the function with ID i.
+
+class Solution:
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        ans = [0] * n
+        prev_ts = 0
+        stack = []
+        for log in logs:
+            ids,dirs,ts = log.split(':')
+            
+            ids, ts = int(ids), int(ts)
+            
+            if dirs == 'start':
+                if stack:
+                    ans[stack[-1]] += ts - prev_ts
+                stack.append(ids)
+                prev_ts = ts
+            else:
+                ans[stack.pop()] += ts - prev_ts + 1
+                prev_ts = ts + 1
+        return ans
