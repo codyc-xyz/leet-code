@@ -4,3 +4,11 @@
 
 # Return the largest number of chunks we can make to sort the array.
 
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        res = currMax = 0
+        for i, n in enumerate(arr):
+            currMax = max(currMax, n)
+            if currMax == i:
+                res += 1
+        return res
