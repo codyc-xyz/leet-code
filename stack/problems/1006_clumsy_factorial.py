@@ -11,3 +11,37 @@
 
 # Given an integer n, return the clumsy factorial of n.
 
+class Solution:
+    def clumsy(self, n: int) -> int:
+        stack = deque()
+        i = 0
+        while n > 0:
+           
+            if not stack:
+                stack.append(n)
+                n -= 1
+                continue
+            elif stack and i == 0:
+                stack[-1] *= n
+            elif i == 1:
+                stack[-1] //= n
+            elif i == 2:
+                stack[-1] += n
+            elif i == 3:
+                if n > 2:
+                    stack[-1] -= ((n * (n - 1)) // (n - 2))
+                    i = 2
+                    n -= 3
+                    continue
+                elif n == 2:
+                    stack[-1] -= (n * (n - 1))
+                    break
+                elif n == 1:
+                    stack[-1] -= n
+                    break
+            i += 1
+            if i == 4:
+                i = 0
+            n -= 1
+            
+        return stack[-1]
