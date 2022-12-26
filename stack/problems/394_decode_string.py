@@ -25,6 +25,7 @@ class Solution:
                 opened -= 1
                 while stack[-1].isalpha() == True:
                     string += stack.pop()
+                string = string[::-1]
                 stack.pop()
                 while stack and stack[-1].isnumeric() == True:
                     num += stack.pop()
@@ -34,6 +35,5 @@ class Solution:
                         for c in string:
                             stack.append(c)
                 else:
-                    string = string[::-1]
                     ans += int(num) * string
         return ans
