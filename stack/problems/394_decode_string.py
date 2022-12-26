@@ -35,4 +35,24 @@ class Solution:
                 else:
                     ans += int(num) * string
         return ans
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        
+        for c in s:
+            if c != ']':
+                stack.append(c)
+            else:
+                string = ""
+                num = ""
+                while stack[-1].isalpha() == True:
+                    string = stack.pop() + string
+                stack.pop()
+                
+                while stack and stack[-1].isnumeric() == True:
+                    num = stack.pop() + num
+                stack.append(int(num) * string)
+            
+        return "".join(stack)
                     
