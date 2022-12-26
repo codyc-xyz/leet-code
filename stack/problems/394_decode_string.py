@@ -31,9 +31,8 @@ class Solution:
                     num += stack.pop()
                 num = num[::-1]
                 if opened > 0:
-                    for i in range(int(num)):
-                        for c in string:
-                            stack.append(c)
+                    stack.append(int(num) * string[::-1])
                 else:
                     ans += int(num) * string
         return ans
+                    
