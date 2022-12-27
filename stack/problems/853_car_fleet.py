@@ -10,3 +10,17 @@
 
 # Return the number of car fleets that will arrive at the destination.
 
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+
+        stack = []
+        ans = []
+        for i, c in enumerate(position):
+            stack.append([c,speed[i]])
+            
+        stack.sort()
+        for i in stack[::-1]:
+            if ans and ans[-1] >= (target - i[0]) / i[1]:
+                continue
+            ans.append((target - i[0]) / i[1])
+        return len(ans)
