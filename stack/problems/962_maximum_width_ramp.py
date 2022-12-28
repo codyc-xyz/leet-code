@@ -24,3 +24,19 @@ class Solution:
             ramp = max(ramp, increase[i][1] - decrease[dec][1])
         
         return ramp
+
+class Solution:
+    def maxWidthRamp(self, nums: List[int]) -> int:
+       
+        stack = []
+        ramp = 0
+        
+        for i, n in enumerate(nums):
+            if not stack or n < stack[-1][0]:
+                stack.append([n, i])
+        
+        for j in range(len(nums) - 1, -1, -1):
+            while stack and stack[-1][0] <= nums[j]:
+                ramp = max(ramp, j - stack.pop()[1]) 
+                
+        return ramp
