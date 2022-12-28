@@ -17,9 +17,8 @@ class Solution:
             if not increase or n > increase[-1][0]:
                 increase.append([n, j - i])
         
-        
-        for i in range(len(increase)):
-            dec = 0
+        dec = 0
+        for i in range(len(increase) - 1, -1, -1):
             while increase[i][0] < decrease[dec][0]:
                 dec += 1
             ramp = max(ramp, increase[i][1] - decrease[dec][1])
