@@ -8,16 +8,14 @@
 
 class Solution:
     def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
-        ans = 0
-        hm = {}
+        properties.sort(key=lambda x:(x[0], -x[1]))
         stack = []
-        for i, n in enumerate(properties):
-            stack.append([n[0], n[1]])
-        
-        for p in properties:
-            for s in stack:
-                if p[0] < s[0] and p[1] < s[1]:
-                    ans += 1
-                    break
+        ans = 0
+        for i, d in properties:
+            while stack and stack[-1] < d:
+                stack.pop()
+                ans += 1
+            stack.append(d)
+            
         return ans
                     
