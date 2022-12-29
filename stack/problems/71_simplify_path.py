@@ -10,3 +10,14 @@
 # The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period '.' or double period '..')
 
 # Return the simplified canonical path.
+
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        paths = path.split('/')
+        stack = []
+        for p in paths:
+            if stack and p == '..':
+                stack.pop()
+            if p != '.' and p != '' and p != '..':
+                stack.append(p)
+        return '/' + "/".join(stack)
