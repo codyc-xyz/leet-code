@@ -10,3 +10,27 @@
 # After a collision, the cars involved can no longer move and will stay at the point where they collided. Other than that, cars cannot change their state or direction of motion.
 
 # Return the total number of collisions that will happen on the road.
+
+class Solution:
+    def countCollisions(self, directions: str) -> int:
+        stack = []
+        collisions = 0
+        for d in directions:
+            direction = d
+            if not stack:
+                stack.append(direction)
+                continue
+            
+            if stack[-1] == 'R' and direction == 'L':
+                collisions += 2
+                stack.pop()
+                direction = 'S'
+            if stack and stack[-1] == 'S' and direction == 'L':
+                collisions += 1
+                direction = 'S'
+            while stack and stack[-1] == 'R' and direction == 'S':
+                collisions += 1
+                stack.pop()
+            
+            stack.append(direction)
+        return collisions
