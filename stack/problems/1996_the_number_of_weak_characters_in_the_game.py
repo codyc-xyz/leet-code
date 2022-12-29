@@ -6,3 +6,18 @@
 
 # Return the number of weak characters.
 
+class Solution:
+    def numberOfWeakCharacters(self, properties: List[List[int]]) -> int:
+        ans = 0
+        hm = {}
+        stack = []
+        for i, n in enumerate(properties):
+            stack.append([n[0], n[1]])
+        
+        for p in properties:
+            for s in stack:
+                if p[0] < s[0] and p[1] < s[1]:
+                    ans += 1
+                    break
+        return ans
+                    
