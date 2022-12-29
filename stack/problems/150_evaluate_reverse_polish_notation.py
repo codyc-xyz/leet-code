@@ -9,3 +9,28 @@
 # There will not be any division by zero.
 # The input represents a valid arithmetic expression in a reverse polish notation.
 # The answer and all the intermediate calculations can be represented in a 32-bit integer.
+
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        
+        stack = []
+        operators = {'*', '+', '-', '/'}
+        
+        for i, t in enumerate(tokens):
+            if t in operators:
+                if t == '*':
+                    stack.append(int(stack.pop()) * int(stack.pop()))
+                elif t == '+':
+                    stack.append(int(stack.pop()) + int(stack.pop()))
+                elif t == '-':
+                    a = int(stack.pop())
+                    b = int(stack.pop())
+                    stack.append(b - a)
+                else:
+                    a = int(stack.pop())
+                    b = int(stack.pop())
+                    stack.append(b / a)
+            else:
+                stack.append(t)
+                
+        return int(stack[-1])
