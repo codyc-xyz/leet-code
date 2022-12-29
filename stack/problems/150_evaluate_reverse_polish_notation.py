@@ -18,19 +18,17 @@ class Solution:
         
         for i, t in enumerate(tokens):
             if t in operators:
+                a = stack.pop()
+                b = stack.pop()
                 if t == '*':
-                    stack.append(int(stack.pop()) * int(stack.pop()))
+                    stack.append(int(b * a))
                 elif t == '+':
-                    stack.append(int(stack.pop()) + int(stack.pop()))
+                    stack.append(int(b + a))
                 elif t == '-':
-                    a = int(stack.pop())
-                    b = int(stack.pop())
-                    stack.append(b - a)
+                    stack.append(int(b - a))
                 else:
-                    a = int(stack.pop())
-                    b = int(stack.pop())
-                    stack.append(b / a)
+                    stack.append(int(b / a))
             else:
-                stack.append(t)
+                stack.append(int(t))
                 
-        return int(stack[-1])
+        return stack[-1]
