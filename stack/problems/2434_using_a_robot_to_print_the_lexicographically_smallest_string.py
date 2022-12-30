@@ -3,3 +3,23 @@
 # Remove the last character of a string t and give it to the robot. The robot will write this character on paper.
 
 # Return the lexicographically smallest string that can be written on the paper.
+
+class Solution:
+    def robotWithString(self, s: str) -> str:
+
+        t = []
+        counter = collections.Counter(s)
+        ans = ""
+        
+        for c in s:
+            t.append(c)
+            if counter[c] == 1:
+                del counter[c]
+            else:
+                counter[c] -= 1
+            
+            while counter and t and t[-1] <= min(counter):
+                ans += t.pop()
+        ans += ''.join(t[::-1])
+        
+        return ans
