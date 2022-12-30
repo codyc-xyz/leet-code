@@ -19,3 +19,28 @@ class Solution:
                 maxProduct = max(maxProduct, sum(arr) * min(arr))
                 j += 1
         return maxProduct%mod
+
+class Solution:
+    def maxSumMinProduct(self, nums: List[int]) -> int:
+        pfix = [0]
+        ans = 0
+        stack = []
+        mod = 10**9+7
+        
+        for n in nums:
+            pfix.append(pfix[-1] + n)
+            
+        for i, n in enumerate(nums):
+            startAt = i
+            while stack and stack[-1][1] > n:
+                start, val = stack.pop()
+                total = pfix[i] - pfix[start]
+                ans = max(ans, total * val)
+                startAt = start
+            stack.append([startAt, n])
+            
+        for start, num in stack:
+            total = pfix[len(nums)] - pfix[start]
+            ans = max(ans, total * num)
+        
+        return ans%mod
