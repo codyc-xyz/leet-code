@@ -10,13 +10,12 @@
 class Solution:
     def maxSumMinProduct(self, nums: List[int]) -> int:
         maxProduct = 0
-        arr = []
         mod = 10**9+7
         for i, n in enumerate(nums):
+            arr = []
             j = i 
             while j < len(nums):
                 arr.append(nums[j])
                 maxProduct = max(maxProduct, sum(arr) * min(arr))
                 j += 1
-            arr.clear()
         return maxProduct%mod
