@@ -2,3 +2,21 @@
 
 # Return true if there is a 132 pattern in nums, otherwise, return false.
 
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+
+        stack = []
+        minNums = [] 
+        minNum = float("inf")
+        for i, n in enumerate(nums):
+            if n < minNum:
+                minNum = n
+            minNums.append(minNum)
+            
+        for i in range(len(nums) - 1, -1, -1):
+            while stack and nums[i] > stack[-1]:
+                if stack.pop() > minNums[i]:
+                    return True
+            
+            stack.append(nums[i])
+        return False
