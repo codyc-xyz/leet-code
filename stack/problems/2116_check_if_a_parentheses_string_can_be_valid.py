@@ -10,3 +10,33 @@
 
 # Return true if you can make s a valid parentheses string. Otherwise, return false.
 
+class Solution:
+    def canBeValid(self, s: str, locked: str) -> bool:
+    
+        if len(s) % 2 == 1:
+            return False
+        
+        stack = []
+        unlocked = []
+        for i, n in enumerate(s):
+            if locked[i] == '1':
+                if n == '(':
+                    stack.append(i)
+                elif n == ')':
+                    if stack:
+                        stack.pop()
+                    elif unlocked:
+                        unlocked.pop()
+                    else:
+                        return False
+            else:
+                unlocked.append(i)
+
+        while stack and unlocked:
+            if stack[-1] < unlocked[-1]:
+                stack.pop()
+                unlocked.pop()
+            else:
+                return False
+        
+        return not stack
