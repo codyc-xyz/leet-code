@@ -16,3 +16,12 @@ class Solution:
                 l = r
             r += 1
         return maxProfit
+        
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        ans = windowStart = 0
+        for windowEnd, p in enumerate(prices):
+            ans = max(ans, prices[windowEnd] - prices[windowStart])
+            if p < prices[windowStart]:
+                windowStart = windowEnd
+        return ans
