@@ -31,3 +31,24 @@ class Solution:
                 res.append(nums[r])
             r -= 1
         return res
+
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        arr = [0] * len(nums)
+        if len(nums) % 2 == 0:
+            mid = len(nums) // 2 + 1
+            median = nums[mid]
+        else:
+            mid = len(nums) // 2 
+            median = nums[mid]
+        
+        j, n = 1, 0
+        for i in range(len(nums)):
+            if j < len(arr) and nums[i] < median:
+                arr[j] = nums[i]
+                j += 2
+            else:
+                arr[n] = nums[i]
+                n += 2
+        return arr
