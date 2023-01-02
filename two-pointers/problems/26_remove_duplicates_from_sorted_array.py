@@ -24,3 +24,17 @@ class Solution:
                 nums[l] = nums[i]
             i += 1
         return l + 1
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+            ans = len(set(nums))
+            l = r = 0
+            while r < len(nums):
+                while r < len(nums) and nums[l] == nums[r]:
+                    r += 1
+                l += 1
+                if l < r and r < len(nums):
+                    nums[l], nums[r] = nums[r], nums[l]
+                    r += 1
+                
+            return ans
