@@ -16,3 +16,26 @@ class Solution:
             return minLength
         else:
             return 0
+
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        
+        res = windowStart = windowEnd = 0
+        minLen = float("inf")
+        while windowEnd < len(nums):
+            res += nums[windowEnd]
+            while windowEnd < len(nums) and res < target:
+                windowEnd += 1
+                if windowEnd < len(nums):
+                    res += nums[windowEnd]
+        
+            while windowStart <= windowEnd and res >= target:
+                minLen = min(minLen, windowEnd - windowStart + 1)
+                res -= nums[windowStart]
+                windowStart += 1
+            windowEnd += 1
+        
+        if minLen != float("inf"):
+            return minLen
+        else:
+            return 0
