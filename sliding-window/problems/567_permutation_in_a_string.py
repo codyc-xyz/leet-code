@@ -36,4 +36,28 @@ class Solution:
             r += 1
             l += 1
         return counter1 == counter2
+
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+        
+        d1 = defaultdict(int)
+        d2 = defaultdict(int)
+        
+        for i, c in enumerate(s1):
+            d1[c] += 1
+            
+        windowStart = 0
+        for i, c in enumerate(s2):
+            d2[c] += 1
+            
+            while d2[c] > d1[c]:
+                d2[s2[windowStart]] -= 1
+                if d2[s2[windowStart]] == 0:
+                    del d2[s2[windowStart]]
+                windowStart += 1
+            if d1 == d2:
+                return True
+        return False
             
