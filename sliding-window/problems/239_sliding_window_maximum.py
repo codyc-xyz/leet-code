@@ -21,3 +21,21 @@ class Solution:
                 l += 1
             r += 1
         return ans
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        
+        stack = deque()
+        maxes = []
+        l = r = 0
+        while r < len(nums):
+            while stack and nums[r] >= stack[-1][1]:
+                stack.pop()
+            while stack and stack[0][0] < l:
+                stack.popleft()
+            stack.append([r, nums[r]])
+            if r - l + 1 == k:
+                maxes.append(stack[0][1])
+                l += 1
+            r += 1
+        return maxes
