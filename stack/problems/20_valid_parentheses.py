@@ -8,24 +8,20 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         
-        dq = deque()
-    
-        for c in s:
-            if c == '(' or c == '{' or c == '[':
-                dq.append(c)
-            elif c == '}':
-                if not dq or dq[-1] != '{':
-                    return False
-                else:
-                    dq.pop()
-            elif c == ')':
-                if not dq or dq[-1] != '(':
-                    return False
-                else:
-                    dq.pop()
-            elif c == ']':
-                if not dq or dq[-1] != '[':
-                    return False
-                else:
-                    dq.pop()
-        return len(dq) == 0
+        opens = {'(', '{', '['}
+        stack = []
+        
+        for i, c in enumerate(s):
+            if c in opens:
+                stack.append(c)
+            else:
+                if c == ')':
+                    if not stack or stack.pop() != '(':
+                        return False
+                elif c == '}':
+                    if not stack or stack.pop() != '{':
+                        return False
+                elif c == ']':
+                    if not stack or stack.pop() != '[':
+                        return False
+        return not stack
