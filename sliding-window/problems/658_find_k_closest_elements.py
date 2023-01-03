@@ -17,4 +17,15 @@ class Solution:
                 dq.append(n)
         return dq
 
-
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        
+        if len(arr) <= k:
+            return arr
+        windowStart, windowEnd = 0, k - 1
+        while windowEnd < len(arr) - 1:
+            if abs(x - arr[windowStart]) < abs(x - arr[windowEnd + 1]) or (abs(x - arr[windowStart]) == abs(x - arr[windowEnd + 1]) and arr[windowStart] < arr[windowEnd + 1]):
+                return arr[windowStart:windowEnd + 1]
+            windowStart += 1
+            windowEnd += 1
+        return arr[windowStart:windowEnd + 1]
