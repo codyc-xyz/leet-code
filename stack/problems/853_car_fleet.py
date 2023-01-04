@@ -24,3 +24,16 @@ class Solution:
                 continue
             ans.append((target - i[0]) / i[1])
         return len(ans)
+
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        
+        posSpeed = list(zip(position, speed))
+        sortPos = sorted(posSpeed)
+        stack = []
+        for pos, speed in sortPos:
+            res = (target - pos) / speed
+            while stack and stack[-1] <= res:
+                stack.pop()
+            stack.append(res)
+        return len(stack)
