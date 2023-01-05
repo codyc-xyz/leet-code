@@ -6,7 +6,6 @@ class Solution:
     def lengthOfLastWord(self, s: str) -> int:
         split = s.split(' ')
         
-        for s in split:
+        for s in split[::-1]:
             if s.isalpha():
-                ans = s
-        return len(ans)
+                return len(s)
