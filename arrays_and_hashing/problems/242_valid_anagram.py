@@ -20,3 +20,10 @@ class Solution:
                 hmT[c] += 1
             
         return hmS == hmT
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        countS = collections.Counter(s)
+        countT = collections.Counter(t)
+        
+        return countS == countT
