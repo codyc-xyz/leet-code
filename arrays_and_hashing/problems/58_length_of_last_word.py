@@ -2,3 +2,11 @@
 
 # A word is a maximal substring consisting of non-space characters only.
 
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        split = s.split(' ')
+        
+        for s in split:
+            if s.isalpha():
+                ans = s
+        return len(ans)
