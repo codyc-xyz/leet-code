@@ -3,3 +3,18 @@
 # A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. 
 # (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
 
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) > len(t):
+            return False
+        if len(t) < 1 or s == "":
+            return True
+        l = 0
+       
+        for r, c in enumerate(t):
+            if l < len(s) and c == s[l]:
+                l += 1
+                if l >= len(s):
+                    return True
+            
+        return False
