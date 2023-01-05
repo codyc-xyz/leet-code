@@ -7,3 +7,13 @@
 
 # Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
 
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        
+        k = 0
+        
+        for i, n in enumerate(nums):
+            if n != val:
+                n, nums[k] = nums[k], n
+                k += 1
+        return k
