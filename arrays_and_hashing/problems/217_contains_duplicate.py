@@ -19,3 +19,11 @@ class Solution:
             else:
                 seen.add(c)
         return False
+
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        count = collections.Counter(nums)
+        if max(count.values()) > 1:
+            return True
+        else:
+            return False
