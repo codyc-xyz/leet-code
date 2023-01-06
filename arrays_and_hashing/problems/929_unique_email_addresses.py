@@ -13,3 +13,24 @@
 
 # Given an array of strings emails where we send one email to each emails[i], return the number of different addresses that actually receive mails.
 
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        seen = set()
+        for i, c in enumerate(emails):
+            j = 0
+            local, host = "", ""
+            while j < len(c) - 1 and c[j] != '@':
+                if c[j] == '+':
+                    while c[j] != '@':
+                        j += 1
+                    break
+                elif c[j] == '.':
+                    j += 1
+                    continue
+                local += c[j]
+                j += 1
+            while j < len(c): 
+                host += c[j]
+                j += 1
+            seen.add(local + host)
+        return len(seen) 
