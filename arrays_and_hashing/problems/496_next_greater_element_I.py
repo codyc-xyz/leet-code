@@ -6,3 +6,21 @@
 
 # Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
 
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        hm = {}
+        ans = []
+        
+        for i, n in enumerate(nums2):
+            hm[n] = i
+            
+        for n in nums1:
+            flag = False
+            for i in range(hm[n] + 1, len(nums2)):
+                if nums2[i] > n:
+                    ans.append(nums2[i])
+                    flag = True
+                    break
+            if flag == False:
+                ans.append(-1)
+        return ans
