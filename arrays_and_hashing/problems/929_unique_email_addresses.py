@@ -32,3 +32,13 @@ class Solution:
             host = str(c[j:])
             seen.add(local + host)
         return len(seen) 
+  
+  class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        seen = set()
+        for c in emails:
+            local, host = c.split('@')
+            local = local.split('+')[0]
+            local = local.replace('.', '')
+            seen.add((local, host))
+        return len(seen)
