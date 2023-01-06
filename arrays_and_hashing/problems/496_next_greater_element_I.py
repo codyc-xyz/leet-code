@@ -24,3 +24,21 @@ class Solution:
             if flag == False:
                 ans.append(-1)
         return ans
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans = [-1] * len(nums1)
+        stack = []
+        hm = {}
+        for i, n in enumerate(nums1):
+            hm[n] = i
+            
+        for i, n in enumerate(nums2):
+            while stack and stack[-1] < n:
+                ans[hm[stack.pop()]] = n
+            if n not in nums1:
+                continue
+            else:
+                stack.append(n)
+        return ans
+                
