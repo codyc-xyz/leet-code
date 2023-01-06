@@ -29,8 +29,6 @@ class Solution:
                     continue
                 local += c[j]
                 j += 1
-            while j < len(c): 
-                host += c[j]
-                j += 1
+            host = str(c[j:])
             seen.add(local + host)
         return len(seen) 
