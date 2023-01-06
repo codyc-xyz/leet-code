@@ -5,32 +5,11 @@
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         
-        if len(flowerbed) < 3:
-            if 1 not in flowerbed:
-                n -= 1
-                return n <= 0
-            return not n
+        f = [0] + flowerbed + [0]
         
-        elif len(flowerbed) == 3:
-            for i in range(len(flowerbed) - 2):
-                if i == 0 and not flowerbed[i] and not flowerbed[i + 1] and not flowerbed[i + 2]:
-                    n -= 2
-                    return n <= 0
-                elif not flowerbed[i] and not flowerbed[i + 1]:
-                    n -= 1
-                    return not n
-                
-        for i in range(len(flowerbed)):
-            if i == 0:
-                if not flowerbed[i] and not flowerbed[i + 1]:
-                    flowerbed[i] = 1
-                    n -= 1
-            elif i == len(flowerbed) - 1:
-                if not flowerbed[i - 1] and not flowerbed[i]:
-                    flowerbed[i] = 1
-                    n -= 1
-            elif not flowerbed[i - 1] and not flowerbed[i] and not flowerbed[i + 1]:
-                flowerbed[i] = 1
+        for i in range(1, len(f) - 1):
+            if f[i - 1] == 0 and f[i] == 0 and f[i + 1] == 0:
+                f[i] = 1
                 n -= 1
             if n <= 0:
                 return True
