@@ -5,7 +5,8 @@ class Solution:
         count = collections.Counter(nums)
         ans = []
         while k > 0:
-            ans.append(max(count, key=count.get))
-            del count[max(count, key=count.get)]
+            j = max(count, key=count.get)
+            ans.append(j)
+            del count[j]
             k -= 1
         return ans
