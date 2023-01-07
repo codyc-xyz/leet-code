@@ -7,14 +7,13 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         ans = []
+        prodsL = [1]
+        prodsR = [1]
+        for i in range(len(nums) - 1, 0, -1):
+            prodsR.append(prodsR[-1] * nums[i])
+        prodsR = prodsR[::-1]
         for i in range(len(nums)):
-            product = 1
-            j, t = 0, i + 1
-            while j < i:
-                product *= nums[j]
-                j += 1
-            while t < len(nums):
-                product *= nums[t]
-                t += 1
-            ans.append(product)
+            if i != 0:
+                prodsL.append(prodsL[-1] * nums[i - 1])
+            ans.append(prodsL[-1] * prodsR[i])
         return ans
