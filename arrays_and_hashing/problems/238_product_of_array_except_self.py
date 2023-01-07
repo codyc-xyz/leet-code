@@ -4,3 +4,17 @@
 
 # You must write an algorithm that runs in O(n) time and without using the division operation.
 
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        ans = []
+        for i in range(len(nums)):
+            product = 1
+            j, t = 0, i + 1
+            while j < i:
+                product *= nums[j]
+                j += 1
+            while t < len(nums):
+                product *= nums[t]
+                t += 1
+            ans.append(product)
+        return ans
