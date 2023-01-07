@@ -8,8 +8,14 @@
 
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
+        sumL, sumR = 0, sum(nums) - nums[0]
         
-        for i in range(len(nums)):
-            if sum(nums[:i]) == sum(nums[i + 1:]):
+        if sumL == sumR:
+            return 0
+        
+        for i in range(1, len(nums)):
+            sumL += nums[i - 1]
+            sumR -= nums[i]
+            if sumL == sumR:
                 return i
-        return - 1
+        return -1
