@@ -4,19 +4,15 @@
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        nums.sort()
-        arr = []
-        maxConsec = consec = 0
-        for i, c in enumerate(nums):
-            if i == 0:
-                consec += 1
-            else:
-                if c == arr[-1] + 1:
+        nums = set(nums)
+        consec, ans = 1, 0
+        
+        for n in nums:
+            if n - 1 not in nums:
+                j = n
+                while j + 1 in nums:
                     consec += 1
-                elif c == arr[-1]:
-                    continue
-                else:
-                    consec = 1
-            arr.append(c)
-            maxConsec = max(maxConsec, consec)
-        return maxConsec
+                    j += 1
+                ans = max(ans, consec)
+                consec = 1
+        return ans
