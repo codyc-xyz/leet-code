@@ -4,3 +4,15 @@
 
 # Find and return the maximum profit you can achieve.
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0, 1
+        ans = 0
+        while r < len(prices):
+            if prices[l] < prices[r]:
+                ans += prices[r] - prices[l]
+                l = r
+            elif prices[r] < prices[l]:
+                l = r
+            r += 1
+        return ans
