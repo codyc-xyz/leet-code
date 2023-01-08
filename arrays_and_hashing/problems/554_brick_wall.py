@@ -4,3 +4,17 @@
 
 # Given the 2D array wall that contains the information about the wall, return the minimum number of crossed bricks after drawing such a vertical line.
 
+class Solution:
+    def leastBricks(self, wall: List[List[int]]) -> int:
+        
+        edges = defaultdict(int)
+        for w in wall:
+            res = 0
+            for b in w[:-1]:
+                res += b
+                edges[res] += 1
+        
+        if edges:
+            return len(wall) - max(edges.values())
+        else:
+            return len(wall)
