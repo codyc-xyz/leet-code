@@ -8,31 +8,22 @@
 # String decode(String shortUrl) Returns the original long URL for the given shortUrl. It is guaranteed that the given shortUrl was encoded by the same object.
 
 class Codec:
+    
+    def __init__(self):
+        self.base = "http://tinyurl.com/"
+        self.encoder = {}
+        self.decoder = {}
 
     def encode(self, longUrl: str) -> str:
         """Encodes a URL to a shortened URL.
         """
-        self.hm = {}
-        split = longUrl.split('/')
-        i = 0
-        for s in split:
-            if i == 0:
-                self.hm[i] = s
-            else:
-                self.hm[i] = '/' + s
-            i += 1
-        encoded = ""
-        for i in range(i):
-            encoded += str(i)
-        return encoded 
+        if longUrl not in self.encoder:
+            shortUrl = self.base + str(len(self.encoder) + 1)
+            self.encoder[longUrl] = shortUrl
+            self.decoder[shortUrl] = longUrl
+        return self.encoder[longUrl]
         
-
     def decode(self, shortUrl: str) -> str:
         """Decodes a shortened URL to its original URL.
         """
-        decoded = ""
-        i = 0
-        for c in shortUrl:
-            decoded += self.hm[i]
-            i += 1
-        return decoded
+        return self.decoder[shortUrl]
