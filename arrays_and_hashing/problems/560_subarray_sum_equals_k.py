@@ -4,14 +4,12 @@
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
+        hm = {0: 1}
+        prefix = 0
         ans = 0
-        for i, n in enumerate(nums):
-            j = i
-            res = 0
-            while j < len(nums):
-                res += nums[j]
-                if res == k:
-                    ans += 1
-                j += 1
-       
+        for n in nums:
+            prefix += n
+            if prefix - k in hm:
+                ans += hm[prefix - k]
+            hm[prefix] = 1 + hm.get(prefix, 0) 
         return ans
