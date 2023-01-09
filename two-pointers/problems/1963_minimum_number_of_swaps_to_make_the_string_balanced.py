@@ -9,3 +9,22 @@
 
 # Return the minimum number of swaps to make s balanced.
 
+class Solution:
+    def minSwaps(self, s: str) -> int:
+        l, r = 0, len(s) - 1
+        swaps = opens = closes = 0
+        while l < r:
+            if s[l] == '[':
+                opens += 1
+            else:
+                closes += 1
+            if s[r] != '[':
+                while r > l and s[r] != '[':
+                    r -= 1
+            if closes > opens:
+                swaps += 1
+                r -= 1
+                opens += 1
+                closes -= 1
+            l += 1
+        return swaps
