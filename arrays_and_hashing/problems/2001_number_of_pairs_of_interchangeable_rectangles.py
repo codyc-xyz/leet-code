@@ -4,3 +4,14 @@
 
 # Return the number of pairs of interchangeable rectangles in rectangles.
 
+class Solution:
+    def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+        count = defaultdict(int)
+        ans = 0
+        for r in rectangles:
+            w,h = r[0], r[1]
+            val = w / h
+            if count[val]:
+                ans += count[val]
+            count[val] += 1
+        return ans
