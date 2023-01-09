@@ -13,16 +13,12 @@ class Solution:
         
         prefix1, prefix2 = [0], [0]
         
-        for i in range(2):
+        for i in range(1):
             j = 0
-            if i == 0:
-                while j < len(grid[i]):
-                    prefix1.append(prefix1[-1] + grid[i][j])
-                    j += 1
-            else:
-                while j < len(grid[i]):
-                    prefix2.append(prefix2[-1] + grid[i][j])
-                    j += 1
+            while j < len(grid[i]):
+                prefix1.append(prefix1[-1] + grid[0][j])
+                prefix2.append(prefix2[-1] + grid[1][j])
+                j += 1
        
         minScore = float("inf")
         for i in range(1, len(prefix1)):
