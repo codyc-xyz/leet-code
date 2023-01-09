@@ -8,3 +8,15 @@
 # A subarray is a contiguous part of the array.
 # An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
 
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        
+        hm = {0:0}
+        pfix = 0
+        for i, n in enumerate(nums):
+            pfix += n
+            if pfix % k not in hm:
+                hm[pfix % k] = i + 1
+            elif hm[pfix % k] < i:
+                return True
+        return False
