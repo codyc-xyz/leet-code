@@ -11,15 +11,17 @@
 class Solution:
     def countPalindromicSubsequence(self, s: str) -> int:
         subsequences = set()
+        left = set()
+        right = collections.Counter(s)
         
-        for i, c in enumerate(s):
-            j = i + 1
-            chars = set()
-            while j < len(s):
-                if s[j] == s[i]:
-                    outer = s[j]
-                    for c in chars:
-                        subsequences.add(outer + c + outer)
-                chars.add(s[j])
-                j += 1
+        for i in range(len(s)):
+            right[s[i]] -= 1
+            if right[s[i]] == 0:
+                del right[s[i]]
+                
+            for j in range(26):
+                c = chr(ord('a') + j)
+                if c in left and c in right:
+                    subsequences.add(c + s[i] + c)
+            left.add(s[i])
         return len(subsequences)
