@@ -28,3 +28,20 @@ class Solution:
             else:
                 hm[string] = 1
         return ans
+      
+    class Solution:
+      def findRepeatedDnaSequences(self, s: str) -> List[str]:
+          
+          if len(s) < 11:
+              return None
+          counter = defaultdict(int)
+          l = 0
+          sequences = set()
+          
+          for r in range(10, len(s) + 1):
+              sub = s[l:r]
+              counter[sub] += 1
+              if counter[sub] == 2:
+                  sequences.add(sub)
+              l += 1
+          return sequences
