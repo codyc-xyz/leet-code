@@ -13,3 +13,29 @@
 
 # Return a string representing the final state.
 
+class Solution:
+    def pushDominoes(self, dominoes: str) -> str:
+        stack = deque()
+        dominoes = list(dominoes)
+        for i, d in enumerate(dominoes):
+            if d != '.':
+                stack.append([i, d])
+        
+        while stack:
+            i, d = stack.popleft()
+            dominoes[i] = d
+            if d == 'L':
+                if i > 0 and dominoes[i - 1] == '.':
+                    dominoes[i - 1] = 'L'
+                    stack.append([i - 1, 'L'])
+            elif d == 'R':
+                if i + 1 < len(dominoes) and dominoes[i + 1] == '.':
+                    if i < len(dominoes) - 2 and dominoes[i + 2] == 'L':
+                        if stack:
+                            stack.popleft()
+                        continue
+                    else:
+                        dominoes[i + 1] = 'R'
+                        stack.append([i + 1, 'R'])
+        return "".join(dominoes)
+            
