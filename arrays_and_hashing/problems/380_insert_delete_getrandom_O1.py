@@ -7,3 +7,28 @@
 
 # You must implement the functions of the class such that each function works in average O(1) time complexity.
 
+class RandomizedSet:
+
+    def __init__(self):
+        self.set = set()
+        
+
+    def insert(self, val: int) -> bool:
+        if val in self.set:
+            return False
+        else:
+            self.set.add(val)
+            return True
+        
+
+    def remove(self, val: int) -> bool:
+        if val in self.set:
+            self.set.remove(val)
+            return True
+        else:
+            return False
+
+    def getRandom(self) -> int:
+        j = len(self.set)
+        i = random.randrange(0, j)
+        return list(self.set)[i]
