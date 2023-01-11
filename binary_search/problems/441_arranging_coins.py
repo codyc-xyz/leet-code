@@ -19,3 +19,16 @@ class Solution:
                 return mid
         
         return (r + l) // 2
+
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        
+        stairs = levels = 0
+        for i in range(1, n + 1):
+            stairs += i
+            levels += 1
+            
+            if stairs > n:
+                return levels - 1
+            elif stairs == n:
+                return levels
