@@ -7,3 +7,21 @@
 
 # Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.
 
+class Solution:
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        i = 0
+        pSum = []
+        for n in mat:
+            pSum.append([sum(n), i])
+            i += 1
+          
+            
+        pSum.sort(key=lambda x: (x[0], x[1]))
+        
+        ans = []
+        
+        for p in pSum:
+            ans.append(p[1])
+            if len(ans) == k:
+                break
+        return ans
