@@ -8,3 +8,19 @@ class Solution:
         
         nums.sort()
         return nums
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        
+        l, r = 0, len(nums) - 1
+        ans = deque()
+        while l <= r:
+            left = nums[l] ** 2
+            right = nums[r] ** 2
+            if left > right:
+                ans.appendleft(left)
+                l += 1
+            else:
+                ans.appendleft(right)
+                r -= 1
+        return ans
