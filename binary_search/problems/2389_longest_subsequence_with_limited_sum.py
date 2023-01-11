@@ -4,3 +4,19 @@
 
 # A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
 
+class Solution:
+    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        nums.sort()
+        ans = []
+        
+        for q in queries:
+            curr = 0
+            i = 0
+            while curr < q and i < len(nums):
+                curr += nums[i]
+                if curr > q:
+                    ans.append(i)
+                elif curr == q or i == len(nums) - 1:
+                    ans.append(i + 1)
+                i += 1
+        return ans
