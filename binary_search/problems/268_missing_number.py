@@ -8,3 +8,11 @@ class Solution:
             if i not in num:
                 return i
         return len(nums)
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        i = 0
+        while i < len(nums) and i == nums[i]:
+            i += 1
+        return i
