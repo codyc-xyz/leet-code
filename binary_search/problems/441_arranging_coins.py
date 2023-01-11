@@ -4,13 +4,18 @@
 
 class Solution:
     def arrangeCoins(self, n: int) -> int:
-        rows = 0
-        K = k = 1
-        while n > 0:
-            n -= 1
-            K -= 1
-            if K == 0:
-                k += 1
-                K = k
-                rows += 1
-        return rows
+        
+        l, r = 0, n
+        
+        while l <= r:
+            mid = (l + r) // 2
+            curr = mid * (mid + 1) // 2
+            
+            if n > curr:
+                l = mid + 1
+            elif n < curr:
+                r = mid - 1
+            else:
+                return mid
+        
+        return (r + l) // 2
