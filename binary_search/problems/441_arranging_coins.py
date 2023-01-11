@@ -2,3 +2,15 @@
 
 # Given the integer n, return the number of complete rows of the staircase you will build.
 
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        rows = 0
+        K = k = 1
+        while n > 0:
+            n -= 1
+            K -= 1
+            if K == 0:
+                k += 1
+                K = k
+                rows += 1
+        return rows
