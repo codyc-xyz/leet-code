@@ -7,3 +7,10 @@
 # Return an integer array answer where answer[0] is the number of candies in the box that Alice must exchange, and answer[1] is the number of candies in the box that Bob must exchange. 
 # If there are multiple answers, you may return any one of them. It is guaranteed that at least one answer exists.
 
+class Solution:
+    def fairCandySwap(self, aliceSizes: List[int], bobSizes: List[int]) -> List[int]:
+        diff = sum(bobSizes) - sum(aliceSizes)
+        setB = set(bobSizes)
+        for a in aliceSizes:
+            if a + diff / 2 in setB:
+                return [a, a + diff // 2]
