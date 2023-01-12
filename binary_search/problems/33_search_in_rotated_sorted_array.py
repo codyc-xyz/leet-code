@@ -7,3 +7,36 @@
 
 # You must write an algorithm with O(log n) runtime complexity.
 
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        l, r = 0, len(nums) - 1
+        if l == r:
+            if nums[l] != target:
+                return -1
+            else:
+                return l
+        
+        while l < r:
+            m = (l + r) // 2
+            
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m 
+    
+        pivot = l
+        if target >= nums[pivot] and target <= nums[len(nums) - 1]:
+            left, right = pivot, len(nums) - 1
+        else:
+            left, right = 0, pivot - 1
+        
+        while left <= right:
+            m = (left + right) // 2
+            if nums[m] > target:
+                right = m - 1
+            elif nums[m] < target:
+                left = m + 1
+            else:
+                return m
+        return -1
