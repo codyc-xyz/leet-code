@@ -9,18 +9,22 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         
-        end = max(piles) + 1
-        i = 1
-        while i < end:
+        
+        l, r = 1, max(piles)
+        
+        while l <= r:
+            m = (l + r) // 2
+            i = 0
             H = h
-            j = 0
             pile = piles.copy()
-            while j < len(pile) and H > 0:
-                pile[j] -= i
+            
+            while i < len(pile) and H > 0:
+                pile[i] -= m
+                if pile[i] <= 0:
+                    i += 1
                 H -= 1
-                if pile[j] <= 0:
-                    j += 1
-                    if j == len(pile):
-                        return i
-            i += 1
-        return -1
+            if i >= len(pile):
+                r = m - 1
+            else:
+                l = m + 1
+        return l
