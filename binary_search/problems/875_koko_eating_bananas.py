@@ -14,17 +14,11 @@ class Solution:
         
         while l <= r:
             m = (l + r) // 2
-            i = 0
             H = h
-            pile = piles.copy()
-            
-            while i < len(pile) and H > 0:
-                pile[i] -= m
-                if pile[i] <= 0:
-                    i += 1
-                H -= 1
-            if i >= len(pile):
-                r = m - 1
-            else:
+            for p in piles:
+                H -= math.ceil(p / m)
+            if H < 0:
                 l = m + 1
+            else:
+                r = m - 1
         return l
