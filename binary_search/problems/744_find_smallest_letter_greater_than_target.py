@@ -4,10 +4,8 @@
 
 class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
-        start = ord(target) + 1
-        end = ord('z') + 1
-        
-        for i in range(start, end):
-            if chr(i) in letters:
+        letter = set(letters)
+        for i in range(ord(target) + 1, ord('z') + 1):
+            if chr(i) in letter:
                 return chr(i)
         return letters[0]
