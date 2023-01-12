@@ -18,16 +18,11 @@ class Solution:
             if matrix[mid][0] > target:
                 r = mid - 1
             elif matrix[mid][0] < target:
-                l = mid
-                if matrix[mid][len(matrix[mid]) - 1] > target:
-                    break
-                elif matrix[mid][len(matrix[mid]) - 1] == target:
-                    return True
-                l += 1
+                l = mid + 1
             else:
                 return True
             
-        row = l
+        row = r
         if row < len(matrix):
             l, r = 0, len(matrix[row]) - 1
         else:
