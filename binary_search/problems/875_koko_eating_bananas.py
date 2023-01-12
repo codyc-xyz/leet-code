@@ -6,3 +6,21 @@
 
 # Return the minimum integer k such that she can eat all the bananas within h hours.
 
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        
+        end = max(piles) + 1
+        i = 1
+        while i < end:
+            H = h
+            j = 0
+            pile = piles.copy()
+            while j < len(pile) and H > 0:
+                pile[j] -= i
+                H -= 1
+                if pile[j] <= 0:
+                    j += 1
+                    if j == len(pile):
+                        return i
+            i += 1
+        return -1
