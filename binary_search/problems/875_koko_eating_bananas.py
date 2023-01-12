@@ -14,10 +14,10 @@ class Solution:
         
         while l <= r:
             m = (l + r) // 2
-            H = h
+            remainingHours = h
             for p in piles:
-                H -= math.ceil(p / m)
-            if H < 0:
+                 remainingHours -= (p+m-1) // m
+            if remainingHours < 0:
                 l = m + 1
             else:
                 r = m - 1
