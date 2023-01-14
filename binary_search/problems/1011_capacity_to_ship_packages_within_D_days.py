@@ -7,27 +7,23 @@
 
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-    
-        l, r = 0, max(weights) * len(weights)
+        maxWeight = max(weights)
+        l, r = maxWeight, maxWeight * len(weights)
         ans = 0
         while l <= r:
             capacity = m = (l + r) // 2
             time = 1
-            flag = True
             for i, w in enumerate(weights):
                 if capacity > w:
                     capacity -= w
                 elif capacity < w:
-                    if w > m:
-                        flag = False
-                        break
                     capacity = m - w
                     time += 1
                 else:
                     if i < len(weights) - 1:
                         capacity = m
                         time += 1
-            if time <= days and flag == True:
+            if time <= days:
                 ans = m
                 r = m - 1
             else:
