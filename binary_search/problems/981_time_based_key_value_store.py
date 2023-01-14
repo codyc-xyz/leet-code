@@ -25,11 +25,13 @@ class TimeMap:
         while l <= r:
             m = (l + r) // 2
             
-            if vals[m][1] <= timestamp:
+            if vals[m][1] < timestamp:
                 ans = vals[m][0]
                 l = m + 1
-            else:
+            elif vals[m][1] > timestamp:
                 r = m - 1
+            else:
+                return vals[m][0]
         return ans
             
 
