@@ -4,3 +4,15 @@
 
 # You must find a solution with a memory complexity better than O(n2).
 
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        
+        l, r = matrix[0][0], matrix[-1][-1]
+        while l < r:
+            m = (l + r) // 2
+            
+            if sum(bisect_right(row, m) for row in matrix) < k:
+                l = m + 1
+            else:
+                r = m
+        return l
