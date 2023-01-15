@@ -9,3 +9,13 @@
 
 # Return the minimum possible penalty after performing the operations.
 
+class Solution:
+    def minimumSize(self, nums: List[int], maxOperations: int) -> int:
+        l, r = 1, max(nums)
+        while l < r:
+            m = (l + r) // 2
+            if sum((n - 1) // m for n in nums) > maxOperations:
+                l = m + 1
+            else:
+                r = m
+        return l
