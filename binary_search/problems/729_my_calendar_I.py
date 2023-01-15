@@ -22,7 +22,21 @@ class MyCalendar:
         self.myCal.append([start, end])
         return True
         
-        
+class MyCalendar:
+
+    def __init__(self):
+        self.starts = []
+        self.ends = []
+
+    def book(self, start: int, end: int) -> bool:
+        s = bisect_left(self.starts, end)
+        e = bisect_right(self.ends, start)
+
+        if s != e:
+            return False
+        self.starts.insert(s, start)
+        self.ends.insert(e, end)
+        return True
 
 
 # Your MyCalendar object will be instantiated and called as such:
