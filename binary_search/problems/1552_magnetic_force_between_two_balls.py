@@ -4,3 +4,25 @@
 
 # Given the integer array position and the integer m. Return the required force.
 
+class Solution:
+    def maxDistance(self, position: List[int], m: int) -> int:
+        position.sort()
+        def validForce(mid, k):
+            prev = position[0]
+            for i in range(1, len(position)):
+                if position[i] - prev >= mid:
+                    k -= 1
+                    prev = position[i]
+            return k <= 0
+                    
+        l, r = 0, max(position)
+        ans = 0
+        while l < r:
+            mid = (l + r) // 2
+            k = m - 1
+            if validForce(mid, k):
+                ans = mid
+                l = mid + 1
+            else:
+                r = mid
+        return ans
