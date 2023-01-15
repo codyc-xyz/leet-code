@@ -15,7 +15,7 @@ class Solution:
                     prev = position[i]
             return k <= 0
                     
-        l, r = 0, max(position)
+        l, r = 0, position[-1]
         ans = 0
         while l < r:
             mid = (l + r) // 2
