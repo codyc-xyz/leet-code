@@ -5,3 +5,24 @@
 
 # Return an integer array answer, where each answer[i] is the answer to the ith query.
 
+class Solution:
+    def numSmallerByFrequency(self, queries: List[str], words: List[str]) -> List[int]:
+        ans = []
+        arr = []
+        for w in words:
+            count = 0
+            smallestChar = min(w)
+            for c in range(len(w)):
+                if w[c] == smallestChar:
+                    count += 1
+            arr.append(count)
+        arr.sort()
+        
+        for q in queries:
+            count = 0
+            smallestChar = min(q)
+            for c in range(len(q)):
+                if q[c] == smallestChar:
+                    count += 1
+            ans.append(len(arr) - bisect_right(arr, count))
+        return ans
