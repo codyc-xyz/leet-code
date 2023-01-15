@@ -19,6 +19,6 @@ class Solution:
                 if not (len(nums) - (m + 1) - 1) % 2:
                     r = m - 1
                 else:
-                    l = m + 1
+                    l = m + 2
             else:
                 return nums[m]
