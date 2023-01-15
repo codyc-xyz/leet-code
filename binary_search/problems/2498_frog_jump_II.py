@@ -9,3 +9,29 @@
 
 # Return the minimum cost of a path for the frog.
 
+class Solution:
+    def maxJump(self, stones: List[int]) -> int:
+        def jump(m):
+            ans = 0
+            prevF = stones[0]
+            for i in range(2, len(stones)):
+                if not i % 2 or i == len(stones) - 1:
+                    ans = max(ans, stones[i] - prevF)
+                    prevF = stones[i]
+            for i in range(len(stones) - 1, -1, -1):
+                if i % 2 or i == 0:
+                    ans = max(ans, prevF - stones[i])
+                    prevF = stones[i]
+            return ans
+        
+        l, r = 0, max(stones)
+        prevMax = max(stones)
+        while l < r:
+            m = (l + r) // 2
+            res = jump(m)
+            if res < prevMax:
+                r = m
+                prevMax = res
+            else:
+                l = m + 1
+        return prevMax
