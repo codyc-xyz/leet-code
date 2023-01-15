@@ -8,3 +8,23 @@
 
 # MyCalendarTwo() Initializes the calendar object.
 # boolean book(int start, int end) Returns true if the event can be added to the calendar successfully without causing a triple booking. Otherwise, return false and do not add the event to the calendar.
+
+class MyCalendarTwo:
+
+    def __init__(self):
+        self.single = []
+        self.double = []
+        
+
+    def book(self, start: int, end: int) -> bool:
+        
+        if self.double:
+            for s, e in self.double:
+                if e > start and s < end:
+                    return False
+        if self.single:
+            for s, e in self.single:
+                if e > start and s < end:
+                    self.double.append([max(s, start), min(e, end)])
+        self.single.append([start, end])
+        return True
