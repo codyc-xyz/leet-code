@@ -5,3 +5,22 @@
 # You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
 
 # You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+
+class Solution:
+    def findPeakGrid(self, mat: List[List[int]]) -> List[int]:
+        l, r = 0, len(mat[0]) - 1
+        
+        while l <= r:
+            m = (l + r) // 2
+            colMax = 0
+            for i in range(len(mat)):
+                if mat[i][m] > colMax:
+                    colMax = mat[i][m]
+                    idx = [i, m]
+            curr = mat[idx[0]][idx[1]]
+            if idx[1] > 0 and mat[idx[0]][idx[1]- 1] >= curr:
+                r = m - 1
+            elif idx[1] < len(mat[0]) - 1 and mat[idx[0]][idx[1] + 1] >= curr:
+                l = m + 1
+            else:
+                return idx
