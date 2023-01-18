@@ -18,15 +18,22 @@ class TopVotedCandidate:
                 winning = persons[i]
                 count = votes[persons[i]]
                 self.time.append([times[i], winning])
+        self.time_list = [t[0] for t in self.time]
         
     def q(self, t: int) -> int:
-        for i in range(len(self.time)):
-            if self.time[i][0] == t:
-                return self.time[i][1]
-            elif self.time[i][0] > t:
-                return self.time[i - 1][1]
-            elif i == len(self.time) - 1:
-                return self.time[i][1]
+        l, r = 0, 10**9
+        while l <= r:
+            m = (l + r) // 2
+            curr = bisect_left(self.time_list, t)
+            if curr == len(self.time):
+                return self.time[curr - 1][1]
+            if self.time[curr][0] < t:
+                l = m + 1
+            elif self.time[curr][0] > t:
+                r = m - 1
+            else:
+                return self.time[curr][1]
+        return self.time[curr - 1][1]
 
 
 # Your TopVotedCandidate object will be instantiated and called as such:
