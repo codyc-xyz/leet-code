@@ -21,18 +21,13 @@ class TopVotedCandidate:
         self.time_list = [t[0] for t in self.time]
         
     def q(self, t: int) -> int:
-        l, r = 0, 10**9
-        while l <= r:
-            m = (l + r) // 2
-            curr = bisect_left(self.time_list, t)
-            if curr == len(self.time):
-                return self.time[curr - 1][1]
-            if self.time[curr][0] < t:
-                l = m + 1
-            elif self.time[curr][0] > t:
-                r = m - 1
-            else:
-                return self.time[curr][1]
+        curr = bisect_left(self.time_list, t)
+        if curr == len(self.time):
+            return self.time[curr - 1][1]
+        elif self.time[curr][0] == t:
+            return self.time[curr][1]
+        else:
+            return self.time[curr - 1][1]
         return self.time[curr - 1][1]
 
 
