@@ -22,13 +22,10 @@ class TopVotedCandidate:
         
     def q(self, t: int) -> int:
         curr = bisect_left(self.time_list, t)
-        if curr == len(self.time):
-            return self.time[curr - 1][1]
-        elif self.time[curr][0] == t:
+        if curr < len(self.time) and self.time[curr][0] == t:
             return self.time[curr][1]
         else:
             return self.time[curr - 1][1]
-        return self.time[curr - 1][1]
 
 
 # Your TopVotedCandidate object will be instantiated and called as such:
