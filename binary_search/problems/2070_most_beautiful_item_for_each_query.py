@@ -15,20 +15,12 @@ class Solution:
             if i[1] > maxNum:
                 maxNum = i[1]
             maxNums.append(maxNum)
-            
+        
+        price_list = [i[0] for i in items]
         for q in queries:
-            l, r = 0, len(items) - 1
-            while l <= r:
-                m = (l + r) // 2
-                if q < items[m][0]:
-                    r = m - 1
-                else:
-                    while m + 1 < len(items) and items[m + 1][0] <= q:
-                        m += 1
-                    r = m
-                    break
-            if r >= 0:
-                ans.append(maxNums[r])
+            idx = bisect_right(price_list, q)
+            if 0 < idx <= len(items):
+                ans.append(maxNums[idx - 1])
             else:
                 ans.append(0)
         return ans
