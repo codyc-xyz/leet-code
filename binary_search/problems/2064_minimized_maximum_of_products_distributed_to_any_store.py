@@ -6,3 +6,21 @@
 
 # Return the minimum possible x.
 
+class Solution:
+    def minimizedMaximum(self, n: int, quantities: List[int]) -> int:
+        
+        def minMax(m):
+            stores = n
+            for q in quantities:
+                stores -= math.ceil(q / m)
+            return stores
+                
+        l, r = 1, max(quantities)
+        while l < r:
+            m = (l + r) // 2
+            
+            if minMax(m) < 0:
+                l = m + 1
+            else:
+                r = m
+        return l
