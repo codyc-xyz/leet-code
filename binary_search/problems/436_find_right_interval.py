@@ -4,3 +4,18 @@
 
 # Return an array of right interval indices for each interval i. If no right interval exists for interval i, then put -1 at index i.
 
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        ans = [-1] * len(intervals)
+        for i in range(len(intervals)):
+            intervals[i].append(i)
+        intervals.sort(key=lambda x: (x[0], x[1]))
+                
+        for i in range(1, len(intervals)):
+            j = i
+            while j < len(intervals):
+                if intervals[i - 1][1] <= intervals[j][0]:
+                    ans[intervals[i - 1][2]] = intervals[j][2]
+                    break
+                j += 1
+        return ans
