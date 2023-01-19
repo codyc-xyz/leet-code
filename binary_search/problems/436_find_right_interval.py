@@ -19,3 +19,22 @@ class Solution:
                     break
                 j += 1
         return ans
+
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        ans = [-1] * len(intervals)
+        for i in range(len(intervals)):
+            intervals[i].append(i)
+        intervals.sort(key=lambda x: (x[0], x[1]))
+                
+        for i in intervals:
+            l, r = 0, len(intervals)
+            while l < r:
+                m = (l + r) // 2
+                if i[1] > intervals[m][0]:
+                    l = m + 1
+                else:
+                    r = m
+            if l != len(intervals):
+                ans[i[2]] = intervals[l][2]
+        return ans
