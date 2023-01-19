@@ -26,6 +26,39 @@ class TopVotedCandidate:
             return self.time[curr][1]
         else:
             return self.time[curr - 1][1]
+    
+
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
+        votes = defaultdict(int)
+        self.res = []
+        winner, mostVotes = None, 0
+        for i in range(len(times)):
+            votes[persons[i]] += 1
+            
+            if votes[persons[i]] >= mostVotes:
+                winner = persons[i]
+                mostVotes = votes[persons[i]]
+            
+            self.res.append([times[i], winner])
+            
+        self.time_list = [r[0] for r in self.res]
+            
+    def q(self, t: int) -> int:
+        
+        l, r = 0, len(self.time_list) - 1
+        while l < r:
+            m = (l + r) // 2
+            
+            if self.time_list[m] < t:
+                l = m + 1
+            else:
+                r = m
+        if self.time_list[l] > t:
+            return self.res[l - 1][1]
+        else:
+            return self.res[l][1]
 
 
 # Your TopVotedCandidate object will be instantiated and called as such:
