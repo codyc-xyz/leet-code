@@ -8,6 +8,10 @@
 
 class Solution:
     def chalkReplacer(self, chalk: List[int], k: int) -> int:
+          
+        sumChalk = sum(chalk)
+        while k - sumChalk > -1:
+            k -= sumChalk
         
         i = 0
         while True:
@@ -15,6 +19,4 @@ class Solution:
             if k < 0:
                 break
             i += 1
-            if i == len(chalk):
-                i = 0
         return i
