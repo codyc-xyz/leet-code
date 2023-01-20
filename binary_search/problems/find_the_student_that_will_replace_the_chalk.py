@@ -6,3 +6,15 @@
 
 # Return the index of the student that will replace the chalk.
 
+class Solution:
+    def chalkReplacer(self, chalk: List[int], k: int) -> int:
+        
+        i = 0
+        while True:
+            k -= chalk[i]
+            if k < 0:
+                break
+            i += 1
+            if i == len(chalk):
+                i = 0
+        return i
