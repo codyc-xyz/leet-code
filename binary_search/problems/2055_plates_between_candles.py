@@ -6,3 +6,41 @@
 
 # Return an integer array answer where answer[i] is the answer to the ith query.
 
+class Solution:
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        pSum = []
+        candles = []
+        nearestLCandle = []
+        nearestRCandle = deque()
+        ans = []
+        count = 0
+        for i, c in enumerate(s):
+            if c == '*':
+                count += 1
+            else:
+                candles.append(i)
+            if candles:
+                nearestLCandle.append(candles[-1])
+            else:
+                nearestLCandle.append(None)
+            pSum.append(count)
+        j = 0
+        for i in range(len(s)):
+            
+            if j < len(candles) and i < candles[j]:
+                nearestRCandle.append(candles[j])
+            elif j < len(candles) and i == candles[j]:
+                nearestRCandle.append(candles[j])
+                j += 1
+            else:
+                nearestRCandle.append(None)
+      
+        for q in queries:
+            l, r = q[0], q[1]
+            
+            left, right = nearestRCandle[l], nearestLCandle[r]
+            if left != None and right != None and right > left:
+                ans.append(pSum[right] - pSum[left])
+            else:
+                ans.append(0)
+        return ans
