@@ -44,3 +44,27 @@ class Solution:
             else:
                 ans.append(0)
         return ans
+
+class Solution:
+    def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
+        pSum = []
+        candles = []
+        ans = []
+        count = 0
+        for idx, i in enumerate(s):
+            if i == '*':
+                count += 1
+            else:
+                candles.append(idx)
+            pSum.append(count)
+        for q in queries:
+            
+            l, r = q[0], q[1]
+            
+            left = bisect_left(candles, l)
+            right = bisect_right(candles, r) - 1
+            if left < right:
+                ans.append(pSum[candles[right]] - pSum[candles[left]])
+            else:
+                ans.append(0)
+        return ans
