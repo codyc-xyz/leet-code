@@ -33,3 +33,13 @@ class Solution:
             else:
                 r = m
         return l
+
+class Solution:
+    def chalkReplacer(self, chalk: List[int], k: int) -> int:
+        
+        res = k % sum(chalk)
+        
+        for i, c in enumerate(chalk):
+            res -= c
+            if res < 0:
+                return i
