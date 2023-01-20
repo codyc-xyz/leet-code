@@ -8,15 +8,28 @@
 
 class Solution:
     def chalkReplacer(self, chalk: List[int], k: int) -> int:
-          
-        sumChalk = sum(chalk)
-        while k - sumChalk > -1:
-            k -= sumChalk
         
-        i = 0
-        while True:
-            k -= chalk[i]
-            if k < 0:
-                break
-            i += 1
-        return i
+        pSum = [chalk[0]]
+        
+        for i in range(1, len(chalk)):
+            pSum.append(pSum[-1] + chalk[i])
+     
+        l, r = 0, 10**9
+        while l < r:
+            m = (l + r) // 2
+            if  pSum[-1] * m <= k:
+                multi = m
+                l = m + 1
+            else:
+                r = m
+        res = pSum[-1] * multi
+
+        l, r = 0, len(chalk) - 1
+        while l < r:
+            m = (l + r) // 2
+            
+            if res + pSum[m] <= k:
+                l = m + 1
+            else:
+                r = m
+        return l
