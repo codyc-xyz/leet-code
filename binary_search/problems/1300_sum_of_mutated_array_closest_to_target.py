@@ -28,7 +28,6 @@ class Solution:
                 diff = abs((curr - target) / n)
             else:
                 diff = abs(curr - target)
-            print(diff, res)
             if diff < res:
                 res = diff
                 ans = m
