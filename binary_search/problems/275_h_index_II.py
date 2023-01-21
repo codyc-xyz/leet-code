@@ -6,3 +6,23 @@
 
 # You must write an algorithm that runs in logarithmic time.
 
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        
+        def isValid(m):
+            h = bisect_left(citations, m)
+            if len(citations) - h >= m:
+                return True
+            return False
+        
+
+        l, r = 0, citations[-1]
+        
+        while l <= r:
+            m = (l + r) // 2
+            if isValid(m):
+                ans = m
+                l = m + 1
+            else:
+                r = m - 1
+        return ans
