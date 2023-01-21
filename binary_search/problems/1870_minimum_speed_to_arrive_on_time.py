@@ -7,3 +7,28 @@
 
 # Tests are generated such that the answer will not exceed 107 and hour will have at most two digits after the decimal point.
 
+class Solution:
+    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        if len(dist) - 1 > hour:
+            return -1
+        l, r = 1, 10**7
+        best_time = hour
+        ans = -1
+        while l <= r:
+            m = (l + r) // 2
+            res = 0
+            for i, d in enumerate(dist):
+                if i != len(dist) - 1:
+                    res += math.ceil(d / m)
+                else:
+                    res += d / m
+            diff = abs(res - hour)
+            if diff < best_time and res <= hour:
+                best_time = diff
+                ans = m
+            if res - hour <= 0:
+                r = m - 1
+            else:
+                l = m + 1
+
+        return int(ans)
