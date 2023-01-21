@@ -12,9 +12,7 @@ class Solution:
         
         def allocateCandies(m, K):
             for c in candies:                
-                while c >= m:
-                    c -= m
-                    K -= 1
+                K -= c // m
             return K <= 0
         
         l, r = 1, max(candies)
@@ -27,5 +25,4 @@ class Solution:
                 l = m + 1
             else:
                 r = m - 1
-                
         return ans
