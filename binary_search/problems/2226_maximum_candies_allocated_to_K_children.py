@@ -4,3 +4,28 @@
 
 # Return the maximum number of candies each child can get.
 
+class Solution:
+    def maximumCandies(self, candies: List[int], k: int) -> int:
+        
+        if sum(candies) < k:
+            return 0
+        
+        def allocateCandies(m, K):
+            for c in candies:                
+                while c >= m:
+                    c -= m
+                    K -= 1
+            return K <= 0
+        
+        l, r = 1, max(candies)
+        ans = 0
+        while l <= r:
+            m = (l + r) // 2
+            K = k
+            if allocateCandies(m, K):
+                ans = m
+                l = m + 1
+            else:
+                r = m - 1
+                
+        return ans
