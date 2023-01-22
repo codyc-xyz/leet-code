@@ -32,3 +32,24 @@ class Solution:
                 r = m - 1
             
         return ans
+
+class Solution:
+    def maxValue(self, n: int, index: int, maxSum: int) -> int:
+        distributable = maxSum - n
+        def validArr(m):
+            right = max(m - index, 0)
+            res = (m + right) * (m - right + 1) / 2
+            left = max(m - ((n - 1) - index), 0)
+            res += (m + left) * (m - left + 1) / 2
+            return res - m <= distributable
+        
+        l, r = 1, maxSum
+        while l <= r:
+            m = (l + r) // 2
+                
+            if validArr(m):
+                l = m + 1
+            else:
+                r = m - 1
+
+        return l
