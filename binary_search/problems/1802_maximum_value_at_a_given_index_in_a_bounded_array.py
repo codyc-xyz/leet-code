@@ -10,3 +10,25 @@
 
 # Note that abs(x) equals x if x >= 0, and -x otherwise.
 
+class Solution:
+    def maxValue(self, n: int, index: int, maxSum: int) -> int:
+        
+        def validArr(m):
+            count = 0
+            for i in range(n):
+                count += max(1, m - (abs(index - i)))
+            return count <= maxSum
+            
+        
+        l, r = 1, maxSum
+        ans = 0
+        while l <= r:
+            m = (l + r) // 2
+                
+            if validArr(m):
+                ans = m
+                l = m + 1
+            else:
+                r = m - 1
+            
+        return ans
