@@ -12,8 +12,8 @@ class Solution:
             for t in time:
                 res += m // t
             return res >= totalTrips
-    
-        l, r = 0, max(time) * totalTrips
+        
+        l, r = 0, min(time) * totalTrips
         while l <= r:
             m = (l + r) // 2
             
