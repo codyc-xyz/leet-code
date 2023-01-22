@@ -10,3 +10,37 @@ class Solution:
     def search(self, nums: List[int], target: int) -> bool:
         
         return target in nums
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        
+        def binSearch(l, r):
+            while l <= r:
+                m = (l + r) // 2
+                if m >= len(nums):
+                    return False
+                if nums[m] < target:
+                    l = m + 1
+                elif nums[m] > target:
+                    r = m - 1
+                else:
+                    return True
+            return False
+        
+        l, r = 0, len(nums) - 1
+        
+        while l < r:
+            while l < r and nums[l] == nums[l + 1]:
+                l += 1
+            while l < r and nums[r] == nums[r - 1]:
+                r -= 1
+            m = (l + r) // 2
+            if nums[m] >= nums[0]:
+                l = m + 1
+            else:
+                r = m
+        pivot = l
+        if target >= nums[0]:
+            return binSearch(0, pivot)
+        else:
+            return binSearch(pivot, len(nums) - 1)
