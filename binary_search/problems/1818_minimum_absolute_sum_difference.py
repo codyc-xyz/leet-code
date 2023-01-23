@@ -10,3 +10,23 @@
 # x if x >= 0, or
 # -x if x < 0.
 
+class Solution:
+    def minAbsoluteSumDiff(self, nums1: List[int], nums2: List[int]) -> int:
+        diff = []
+        mod = 10**9 + 7
+        res = float("inf")
+        for i in range(len(nums1)):
+            diff.append(abs(nums1[i] - nums2[i]))
+        
+        total = sum(diff)
+        nums1.sort()
+        for i in range(len(nums2)):
+            idx = bisect_left(nums1, nums2[i])
+        
+            if idx > 0:
+                res = min(res, total - diff[i] + abs(nums2[i] - nums1[idx - 1]))
+                          
+            if idx < len(nums1):
+                res = min(res, total - diff[i] + abs(nums2[i] - nums1[idx]))
+            
+        return res % mod
