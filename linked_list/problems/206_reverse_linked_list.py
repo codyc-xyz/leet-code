@@ -17,3 +17,13 @@ class Solution:
             dummy.next = ListNode(dq[i])
             dummy = dummy.next
         return ans.next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        l, r = None, head
+        while r:
+            nxt = r.next
+            r.next = l
+            l = r
+            r = nxt
+        return l
