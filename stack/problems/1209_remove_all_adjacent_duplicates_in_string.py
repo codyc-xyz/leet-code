@@ -6,17 +6,18 @@
 
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
-        stack = deque()
-        ans = ""
+        stack = []
         for c in s:
             if stack and c == stack[-1][0]:
-                stack.append([c, stack[-1][1] + 1])
+                if stack[-1][1] + 1 == k:
+                    K = k - 1
+                    while K:
+                        stack.pop()
+                        K -= 1
+                    continue
+                else:
+                    stack.append([c, stack[-1][1] + 1])
             else:
                 stack.append([c, 1])
-            if stack[-1][1] == k:
-                for i in range(k):
-                    stack.pop()
-            
-        while stack:
-            ans += stack.popleft()[0]
-        return ans
+        ans = [stack[i][0] for i in range(len(stack))]
+        return "".join(ans)
