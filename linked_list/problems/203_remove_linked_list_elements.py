@@ -21,3 +21,18 @@ class Solution:
             dummy.next = ListNode(v)
             dummy = dummy.next
         return ans.next
+
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        
+        slow, fast = ListNode(), head
+        ans = slow
+        while fast:
+            if fast.val == val:
+                while fast and fast.val == val:
+                    fast = fast.next
+            slow.next = fast
+            if fast:
+                fast = fast.next
+            slow = slow.next
+        return ans.next
