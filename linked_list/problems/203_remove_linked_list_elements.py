@@ -36,3 +36,16 @@ class Solution:
                 fast = fast.next
             slow = slow.next
         return ans.next
+
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        
+        slow, fast = ListNode(next=head), head
+        ans = slow
+        while fast:
+            if fast.val == val:
+                slow.next = fast.next
+            else:
+                slow = fast
+            fast = fast.next
+        return ans.next
