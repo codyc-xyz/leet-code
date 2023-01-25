@@ -12,27 +12,22 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         
-        arr = []
+        ans = dummy = ListNode()
         l1, l2 = list1, list2
         while l1 and l2:
-            if l1.val < l2.val:
-                arr.append(l1.val)
+            if l1 and l1.val < l2.val:
+                dummy.next = ListNode(l1.val)
                 l1 = l1.next
             else:
-                arr.append(l2.val)
+                dummy.next = ListNode(l2.val)
                 l2 = l2.next
-        
+            dummy = dummy.next
         while l1:
-            arr.append(l1.val)
+            dummy.next = ListNode(l1.val)
             l1 = l1.next
-        
+            dummy = dummy.next
         while l2:
-            arr.append(l2.val)
+            dummy.next = ListNode(l2.val)
             l2 = l2.next
-            
-        ans = dummy = ListNode()
-        i = 0
-        for i in range(len(arr)):
-            dummy.next = ListNode(arr[i])
             dummy = dummy.next
         return ans.next
