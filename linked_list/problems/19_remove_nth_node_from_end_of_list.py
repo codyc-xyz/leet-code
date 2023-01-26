@@ -20,3 +20,18 @@ class Solution:
             slow = slow.next
         slow.next = slow.next.next
         return head
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        l, r = ListNode(next=head), head
+        dummy = l
+        while r and n > 0:
+            r = r.next
+            n -= 1
+        
+        while r:
+            r = r.next
+            l = l.next
+        l.next = l.next.next
+        
+        return dummy.next
