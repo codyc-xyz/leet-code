@@ -13,3 +13,76 @@
 # void addAtIndex(int index, int val) Add a node of value val before the indexth node in the linked list. If index equals the length of the linked list, the node will be appended to the end of the linked list. 
 # If index is greater than the length, the node will not be inserted.
 # void deleteAtIndex(int index) Delete the indexth node in the linked list, if the index is valid.
+
+class MyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def get(self, index: int) -> int:
+        curr = self.head
+        i = 0
+        while curr:
+            if i == index:
+                return curr.val
+            curr = curr.next
+            i += 1
+        return -1
+
+    def addAtHead(self, val: int) -> None:
+        new_node = ListNode(val, next=self.head)
+        if self.tail is None:
+            self.tail = new_node
+        self.head = new_node
+
+    def addAtTail(self, val: int) -> None:
+        new_node = ListNode(val)
+        if self.tail is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index < 0:
+            return
+        if index == 0:
+            self.addAtHead(val)
+            return
+        curr = self.head
+        i = 0
+        while curr:
+            if i == index-1:
+                new_node = ListNode(val, next=curr.next)
+                curr.next = new_node
+                if new_node.next is None:
+                    self.tail = new_node
+                break
+            curr = curr.next
+            i += 1
+        if i < index-1:
+            return -1
+
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or self.head is None:
+            return
+        if index == 0:
+            self.head = self.head.next
+            if self.head is None:
+                self.tail = None
+            return
+        curr = self.head
+        i = 0
+        while curr:
+            if i == index-1:
+                if curr.next is None:
+                    return
+                curr.next = curr.next.next
+                if curr.next is None:
+                    self.tail = curr
+                break
+            curr = curr.next
+            i += 1
+        if i < index-1:
+            return -1
