@@ -23,3 +23,38 @@ class Solution:
             curr = curr.next
             i += 1
         return head
+
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        if not head or not head.next:
+            return head
+        left = slow = head
+        fast = head.next
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            
+        tmp = slow.next
+        slow.next = None
+        right = tmp
+        
+        left = self.sortList(left)
+        right = self.sortList(right)
+        return self.merge(left, right)
+        
+    def merge(self, left, right):
+        dummy = tail = ListNode()
+        while left and right:
+            if left.val < right.val:
+                tail.next = left
+                left = left.next
+            else:
+                tail.next = right
+                right = right.next
+            tail = tail.next
+        if left:
+            tail.next = left
+        if right:
+            tail.next = right
+        return dummy.next
