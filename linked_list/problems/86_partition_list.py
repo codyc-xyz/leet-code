@@ -25,3 +25,21 @@ class Solution:
                 dummy = dummy.next
             curr = curr.next
         return ans.next
+
+class Solution:
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        
+        curr = head
+        dummyL = left = ListNode()
+        dummyR = right = ListNode()
+        while curr:
+            if curr.val < x:
+                left.next = ListNode(curr.val)
+                left = left.next
+            else:
+                right.next = ListNode(curr.val)
+                right = right.next
+            curr = curr.next
+        left.next = dummyR.next
+        
+        return dummyL.next
