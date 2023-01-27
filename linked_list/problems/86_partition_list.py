@@ -34,12 +34,12 @@ class Solution:
         dummyR = right = ListNode()
         while curr:
             if curr.val < x:
-                left.next = ListNode(curr.val)
+                left.next = curr
                 left = left.next
             else:
-                right.next = ListNode(curr.val)
+                right.next = curr
                 right = right.next
             curr = curr.next
         left.next = dummyR.next
-        
+        right.next = None
         return dummyL.next
