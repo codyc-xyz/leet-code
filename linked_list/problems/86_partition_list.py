@@ -10,21 +10,18 @@
 class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         
-        arr = []
         curr = head
+        dummy = ans = ListNode()
         while curr:
             if curr.val < x:
-                arr.append(curr.val)
+                dummy.next = ListNode(curr.val)
+                dummy = dummy.next
             curr = curr.next
         curr = head
         
         while curr:
             if curr.val >= x:
-                arr.append(curr.val)
+                dummy.next = ListNode(curr.val)
+                dummy = dummy.next
             curr = curr.next
-        dummy = ans = ListNode()
-        
-        for i in range(len(arr)):
-            dummy.next = ListNode(arr[i])
-            dummy = dummy.next
         return ans.next
