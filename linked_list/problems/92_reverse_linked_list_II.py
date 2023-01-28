@@ -7,31 +7,20 @@
 #         self.next = next
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-        ans = front = ListNode()
+        dummy = prevL = ListNode(next=head)
         curr = head
-        dummy = rev = ListNode()
-        length = 1
-        while curr and length <= right:
-            if right >= length >= left:
-                rev.next = curr
-                rev = rev.next
-            elif length < left:
-                front.next = curr
-                front = front.next
-            length += 1
-            curr = curr.next
-        tail = curr
-        rev.next = None
         
-        res = curr = dummy.next
+        for i in range(left - 1):
+            prevL, curr = curr, curr.next
+            
         prev = None
-        while curr:
+        for i in range(right - left + 1):
             nxt = curr.next
             curr.next = prev
             prev = curr
             curr = nxt
             
-        front.next = prev
-        res.next = tail
+        prevL.next.next = curr
+        prevL.next = prev
         
-        return ans.next
+        return dummy.next
