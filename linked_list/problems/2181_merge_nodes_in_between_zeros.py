@@ -4,3 +4,23 @@
 
 # Return the head of the modified linked list.
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        ans = dummy = ListNode()
+        curr = head.next
+        num = 0
+        while curr:
+            if curr.val != 0:
+                num += curr.val
+            else:
+                dummy.next = ListNode(num)
+                dummy = dummy.next
+                num = 0
+            curr = curr.next
+        return ans.next
