@@ -10,29 +10,22 @@ class Solution:
         
         if not head:
             return head
-        length = 0
-        arr = []
+        
         curr = head
-        while curr:
-            arr.append(curr.val)
+        length = 1
+        while curr and curr.next:
             curr = curr.next
             length += 1
+        tail = curr
         
         k = k % length
         if not k:
             return head
         
-        start = length - k
         curr = head
-        while start < length:
-            curr.val = arr[start]
-            start += 1
+        for i in range(length - k - 1):
             curr = curr.next
-            
-        i = 0
-        while curr:
-            curr.val = arr[i]
-            curr = curr.next
-            i += 1
-            
-        return head
+        ans = curr.next
+        curr.next = None
+        tail.next = head
+        return ans
