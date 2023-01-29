@@ -6,3 +6,44 @@
 
 # Return an array of the k parts.
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+        arr = []
+        curr = head
+        length = 0
+        while curr:
+            curr = curr.next
+            length += 1
+        
+        carry = length - k * (length // k) 
+        res = length // k
+        curr = head
+        R = res
+        while curr:
+            if curr and R > 0:
+                arr.append(curr)
+                while curr and R > 1:
+                    curr = curr.next
+                    R -= 1
+                if curr and carry:
+                    curr = curr.next
+                    carry -= 1
+            elif curr and carry:
+                arr.append(curr)
+                carry -= 1
+            if curr:
+                nxt = curr.next
+                curr.next = None
+                curr = nxt
+                R = res
+        
+        n = len(arr)
+        while n < k:
+            arr.append(curr)
+            n += 1
+        return arr
