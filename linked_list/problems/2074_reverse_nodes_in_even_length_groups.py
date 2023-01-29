@@ -10,3 +10,33 @@
 
 # Reverse the nodes in each group with an even length, and return the head of the modified linked list.
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseEvenLengthGroups(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        curr = head
+        arr = [[]]
+        i = 0
+        while curr:
+            if len(arr[i]) > i:
+                arr.append([])
+                i += 1
+            arr[i].append(curr.val)
+            curr = curr.next
+         
+        ans = dummy = ListNode()
+        for i in range(len(arr)):
+            if not len(arr[i]) % 2:
+                for n in arr[i][::-1]:
+                    dummy.next = ListNode(n)
+                    dummy = dummy.next
+            else:
+                for n in arr[i]:
+                    dummy.next = ListNode(n)
+                    dummy = dummy.next
+                
+        return ans.next
