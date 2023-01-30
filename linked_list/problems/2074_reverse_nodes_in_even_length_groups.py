@@ -40,3 +40,40 @@ class Solution:
                     dummy = dummy.next
                 
         return ans.next
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseEvenLengthGroups(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        groupPrev = dummy = ListNode(next=head)
+        k = 1
+        while True:
+            kth, length = self.getKth(groupPrev, k)
+            if not length:
+                break
+            groupNext = kth.next
+            prev, curr = kth.next, groupPrev.next
+            if not length % 2:
+                while curr != groupNext:
+                    nxt = curr.next
+                    curr.next = prev
+                    prev = curr
+                    curr = nxt
+            
+                nxt = groupPrev.next
+                groupPrev.next = kth
+                groupPrev = nxt
+            else:
+                groupPrev = kth
+            k += 1
+        return dummy.next
+    def getKth(self, curr, k):
+        length = 0
+        while curr.next and length < k:
+            curr = curr.next
+            length += 1
+        return [curr, length]
