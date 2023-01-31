@@ -6,3 +6,37 @@
 # void visit(string url) Visits url from the current page. It clears up all the forward history.
 # string back(int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will return only x steps. Return the current url after moving back in history at most steps.
 # string forward(int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, you will forward only x steps. Return the current url after forwarding in history at most steps.
+
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.dummy = self.list = ListNode(homepage)
+    
+    def visit(self, url: str) -> None:
+        self.list.next = ListNode(url)
+        self.list = self.list.next
+        
+    def back(self, steps: int) -> str:
+        curr = self.dummy
+        length = 1
+        while curr:
+            if curr == self.list:
+                break
+            curr = curr.next
+            length += 1
+
+        move = length - steps - 1
+        curr = self.dummy
+        while curr.next and move > 0:
+            move -= 1
+            curr = curr.next
+        self.list = curr
+        return self.list.val
+
+    def forward(self, steps: int) -> str:
+        curr = self.list
+        while curr.next and steps > 0:
+            curr = curr.next
+            steps -= 1
+        self.list = curr
+        return self.list.val
