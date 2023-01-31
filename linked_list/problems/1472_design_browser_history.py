@@ -7,36 +7,30 @@
 # string back(int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will return only x steps. Return the current url after moving back in history at most steps.
 # string forward(int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, you will forward only x steps. Return the current url after forwarding in history at most steps.
 
+class ListNode:
+
+    def __init__(self, val, prev=None, next=None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+
 class BrowserHistory:
 
     def __init__(self, homepage: str):
-        self.dummy = self.list = ListNode(homepage)
+        self.list = ListNode(homepage)
     
     def visit(self, url: str) -> None:
-        self.list.next = ListNode(url)
+        self.list.next = ListNode(url, self.list)
         self.list = self.list.next
         
     def back(self, steps: int) -> str:
-        curr = self.dummy
-        length = 1
-        while curr:
-            if curr == self.list:
-                break
-            curr = curr.next
-            length += 1
-
-        move = length - steps - 1
-        curr = self.dummy
-        while curr.next and move > 0:
-            move -= 1
-            curr = curr.next
-        self.list = curr
+        while self.list.prev and steps > 0:
+            self.list = self.list.prev
+            steps -= 1
         return self.list.val
 
     def forward(self, steps: int) -> str:
-        curr = self.list
-        while curr.next and steps > 0:
-            curr = curr.next
+        while self.list.next and steps > 0:
+            self.list = self.list.next
             steps -= 1
-        self.list = curr
         return self.list.val
