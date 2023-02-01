@@ -15,3 +15,62 @@
 
 # You must solve the problem without using the built-in queue data structure in your programming language. 
 
+class ListNode:
+
+    def __init__(self, val=0, next=None, prev=None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+class MyCircularQueue:
+
+    def __init__(self, k: int):
+        self.maxSize = k
+        self.size = 0
+        self.head = ListNode()
+        self.tail = ListNode(prev=self.head)
+
+    def enQueue(self, value: int) -> bool:
+        if self.size >= self.maxSize:
+            return False
+        curr = ListNode(value, self.tail, self.tail.prev)
+        self.tail.prev.next = curr
+        self.tail.prev = curr
+        self.size += 1
+        return True
+
+    def deQueue(self) -> bool:
+        if self.size == 0:
+            return False
+        self.head.next = self.head.next.next
+        self.head.next.prev = self.head
+        self.size -= 1
+        return True
+
+    def Front(self) -> int:
+        if self.head.next != self.tail:
+            return self.head.next.val
+        else:
+            return -1
+
+    def Rear(self) -> int:
+        if self.tail.prev != self.head:
+            return self.tail.prev.val
+        else:
+            return -1
+
+    def isEmpty(self) -> bool:
+        return self.size == 0
+
+    def isFull(self) -> bool:
+        return self.size == self.maxSize
+
+
+# Your MyCircularQueue object will be instantiated and called as such:
+# obj = MyCircularQueue(k)
+# param_1 = obj.enQueue(value)
+# param_2 = obj.deQueue()
+# param_3 = obj.Front()
+# param_4 = obj.Rear()
+# param_5 = obj.isEmpty()
+# param_6 = obj.isFull()
