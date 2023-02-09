@@ -10,31 +10,32 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         
-        l, r = 0, len(matrix) - 1
+        row = self.findRow(matrix, target) 
+        return self.findTarget(matrix[row], target)
+      
         
+    def findTarget(self, row, target):
+        l, r = 0, len(row) - 1
         while l <= r:
-            mid = (l + r) // 2
-            
-            if matrix[mid][0] > target:
-                r = mid - 1
-            elif matrix[mid][0] < target:
-                l = mid + 1
-            else:
-                return True
-            
-        row = r
-        if row < len(matrix):
-            l, r = 0, len(matrix[row]) - 1
-        else:
-            return False
-        
-        while l <= r:
-            mid = (l + r) // 2
-            
-            if matrix[row][mid] > target:
-                r = mid - 1
-            elif matrix[row][mid] < target:
-                l = mid + 1
+            m = (l + r) // 2
+            if row[m] < target:
+                l = m + 1
+            elif row[m] > target:
+                r = m - 1
             else:
                 return True
         return False
+
+    def findRow(self, matrix, target):
+        l, r = 0, len(matrix) - 1
+        end = len(matrix[0]) - 1
+        while l <= r:
+            m = (l + r) // 2
+
+            if matrix[m][0] <= target and matrix[m][end] >= target:
+                return m
+            elif matrix[m][0] > target:
+                r = m - 1
+            elif matrix[m][end] < target:
+                l = m + 1
+        return r
