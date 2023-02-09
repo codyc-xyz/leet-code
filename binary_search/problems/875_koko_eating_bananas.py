@@ -8,17 +8,17 @@
 
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        
-        
         l, r = 1, max(piles)
-        
         while l <= r:
             m = (l + r) // 2
-            remainingHours = h
-            for p in piles:
-                 remainingHours -= (p+m-1) // m
-            if remainingHours < 0:
-                l = m + 1
-            else:
+            if self.finishedBananas(piles, m, h):
+                ans = m
                 r = m - 1
-        return l
+            else:
+                l = m + 1
+        return ans
+
+    def finishedBananas(self, piles, m, h):
+        for p in piles:
+            h -= math.ceil(p / m)
+        return h >= 0
