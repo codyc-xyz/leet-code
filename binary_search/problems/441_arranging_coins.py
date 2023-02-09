@@ -22,13 +22,10 @@ class Solution:
 
 class Solution:
     def arrangeCoins(self, n: int) -> int:
-        
-        stairs = levels = 0
-        for i in range(1, n + 1):
-            stairs += i
-            levels += 1
-            
-            if stairs > n:
-                return levels - 1
-            elif stairs == n:
-                return levels
+        i = 1
+        ans = 0
+        while n > 0:
+            n -= i
+            i += 1
+            ans += 1
+        return ans - 1 if n < 0 else ans
