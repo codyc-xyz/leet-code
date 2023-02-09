@@ -9,29 +9,31 @@
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-    
+        pivot = self.findPivot(nums)
+        return self.findTarget(pivot, nums, target)
+
+    def findPivot(self, nums):    
         l, r = 0, len(nums) - 1
-        
         while l < r:
             m = (l + r) // 2
+
             if nums[m] > nums[r]:
                 l = m + 1
             else:
                 r = m
-        
-        left, right = 0, len(nums) - 1
-        if target >= nums[l] and target <= nums[right]:
-            left = l
+        return l
+
+    def findTarget(self, pivot, nums, target):
+        if target <= nums[-1]:
+            l, r = pivot, len(nums) - 1
         else:
-            right = l - 1
-            
-        while left <= right:
-            mid = (left + right) // 2
-            
-            if nums[mid] > target:
-                right = mid - 1
-            elif nums[mid] < target:
-                left = mid + 1
+            l, r = 0, pivot
+        while l <= r:
+            m = (l + r) // 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
             else:
-                return mid
+                return m
         return -1
