@@ -10,25 +10,24 @@
 class Solution:
     def maximumRemovals(self, s: str, p: str, removable: List[int]) -> int:
         ans = 0
-        
-        def isSubseq(s, p, removed):
-            i = j = 0
-            while i < len(s) and j < len(p):
-                if i in removed or s[i] != p[j]:
-                    i += 1
-                    continue
-                i += 1
-                j += 1
-            return j == len(p)
-        
-        l, r = 0, len(removable) - 1
-        
-        while l <= r:
+        l, r = 0, len(removable)
+        while l < r:
             m = (l + r) // 2
-            removed = set(removable[:m + 1])
-            if isSubseq(s, p, removed):
-                ans = m + 1
+            if self.removeSuccess(s, p, set(removable[:m + 1])):
                 l = m + 1
             else:
-                r = m - 1
-        return ans
+                r = m
+        return l
+
+    def removeSuccess(self, S, P, removed):
+        i = j = 0
+        while i < len(S):
+            if i in removed:
+                i += 1
+                continue
+            if S[i] == P[j]:
+                j += 1
+                if j == len(P):
+                    break
+            i += 1
+        return j == len(P)
