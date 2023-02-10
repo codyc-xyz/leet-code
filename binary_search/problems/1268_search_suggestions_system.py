@@ -31,3 +31,36 @@ class Solution:
             else:
                 ans.append([])
         return ans
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+        ans = []
+        for i in range(len(searchWord)):
+            ans.append(self.searchResults(list(products), searchWord[:i + 1]))
+        return ans
+    def searchResults(self, products, pfix):
+        res = []
+        l = self.binSearch(products, pfix, True)
+        r = self.binSearch(products, pfix, False)
+        while l <= r and len(res) < 3 and products[l][:len(pfix)] == pfix:
+            res.append(products[l])
+            l += 1
+        return res
+
+    def binSearch(self, products, pfix, leftBias):
+        l, r = 0, len(products) - 1
+        while l < r:
+            m = (l + r) // 2
+            res = products[m][:len(pfix)]
+
+            if res < pfix:
+                l = m + 1
+            elif res > pfix:
+                r = m 
+            else:
+                if leftBias:
+                    r = m 
+                else:
+                    l = m + 1
+        return r if leftBias else l
