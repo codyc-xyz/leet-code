@@ -6,24 +6,22 @@
 
 class Solution:
     def splitArray(self, nums: List[int], k: int) -> int:
-        
-        def splitSuccessful(m, K):
-            M = m
-            for n in nums:
-                if M - n < 0:
-                    K -= 1
-                    M = m 
-                M -= n
-            if M < 0:
-                K -= 1
-            return K >= 0
-        
         l, r = max(nums), sum(nums)
+        ans = 0
         while l <= r:
             m = (l + r) // 2
-            K = k - 1
-            if splitSuccessful(m, K):
+            if self.splitSuccess(nums, m, k - 1):
+                ans = m
                 r = m - 1
             else:
                 l = m + 1
-        return l
+        return ans
+
+    def splitSuccess(self, nums, m, k):
+        curr = m
+        for n in nums:
+            curr -= n
+            if curr < 0:
+                k -= 1
+                curr = m - n
+        return k >= 0
