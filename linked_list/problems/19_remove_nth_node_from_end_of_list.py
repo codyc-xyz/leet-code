@@ -35,3 +35,18 @@ class Solution:
         l.next = l.next.next
         
         return dummy.next
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        
+        dummy = curr = ListNode(next=head)
+        i = 0
+        while head:
+            head = head.next
+            i += 1
+        k = i - n
+        while k > 0:
+            curr = curr.next
+            k -= 1
+        curr.next = curr.next.next
+        return dummy.next
