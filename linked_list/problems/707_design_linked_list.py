@@ -14,6 +14,72 @@
 # If index is greater than the length, the node will not be inserted.
 # void deleteAtIndex(int index) Delete the indexth node in the linked list, if the index is valid.
 
+class ListNode:
+    def __init__(self, val=0, next=None, prev=None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+class MyLinkedList:
+    def __init__(self):
+        self.head = ListNode()
+        self.tail = ListNode()
+        self.head.next, self.tail.prev = self.tail, self.head
+        self.size = 0
+
+    def get(self, index: int) -> int:
+        if index >= self.size:
+            return -1
+        i = 0
+        curr = self.head.next
+        while i < index:
+            curr = curr.next
+            i += 1
+        return curr.val
+
+    def addAtHead(self, val: int) -> None:
+        prevHead = self.head.next
+        self.head.next = ListNode(val, prevHead, self.head)
+        prevHead.prev = self.head.next
+        self.size += 1
+
+    def addAtTail(self, val: int) -> None:
+        prevTail = self.tail.prev
+        self.tail.prev = ListNode(val, self.tail, prevTail)
+        prevTail.next = self.tail.prev
+        self.size += 1
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index > self.size:
+            return
+        i = 0
+        curr = self.head
+        while curr and i < index:
+            curr = curr.next
+            i += 1
+        prev, nxt = curr, curr.next
+        prev.next = ListNode(val, nxt, prev)
+        if nxt:
+            nxt.prev = prev.next
+        self.size += 1
+
+    def deleteAtIndex(self, index: int) -> None:
+        if index >= self.size:
+            return
+        i = 0
+        curr = self.head
+        while curr and i < index:
+            curr = curr.next
+            i += 1
+        if curr and curr.next:
+            prev, nxt = curr, curr.next.next
+            if nxt:
+                prev.next = nxt
+                nxt.prev = prev
+            else:
+                prev.next = None
+            self.size -= 1
+
 class MyLinkedList:
     def __init__(self):
         self.head = None
