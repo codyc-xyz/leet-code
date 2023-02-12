@@ -40,3 +40,25 @@ class Solution:
             copy.random = hm[curr.random]
             curr = curr.next
         return hm[head]
+
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+       
+        curr = head
+        hm = {}
+
+        while curr:
+            hm[curr] = Node(curr.val)
+            curr = curr.next
+
+        ans = copy = Node(0)
+        
+        while head:
+            copy.next = hm[head]
+            copy.next.next = hm[head.next] if head.next else None
+            copy.next.random = hm[head.random] if head.random else None
+
+            copy = copy.next
+            head = head.next
+
+        return ans.next
