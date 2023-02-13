@@ -8,11 +8,16 @@
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         
-        dummy = ans = ListNode(next=head)
+        if not head or not head.next:
+            return head
         
+        ans = dummy = ListNode(next=head)
+
         while dummy and dummy.next and dummy.next.next:
-            a = dummy.next
-            b = dummy.next.next
-            dummy.next, a.next, b.next = b, b.next, a
-            dummy = a
+            fast = dummy.next.next
+            slow = dummy.next
+
+            dummy.next, slow.next, fast.next = fast, fast.next, slow
+
+            dummy = slow
         return ans.next
