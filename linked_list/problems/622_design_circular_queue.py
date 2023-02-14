@@ -14,7 +14,6 @@
 # boolean isFull() Checks whether the circular queue is full or not.
 
 # You must solve the problem without using the built-in queue data structure in your programming language. 
-
 class ListNode:
 
     def __init__(self, val=0, next=None, prev=None):
@@ -22,48 +21,48 @@ class ListNode:
         self.next = next
         self.prev = prev
 
+
 class MyCircularQueue:
 
     def __init__(self, k: int):
         self.maxSize = k
         self.size = 0
-        self.head = ListNode()
-        self.tail = ListNode(prev=self.head)
+        self.head, self.tail = ListNode(), ListNode()
+        self.head.next, self.tail.prev = self.tail, self.head
 
     def enQueue(self, value: int) -> bool:
         if self.size >= self.maxSize:
-            return False
-        curr = ListNode(value, self.tail, self.tail.prev)
-        self.tail.prev.next = curr
-        self.tail.prev = curr
+            return
+        prevHead = self.head.next
+        self.head.next = ListNode(value, prevHead, self.head)
+        prevHead.prev = self.head.next
         self.size += 1
         return True
 
     def deQueue(self) -> bool:
-        if self.size == 0:
-            return False
-        self.head.next = self.head.next.next
-        self.head.next.prev = self.head
+        if self.size <= 0:
+            return
+        newTail = self.tail.prev.prev
+        self.tail.prev, newTail.next = newTail, self.tail
         self.size -= 1
         return True
-
+        
     def Front(self) -> int:
-        if self.head.next != self.tail:
-            return self.head.next.val
-        else:
+        if self.size <= 0:
             return -1
+        return self.tail.prev.val
 
     def Rear(self) -> int:
-        if self.tail.prev != self.head:
-            return self.tail.prev.val
-        else:
+        if self.size <= 0:
             return -1
-
+        return self.head.next.val
+        
     def isEmpty(self) -> bool:
-        return self.size == 0
+        return self.size <= 0
 
     def isFull(self) -> bool:
-        return self.size == self.maxSize
+        return self.size >= self.maxSize
+        
 
 
 # Your MyCircularQueue object will be instantiated and called as such:
