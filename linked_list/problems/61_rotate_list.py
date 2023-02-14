@@ -8,24 +8,25 @@
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         
-        if not head:
-            return head
-        
-        curr = head
-        length = 1
-        while curr and curr.next:
-            curr = curr.next
+        tail, length = head, 1
+
+        while tail and tail.next:
+            tail = tail.next
             length += 1
-        tail = curr
-        
-        k = k % length
-        if not k:
+
+        k %= length
+        if k == 0:
             return head
-        
-        curr = head
-        for i in range(length - k - 1):
-            curr = curr.next
-        ans = curr.next
-        curr.next = None
+
+        kth = self.findKth(head, k, length)
+
+        ans = kth.next
+        kth.next = None
         tail.next = head
         return ans
+
+    def findKth(self, curr, k, length):
+        for i in range(length - k - 1):
+            curr = curr.next
+
+        return curr
