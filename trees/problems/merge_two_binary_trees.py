@@ -7,3 +7,26 @@
 # Return the merged tree.
 
 # Note: The merging process must start from the root nodes of both trees.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+
+        def merge(root1, root2):
+            if root1 and root2:
+                node = TreeNode(root1.val + root2.val)
+            elif root1:
+                node = TreeNode(root1.val)
+            elif root2:
+                node = TreeNode(root2.val)
+            else:
+                return None
+            node.left = merge(root1.left if root1 else None, root2.left if root2 else None)
+            node.right = merge(root1.right if root1 else None, root2.right if root2 else None)
+            return node
+        return merge(root1, root2)
