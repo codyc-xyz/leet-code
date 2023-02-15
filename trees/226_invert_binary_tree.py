@@ -19,8 +19,16 @@ class Solution:
                 dummy.right = TreeNode(curr.left.val)
             if curr.right:
                 dummy.left = TreeNode(curr.right.val)
-            tmp = dummy
             traverse(curr.left, dummy.right)
-            traverse(curr.right, tmp.left)
+            traverse(curr.right, dummy.left)
         traverse(root, dummy)
         return ans
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
