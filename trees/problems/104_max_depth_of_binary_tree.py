@@ -43,3 +43,19 @@ class Solution:
                     q.append(node.right)
             level += 1
         return level
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        maxLevel = 0
+        stack = [[root, 1]]
+        
+        while stack:
+            node, level = stack.pop()
+            if node.left:
+                stack.append([node.left, level + 1])
+            if node.right:
+                stack.append([node.right, level + 1])
+            maxLevel = max(maxLevel, level)
+        return maxLevel
