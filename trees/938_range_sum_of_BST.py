@@ -19,3 +19,14 @@ class Solution:
             dfs(root.right)
         dfs(root)
         return self.val
+
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+
+        if not root:
+           return 0
+        val = root.val if root.val >= low and root.val <= high else 0
+        val = val + self.rangeSumBST(root.left, low, high)
+        val = val + self.rangeSumBST(root.right, low, high)
+        
+        return val
