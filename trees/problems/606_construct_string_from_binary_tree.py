@@ -24,3 +24,21 @@ class Solution:
             res.append(')')
         preorder(root)
         return "".join(res)[1:-1]
+
+class Solution:
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+
+        if not root:
+            return ""
+
+        string = str(root.val)
+        if not root.left and not root.right:
+            return string
+        if not root.left:
+            string = string + '()' + '(' + self.tree2str(root.right) + ')'
+        elif not root.right:
+            string = string + '(' + self.tree2str(root.left) + ')'
+        else:
+            string = string + '(' + self.tree2str(root.left) + ')' + '(' + self.tree2str(root.right) + ')'
+        return string
+
