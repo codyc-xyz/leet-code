@@ -30,3 +30,17 @@ class Solution:
             node.right = merge(root1.right if root1 else None, root2.right if root2 else None)
             return node
         return merge(root1, root2)
+
+class Solution:
+    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root1 and not root2:
+            return None
+        if root1 and root2:
+            node = TreeNode(root1.val + root2.val)
+        elif root1:
+            node = TreeNode(root1.val)
+        else:
+            node = TreeNode(root2.val)
+        node.left = self.mergeTrees(root1.left if root1 else None, root2.left if root2 else None)
+        node.right = self.mergeTrees(root1.right if root1 else None, root2.right if root2 else None)
+        return node

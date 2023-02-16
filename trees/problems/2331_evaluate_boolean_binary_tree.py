@@ -23,7 +23,7 @@ class Solution:
 
         if not root.left:
             return root.val == 1
-        b
+        
         if root.val == 2:
             return (self.evaluateTree(root.left) or self.evaluateTree(root.right))
         else:
