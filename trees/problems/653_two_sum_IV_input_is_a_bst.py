@@ -10,14 +10,11 @@ class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
 
         seen = set()
-        self.flag = False
         def traverse(root, k):
             if not root:
-                return
+                return False
             if k - root.val in seen:
-                self.flag = True
+                return True
             seen.add(root.val)
-            traverse(root.left, k)
-            traverse(root.right, k)
-        traverse(root, k)
-        return self.flag
+            return traverse(root.left, k) or traverse(root.right, k)
+        return traverse(root, k)
