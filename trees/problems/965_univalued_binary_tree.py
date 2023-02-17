@@ -20,3 +20,21 @@ class Solution:
             dfs(node.right)
         dfs(root)
         return len(self.seen) == 1
+
+class Solution:
+    def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
+        
+        stack = [[root, root.val]]
+        while stack:
+            node, val = stack.pop()
+            if node.left:
+                if val != node.left.val:
+                    return False
+                else:
+                    stack.append([node.left, node.left.val])
+            if node.right:
+                if val != node.right.val:
+                    return False
+                else:
+                    stack.append([node.right, node.right.val])
+        return True
