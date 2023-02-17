@@ -18,3 +18,21 @@ class Solution:
             preorder(root.right)
         preorder(root)
         return arr
+
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return None
+        ans = []
+        stack = deque([root])
+        while stack:
+            node = stack.pop()
+            ans.append(node.val)
+            if node.left:
+                if node.right:
+                    stack.append(node.right)
+                stack.append(node.left)
+                continue
+            if node.right:
+                stack.append(node.right)
+        return ans          
