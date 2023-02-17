@@ -39,3 +39,21 @@ class Solution:
                     res2.append(node2.val)
 
         return res1 == res2
+
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def constructLeaves(root):
+            arr = []
+
+            def traverse(root):
+                if not root:
+                    return 
+                traverse(root.left)
+                if not root.left and not root.right:
+                    arr.append(root.val)
+                traverse(root.right)
+
+            traverse(root)
+            return arr
+            
+        return constructLeaves(root1) == constructLeaves(root2)
