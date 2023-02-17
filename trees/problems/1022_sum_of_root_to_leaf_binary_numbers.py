@@ -34,7 +34,6 @@ class Solution:
         def preorder(node, val):
             if not node:
                 return
-
             preorder(node.left, val + str(node.val))
             preorder(node.right, val + str(node.val))
             if not node.left and not node.right:
