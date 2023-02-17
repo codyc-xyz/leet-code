@@ -28,11 +28,6 @@ class Solution:
         while stack:
             node = stack.pop()
             ans.append(node.val)
-            if node.left:
-                if node.right:
-                    stack.append(node.right)
-                stack.append(node.left)
-                continue
-            if node.right:
-                stack.append(node.right)
-        return ans          
+            stack.append(node.right) if node.right else None
+            stack.append(node.left) if node.left else None
+        return ans
