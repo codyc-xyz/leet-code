@@ -24,3 +24,21 @@ class Solution:
         for i in range(len(res)):
             ans.append(sum(res[i]) / len(res[i]))
         return ans
+
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        vals, length = defaultdict(int), defaultdict(int)
+   
+        def dfs(node, level):
+            if not node:
+                return None
+            vals[level] += node.val
+            length[level] += 1
+            dfs(node.left, level + 1)
+            dfs(node.right, level + 1)
+        dfs(root, 0)
+
+        ans = []
+        for i in range(len(vals)):
+            ans.append(vals[i] / length[i])
+        return ans
