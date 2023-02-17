@@ -6,3 +6,36 @@
 
 # Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        res1, res2 = [],[]
+        stack1, stack2 = [root1], [root2]
+
+        while stack1 or stack2:
+            node1 = node2 = None
+            if stack1:
+                node1 = stack1.pop()
+            if stack2:
+                node2 = stack2.pop()
+            if node1:
+                if node1.left:
+                    stack1.append(node1.left)
+                if node1.right:
+                    stack1.append(node1.right)
+                if not node1.left and not node1.right:
+                    res1.append(node1.val)
+            if node2:
+                if node2.left:
+                    stack2.append(node2.left)
+                if node2.right:
+                    stack2.append(node2.right)
+                if not node2.left and not node2.right:
+                    res2.append(node2.val)
+
+        return res1 == res2
