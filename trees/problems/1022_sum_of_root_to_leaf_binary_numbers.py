@@ -26,3 +26,19 @@ class Solution:
             if not node.left and not node.right:
                 total += int(val, 2)
         return total
+
+class Solution:
+    def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
+        self.total = 0
+
+        def preorder(node, val):
+            if not node:
+                return
+
+            preorder(node.left, val + str(node.val))
+            preorder(node.right, val + str(node.val))
+            if not node.left and not node.right:
+
+                self.total += int(val + str(node.val), 2)
+        preorder(root, '0')
+        return self.total
