@@ -25,3 +25,25 @@ class Solution:
             elif node1.right or node2.left:
                 return False
         return True
+
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        arr1, arr2 = [], []
+        def bfs(node, bias):
+            if not node:
+                if bias:
+                    arr1.append(None)
+                else:
+                    arr2.append(None)
+                return
+            if bias:
+                arr1.append(node.val)
+                bfs(node.left, bias)
+                bfs(node.right, bias)
+            else:
+                arr2.append(node.val)
+                bfs(node.right, bias)
+                bfs(node.left, bias)
+        bfs(root.left, True)
+        bfs(root.right, False)
+        return arr1 == arr2
