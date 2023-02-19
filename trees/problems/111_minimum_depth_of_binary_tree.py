@@ -25,3 +25,16 @@ class Solution:
             dfs(node.right, depth + 1)
         dfs(root, 1)
         return self.min
+
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        
+        def dfs(node):
+            if not node:
+                return 0
+            if not node.left:
+                return dfs(node.right) + 1
+            if not node.right:
+                return dfs(node.left) + 1
+            return min(dfs(node.left), dfs(node.right)) + 1
+        return dfs(root)
