@@ -23,3 +23,17 @@ class Solution:
                 stack.append(node.left)
                 stack.append(node.right)
         return second if second != float('inf') else -1
+
+class Solution:
+    def findSecondMinimumValue(self, root: Optional[TreeNode]) -> int:
+        self.ans = float('inf')
+        self.min = root.val
+
+        def dfs(root):
+            if root:
+                if self.min < root.val < self.ans:
+                    self.ans = root.val
+                dfs(root.left)
+                dfs(root.right)
+        dfs(root)
+        return self.ans if self.ans < float('inf')
