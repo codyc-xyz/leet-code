@@ -13,20 +13,18 @@ class Solution:
         if not root:
             root = TreeNode(val)
             return root
-            
-        stack = [root]
-        while stack:
-            node = stack.pop()
-           
-            if val > node.val:
-                if node.right:
-                    stack.append(node.right)
+
+        curr = root
+        while curr:           
+            if val > curr.val:
+                if curr.right:
+                    curr = curr.right
                 else:
-                    node.right = TreeNode(val)
+                    curr.right = TreeNode(val)
                     return root
-            elif val < node.val:
-                if node.left:
-                    stack.append(node.left)
+            elif val < curr.val:
+                if curr.left:
+                    curr = curr.left
                 else:
-                    node.left = TreeNode(val)
+                    curr.left = TreeNode(val)
                     return root
