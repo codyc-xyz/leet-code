@@ -11,15 +11,17 @@ class Solution:
         if not root:
             return []
 
-        dq = deque([(root, 0)])
-        ans = [[]]
+        dq = deque([root])
+        ans = []
         while dq:
-            node, level = dq.popleft()
-            while level >= len(ans):
-                ans.append([])
-            ans[level].append(node.val)
-            if node.left:
-                dq.append([node.left, level + 1])
-            if node.right:
-                dq.append([node.right, level + 1])
+            qLen = len(dq)
+            level = []
+            for i in range(qLen):
+                node = dq.popleft()
+                if node.left:
+                    dq.append(node.left)
+                if node.right:
+                    dq.append(node.right)
+                level.append(node.val)
+            ans.append(level)
         return ans
