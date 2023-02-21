@@ -27,15 +27,16 @@ class Solution:
 
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        self.ans = 0
-        
         def dfs(root, maxVal):
             if not root:
-                return
+                return 0
+
             if root.val >= maxVal:
-                self.ans += 1
+                res = 1
                 maxVal = root.val
-            dfs(root.left, maxVal)
-            dfs(root.right, maxVal)
-        dfs(root, root.val)
-        return self.ans
+            else:
+                res = 0
+            res += dfs(root.left, maxVal)
+            res += dfs(root.right, maxVal)
+            return res
+        return dfs(root, root.val)
