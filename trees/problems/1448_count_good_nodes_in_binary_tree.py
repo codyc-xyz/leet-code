@@ -17,10 +17,11 @@ class Solution:
             node, maxVal = dq.popleft()
             if node.val >= maxVal:
                 ans += 1
+                maxVal = node.val
             if node.left:
-                dq.append((node.left, max(node.left.val, maxVal)))
+                dq.append((node.left, maxVal))
             if node.right:
-                dq.append((node.right, max(node.right.val, maxVal)))
+                dq.append((node.right, maxVal))
         return ans
 
 
