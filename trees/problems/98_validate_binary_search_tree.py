@@ -16,11 +16,9 @@ class Solution:
         self.flag = True
         def dfs(root, left, right):
             if not root:
-                return
-            if left < root.val < right:
-                dfs(root.left, left, min(root.val, right))
-                dfs(root.right, max(left, root.val), right)
-            else:
-                self.flag = False
-        dfs(root, float('-inf'), float('inf'))
-        return self.flag
+                return True
+            if not (left < root.val < right):
+                return False
+            return (dfs(root.left, left, root.val) and
+                    (dfs(root.right, root.val, right)))
+        return dfs(root, float('-inf'), float('inf'))
