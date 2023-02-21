@@ -17,3 +17,18 @@ class Solution:
             dfs(root.right)
         dfs(root)
         return vals[k - 1]
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        
+        curr = root
+        stack = []
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            k -= 1
+            if k == 0:
+                return curr.val
+            curr = curr.right       
