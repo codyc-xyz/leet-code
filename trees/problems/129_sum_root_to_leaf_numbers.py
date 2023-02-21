@@ -28,3 +28,16 @@ class Solution:
             arr.pop()
         dfs(root)
         return self.sum
+
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(root, num):
+            if not root:
+                return 0
+            num = num * 10 + root.val
+            if not root.left and not root.right:
+                return num
+            l = dfs(root.left, num)
+            r = dfs(root.right, num)
+            return l + r
+        return dfs(root, 0)
