@@ -19,3 +19,18 @@ class Solution:
             return root
         return dfs(root)
          
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        stack = []
+        dummy = root
+        currSum = 0
+        while root or stack:
+            if not root:
+                root = stack.pop()
+                root.val += currSum
+                currSum = root.val
+                root = root.left
+            else:
+                stack.append(root)
+                root = root.right
+        return dummy
