@@ -6,15 +6,16 @@
 # The right subtree of a node contains only nodes with keys greater than the node's key.
 # Both the left and right subtrees must also be binary search trees.
  
- class Solution:
+class Solution:
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        arr = []
+        self.curr = 0
         def dfs(root):
             if not root:
                 return 
             dfs(root.right)
-            arr.append(root.val)
-            root.val += sum(arr) - root.val
-            dfs(root.left, currSum)
+            self.curr += root.val
+            root.val += self.curr - root.val
+            dfs(root.left)
             return root
-        return dfs(root, 0)
+        return dfs(root)
+         
