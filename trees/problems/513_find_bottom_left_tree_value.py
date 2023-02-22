@@ -20,3 +20,12 @@ class Solution:
                 if node.right:
                     dq.append(node.right)
         return arr[-1]
+
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        dq = deque([root])
+        while dq:
+            node = dq.popleft()
+            if node.right: dq.append(node.right)
+            if node.left: dq.append(node.left)
+        return node.val
