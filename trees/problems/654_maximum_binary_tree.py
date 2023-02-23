@@ -21,3 +21,18 @@ class Solution:
         root.left = self.constructMaximumBinaryTree(nums[:maxIdx])
         root.right = self.constructMaximumBinaryTree(nums[maxIdx + 1:])
         return root
+
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        stack = []
+
+        for n in nums:
+            node = TreeNode(n)
+
+            while stack and stack[-1].val < n:
+                node.left = stack.pop()
+            
+            if stack:
+                stack[-1].right = node
+            stack.append(node)
+        return stack[0]
