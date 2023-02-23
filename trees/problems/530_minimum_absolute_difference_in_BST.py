@@ -32,3 +32,23 @@ class Solution:
             dfs(root.right)
         dfs(root)
         return self.minDiff
+
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return
+        stack = []
+        curr = root
+        prev = None
+        res = float('inf')
+        while stack or curr:
+            if curr:
+                stack.append(curr)
+                curr = curr.left
+            else:
+                curr = stack.pop()
+                if prev:
+                    res = min(res, curr.val - prev.val)
+                prev = curr
+                curr = curr.right
+        return res
