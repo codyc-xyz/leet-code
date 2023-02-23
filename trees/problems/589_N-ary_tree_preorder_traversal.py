@@ -21,3 +21,16 @@ class Solution:
                 dfs(root.children[i])
         dfs(root)
         return ans
+
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+        if not root:
+            return []
+        ans = []
+        dq = deque([root])
+        while dq:
+            node = dq.popleft()
+            ans.append(node.val)
+            for c in node.children[::-1]:
+                dq.appendleft(c)
+        return ans
