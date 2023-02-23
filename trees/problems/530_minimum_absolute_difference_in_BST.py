@@ -17,3 +17,18 @@ class Solution:
             dfs(root.right)
         dfs(root)
         return min(arr[i] - arr[i - 1] for i in range(1, len(arr)))
+
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        self.minDiff = float('inf')
+        self.prev = None
+        def dfs(root):
+            if not root:
+                return
+            dfs(root.left)
+            if self.prev:
+                self.minDiff = min(self.minDiff, root.val - self.prev.val)
+            self.prev = root
+            dfs(root.right)
+        dfs(root)
+        return self.minDiff
