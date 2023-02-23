@@ -5,3 +5,19 @@
 # Recursively build the right subtree on the subarray suffix to the right of the maximum value.
 # Return the maximum binary tree built from nums.
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        if not nums:
+            return
+        maxVal = max(nums)
+        maxIdx = nums.index(maxVal)
+        root = TreeNode(maxVal)
+        root.left = self.constructMaximumBinaryTree(nums[:maxIdx])
+        root.right = self.constructMaximumBinaryTree(nums[maxIdx + 1:])
+        return root
