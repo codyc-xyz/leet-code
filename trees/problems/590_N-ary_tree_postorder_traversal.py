@@ -23,3 +23,15 @@ class Solution:
             for i in range(lenChildren):
                 dq.appendleft(node.children[i])
         return arr
+        
+class Solution:
+    def postorder(self, root: 'Node') -> List[int]:
+        arr = []
+        def dfs(root):
+            if not root:
+                return
+            for c in root.children:
+                dfs(c)
+            arr.append(root.val)
+        dfs(root)
+        return arr
