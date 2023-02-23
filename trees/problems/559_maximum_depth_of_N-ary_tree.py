@@ -26,3 +26,15 @@ class Solution:
                     dq.append(c)
             level += 1
         return level
+
+class Solution:
+    def maxDepth(self, root: 'Node') -> int:
+        self.maxLevel = 0
+        def dfs(root, level):
+            if not root:
+                return 
+            for c in root.children:
+                dfs(c, level + 1)
+            self.maxLevel = max(self.maxLevel, level)
+        dfs(root, 1)
+        return self.maxLevel
