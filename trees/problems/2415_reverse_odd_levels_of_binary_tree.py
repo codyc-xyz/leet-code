@@ -6,3 +6,33 @@
 # A binary tree is perfect if all parent nodes have two children and all leaves are on the same level.
 
 # The level of a node is the number of edges along the path between it and the root node.
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+        dq = deque([(root, 0)])
+        levels = []
+        while dq:
+            lenDq = len(dq)
+            res = []
+            for i in range(lenDq):
+                node, level = dq.popleft()
+                res.append(node)
+                if node.left:
+                    dq.append((node.left, level + 1))
+                    dq.append((node.right, level + 1))
+            levels.append(res)
+            
+        for i, l in enumerate(levels):
+            if i % 2:
+                for j in range(len(l) // 2):
+                    print(l[j].val, l[-j-1].val)
+                    l[j].val, l[-j - 1].val = l[-j - 1].val, l[j].val
+        return root
