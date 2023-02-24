@@ -33,6 +33,28 @@ class Solution:
         for i, l in enumerate(levels):
             if i % 2:
                 for j in range(len(l) // 2):
-                    print(l[j].val, l[-j-1].val)
                     l[j].val, l[-j - 1].val = l[-j - 1].val, l[j].val
+        return root
+
+class Solution:
+    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+        levels = defaultdict(list)
+
+        def dfs1(node, level):
+            if not node:
+                return
+            levels[level].append(node.val)
+            dfs1(node.left, level + 1)
+            dfs1(node.right, level + 1)
+        dfs1(root, 0)
+
+        def dfs2(node, level):
+            if not node:
+                return
+            if level % 2:
+                node.val = levels[level].pop()
+            dfs2(node.left, level + 1)
+            dfs2(node.right, level + 1)
+        dfs2(root, 0)
         return root
