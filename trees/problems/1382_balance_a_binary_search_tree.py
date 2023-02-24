@@ -11,15 +11,11 @@
 class Solution:
     def balanceBST(self, root: TreeNode) -> TreeNode:
 
-        arr = []
-
-        def dfs(root):
+        def inorder(root):
             if not root:
-                return
-            dfs(root.left)
-            arr.append(root.val)
-            dfs(root.right)
-        dfs(root)
+                return []
+            return inorder(root.left) + [root.val] + inorder(root.right)
+        arr = inorder(root)
         
         def buildTree(arr):
             if not arr:
