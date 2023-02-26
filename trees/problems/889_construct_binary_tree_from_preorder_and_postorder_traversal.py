@@ -20,3 +20,21 @@ class Solution:
         root.left = self.constructFromPrePost(preorder[1:idx + 2], postorder[:idx + 1])
         root.right = self.constructFromPrePost(preorder[idx + 2:], postorder[idx + 1:])
         return root
+
+class Solution:
+    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        stack = [TreeNode(preorder[0])]
+
+        j = 0
+
+        for v in preorder[1:]:
+            node = TreeNode(v)
+            while stack[-1].val == postorder[j]:
+                stack.pop()
+                j += 1
+            if not stack[-1].left:
+                stack[-1].left = node
+            else:
+                stack[-1].right = node
+            stack.append(node)
+        return stack[0]
