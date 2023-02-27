@@ -12,11 +12,8 @@ class Solution:
     def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
         self.ans = 0
         def isPalindromic(path):
-            count = {}
             seenOdd = False
-            for c in path:
-                count[c] = count.get(c, 0) + 1
-            for num in count.values():
+            for num in path.values():
                 if num % 2:
                     if seenOdd:
                         return False
@@ -26,11 +23,12 @@ class Solution:
         def dfs(root, path):
             if not root:
                 return
-            path.append(root.val)        
-            dfs(root.left, path[:])
-            dfs(root.right, path[:])
+            path[root.val] += 1
             if not root.left and not root.right:
                 if isPalindromic(path):
-                    self.ans += 1     
-        dfs(root, [])
+                    self.ans += 1          
+            dfs(root.left, path)
+            dfs(root.right, path)
+            path[root.val] -= 1
+        dfs(root, defaultdict(int))
         return self.ans
