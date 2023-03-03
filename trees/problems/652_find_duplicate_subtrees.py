@@ -30,3 +30,19 @@ class Solution:
             return string 
         dfs(root)
         return dupes
+
+class Solution:
+    def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
+
+        subtrees = defaultdict(list)
+        ans = set()
+        def dfs(root):
+            if not root:
+                return 'null'
+            res = ','.join([str(root.val), dfs(root.left), dfs(root.right)])
+            if len(subtrees[res]) == 1:
+                ans.add(root)
+            subtrees[res].append(root)
+            return res
+        dfs(root)
+        return ans
