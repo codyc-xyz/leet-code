@@ -6,4 +6,41 @@
 # The node is adjacent to an infected node.
 # Return the number of minutes needed for the entire tree to be infected.
 
- 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
+        parent = {}
+        nodes = {}
+        seen = set()
+        def dfs(root, prev):
+            if not root:
+                return
+            parent[root] = prev
+            nodes[root.val] = root
+            seen.add(root)
+            dfs(root.left, root)
+            dfs(root.right, root)
+        dfs(root, None)
+
+        visited = []
+        self.count = 0
+        self.maxDepth = 0
+        def dfs(curr, depth):
+            if not curr:
+                return
+            self.maxDepth = max(depth, self.maxDepth) 
+            visited.append(curr)
+            if len(visited) == len(seen):
+                self.count = self.maxDepth
+
+            for n in (curr.left, curr.right, parent[curr]):
+                if n not in visited:
+                    dfs(n, depth + 1)
+            
+        dfs(nodes[start], 0)
+        return self.count 
