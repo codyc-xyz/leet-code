@@ -2,3 +2,27 @@
 
 # A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        if not root:
+            return []
+
+        ans = []
+        def dfs(root, val, path):
+            if not root:
+                return 
+            val += root.val
+            path.append(root.val)
+            dfs(root.left, val, path[:])
+            dfs(root.right, val, path[:])
+            if val == targetSum and not root.left and not root.right:
+                ans.append(path)
+            
+        dfs(root, 0, [])
+        return ans
