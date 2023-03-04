@@ -27,19 +27,22 @@ class Solution:
             dfs(root.right, root)
         dfs(root, None)
 
-        visited = []
+        visited = set()
         self.count = 0
         self.maxDepth = 0
+        self.flag = False
         def dfs(curr, depth):
-            if not curr:
+            if not curr or self.flag == True:
                 return
             self.maxDepth = max(depth, self.maxDepth) 
-            visited.append(curr)
+            visited.add(curr)
             if len(visited) == len(seen):
                 self.count = self.maxDepth
+                self.flag = True
+                return
 
             for n in (curr.left, curr.right, parent[curr]):
-                if n not in visited:
+                if n and n not in visited:
                     dfs(n, depth + 1)
             
         dfs(nodes[start], 0)
