@@ -7,3 +7,19 @@
 # The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e., After informTime[i] minutes, all his direct subordinates can start spreading the news).
 
 # Return the number of minutes needed to inform all the employees about the urgent news.
+
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+
+        graph = defaultdict(list)
+        for i in range(len(manager)):
+            graph[manager[i]].append(i)
+
+        def dfs(manager):
+            ans = 0
+            if not graph[manager]:
+                return 0
+            for p in graph[manager]:
+               ans = max(ans, dfs(p) + informTime[manager])
+            return ans
+        return dfs(headID)
