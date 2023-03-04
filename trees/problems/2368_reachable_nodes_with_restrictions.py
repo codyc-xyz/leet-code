@@ -8,7 +8,7 @@
 
 class Solution:
     def reachableNodes(self, n: int, edges: List[List[int]], restricted: List[int]) -> int:
-        
+        restricted = set(restricted)
         nodes = defaultdict(list)
         nodes[0].append(None)
         for e1, e2 in edges:
