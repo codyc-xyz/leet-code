@@ -17,25 +17,15 @@ class Solution:
 
         maxWidth = -1
 
-        dq = deque([root])
-        cont = True
-        while dq and cont:
+        dq = deque([(root, 1)])
+
+        while dq:
+            lNode, leftIdx = dq[0]
+            rNode, rightIdx = dq[-1]
             lenDq = len(dq)
-            firstNode = None
-            lastNode = None
-            cont = False
-            for i in range(len(dq)):
-                node = dq.popleft()
-                if node and firstNode == None:
-                    firstNode = i
-                if node:
-                    lastNode = i
-                    dq.append(node.left)
-                    dq.append(node.right)
-                    cont = True
-                else:
-                    dq.append(None)
-                    dq.append(None)
-            if firstNode != None:
-                maxWidth = max(maxWidth, lastNode - firstNode + 1)
+            for i in range(lenDq):
+                node, idx = dq.popleft()
+                if node.left: dq.append((node.left, idx*2))
+                if node.right: dq.append((node.right, idx*2 + 1))
+            maxWidth = max(maxWidth, rightIdx - leftIdx + 1)
         return maxWidth
