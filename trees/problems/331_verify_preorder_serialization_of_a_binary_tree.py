@@ -10,3 +10,19 @@
 # For example, it could never contain two consecutive commas, such as "1,,3".
 
 # Note: You are not allowed to reconstruct the tree.
+
+class Solution:
+    def isValidSerialization(self, preorder: str) -> bool:
+        
+        nodes = preorder.split(',')
+        spaces = 1
+        for node in nodes:
+            if spaces == 0:
+                return False
+            
+            if node == '#':
+                spaces -= 1
+            else:
+                spaces += 1
+        return spaces == 0
+            
