@@ -24,16 +24,22 @@ class Solution:
             arr.append(root.val)
             dfs(root.right)
         dfs(root)
-
         ans = []
+        l = r = 0
         for q in queries:
             l, r = 0, len(arr) - 1
-            while l < len(arr) - 1 and arr[l + 1] <= q:
-                l += 1
-            while r > 0 and arr[r - 1] >= q:
-                r -= 1
-            l = arr[l] if arr[l] <= q else -1
-            r = arr[r] if arr[r] >= q else -1
-            
-            ans.append([l, r])
+            while l < r:
+                m = (l + r) // 2
+                if arr[m] < q:
+                    l = m + 1
+                elif arr[m] > q:
+                    r = m 
+                else:
+                    l = r = m
+                    break
+            if l > 0 and arr[l] > q:
+                l -= 1
+            left = arr[l] if arr[l] <= q else -1
+            right = arr[r] if arr[r] >= q else - 1
+            ans.append([left, right])
         return ans
