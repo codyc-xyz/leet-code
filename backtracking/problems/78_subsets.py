@@ -19,3 +19,19 @@ class Solution:
             backtrack(nums[i:], [], i)
 
         return subsets
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        subsets = []
+
+        path = []
+        def backtrack(i):
+            if i >= len(nums):
+                subsets.append(path[:])
+                return
+            path.append(nums[i])
+            backtrack(i + 1)
+            path.pop()
+            backtrack(i + 1)
+        backtrack(0)
+        return subsets
