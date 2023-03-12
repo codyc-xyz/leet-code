@@ -5,29 +5,27 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
 
-        self.ans = False
         def findWord(i, j, idx, path):
-            if [i, j] in path or i >= len(board) or j >= len(board[0]) or i < 0 or j < 0:
-                return 
-            if board[i][j] == word[idx]:
-                idx += 1
+            if (i, j) in path or i >= len(board) or j >= len(board[0]) or i < 0 or j < 0 or board[i][j] != word[idx]:
+                return False
+            idx += 1
             if idx == len(word):
-                self.ans = True
-                return
+                return True
             
-            path.append([i, j])
-            right = findWord(i + 1, j, idx, path[:])
-            down = findWord(i, j - 1, idx, path[:])
-            up = findWord(i, j + 1, idx, path[:])
-            left = findWord(i - 1, j, idx, path[:])
+            path.add((i, j))
+            up = findWord(i + 1, j, idx, path)
+            left = findWord(i, j - 1, idx, path)
+            right = findWord(i, j + 1, idx, path)
+            down = findWord(i - 1, j, idx, path)
+            path.remove((i, j))
+            return up or left or right or down
 
             
-        def findFirstLetter(i, j):
-            if i >= len(board) or j >= len(board[0]) or i < 0 or j < 0:
-                return 
-            if board[i][j] == word[0]:
-                findWord(i, j, 0, [])
-            findFirstLetter(i + 1, j)
-            findFirstLetter(i, j + 1)
-        findFirstLetter(0, 0)
-        return self.ans
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == word[0]:
+                    res = findWord(i, j, 0, set())
+                    if res == True:
+                         return res
+                    else: 
+                        continue
