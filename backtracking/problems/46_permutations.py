@@ -15,3 +15,19 @@ class Solution:
             ans.extend(perms)
             nums.append(n)
         return ans
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+
+        ans = []
+        def backtrack(path):
+            if len(path) == len(nums):
+                ans.append(path)
+                return
+            for c in nums:
+                if c not in path:
+                    path.append(c)
+                    backtrack(path[:])
+                    path.pop()
+        backtrack([])
+        return ans
