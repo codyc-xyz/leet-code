@@ -3,3 +3,31 @@
 # Return the maximum possible length of s.
 
 # A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+
+
+        self.maxLen = 0
+        seenChars = defaultdict(int)
+        def backtrack(curr, i, seenChars):
+            if i == len(arr):
+                flag = False
+                for c in seenChars:
+                    if seenChars[c] > 1:
+                        flag = True
+                        break
+                if flag == False:
+                    self.maxLen = max(self.maxLen, len("".join(curr))) 
+                return
+
+            for c in arr[i]:
+                seenChars[c] += 1
+            curr.append(arr[i])
+            backtrack(curr, i + 1, seenChars)
+            curr.pop()
+            for c in arr[i]:
+                seenChars[c] -= 1
+            backtrack(curr, i + 1, seenChars)
+        backtrack([], 0, seenChars)
+        return self.maxLen
