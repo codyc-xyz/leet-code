@@ -5,18 +5,16 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         ans = []
-        res = []
-        def backtrack(path):
-            if len(path) == k and set(path) not in res:
-                ans.append(path)
-                res.append(set(path))
+        def backtrack(path, j):
+            if len(path) == k and path not in ans:
+                ans.append(path.copy())
                 return
-            if len(path) == k:
+            elif len(path) >= k:
                 return
-            for i in range(1, n + 1):
+            for i in range(j, n + 1):
                 if i not in path:
-                    path.append(i)
-                    backtrack(path[:])
-                    path.pop()
-        backtrack([])
+                    path.add(i)
+                    backtrack(path, i + 1)
+                    path.remove(i)
+        backtrack(set(), 1)
         return ans
