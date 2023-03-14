@@ -4,7 +4,7 @@ class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:
 
         self.ans = ""
-
+        nums = set(nums)
         def backtrack(curr):
             if self.ans:
                 return
