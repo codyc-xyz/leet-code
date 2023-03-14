@@ -6,10 +6,8 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         ans = []
         def backtrack(path, j):
-            if len(path) == k and path not in ans:
+            if len(path) == k:
                 ans.append(path.copy())
-                return
-            elif len(path) >= k:
                 return
             for i in range(j, n + 1):
                 if i not in path:
