@@ -9,28 +9,19 @@ class Solution:
 
         ans = []
 
-        def backtrack(curr, res, i):
-            if i == len(s) and len(res) == 4:
-                for r in res:
-                    if len(r) > 1 and r[0] == '0':
-                        return
-                ip = ".".join(res)
-                if len(ip) == len(s) + 3:
-                    ans.append(ip)
+        if len(s) > 12:
+            return ans
+
+        def backtrack(i, dots, currIp):
+            if dots == 4 and i == len(s):
+                ans.append(currIp[:-1])
                 return
-            elif i >= len(s):
+            if dots > 4 or i >= len(s):
                 return
             
-            if curr != "":
-                if int(curr + s[i]) < 0 or int(curr + s[i]) > 255:
-                    return
-            curr += s[i]
-            tmp = curr
-            res.append(curr)
-            curr = ""
-            backtrack(curr, res, i + 1)
-            res.pop()
-            backtrack(tmp, res, i + 1)
-
-        backtrack("", [], 0)
+            for j in range(i, min(i + 3, len(s))):
+                curr = s[i:j + 1]
+                if int(curr) < 256 and (i == j or s[i] != '0'):
+                    backtrack(j + 1, dots + 1, currIp + curr + '.')
+        backtrack(0, 0, "")
         return ans
