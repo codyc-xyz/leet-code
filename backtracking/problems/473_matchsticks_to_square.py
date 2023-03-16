@@ -5,36 +5,21 @@
 
 class Solution:
     def makesquare(self, matchsticks: List[int]) -> bool:
-
+     
         total = sum(matchsticks)
-        
         if total % 4:
             return False
+        matchsticks.sort(reverse=True)
         self.target = total // 4
-        used = [False] * len(matchsticks)
         buckets = [0] * 4
-        def backtrack(i, sides):
-            if sides == 4:
+        def backtrack(i):
+            if i == len(matchsticks):
                 return True
-            
-            for j in range(i, len(matchsticks)):
-                if not used[j]:
-                    for x, b in enumerate(buckets):
-                        if b + matchsticks[j] == self.target:
-                            buckets[x] += matchsticks[j]
-                            used[j] = True
-                            sides += 1
-                            if backtrack(j + 1, sides):
-                                return True
-                            used[j] = False
-                            buckets[x] -= matchsticks[j]
-                            sides -= 1
-                        elif b + matchsticks[j] < self.target:
-                            buckets[x] += matchsticks[j]
-                            used[j] = True
-                            if backtrack(j + 1, sides):
-                                return True
-                            buckets[x] -= matchsticks[j]
-                            used[j] = False
+            for j, b in enumerate(buckets):
+                if b + matchsticks[i] <= self.target:
+                    buckets[j] += matchsticks[i]
+                    if backtrack(i + 1):
+                        return True
+                    buckets[j] -= matchsticks[i]
             return False
-        return backtrack(0, 0)
+        return backtrack(0)
