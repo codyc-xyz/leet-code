@@ -6,3 +6,22 @@
 # Note: Subsets with the same elements should be counted multiple times.
 
 # An array a is a subset of an array b if a can be obtained from b by deleting some (possibly zero) elements of b.
+
+class Solution:
+    def subsetXORSum(self, nums: List[int]) -> int:
+
+
+        self.total = 0
+
+        def backtracking(i, path):
+            curr = 0
+            for p in path:
+                curr = curr ^ p
+            self.total += curr
+            for j in range(i, len(nums)):
+                path.append(nums[j])
+                backtracking(j + 1, path)
+                path.pop()
+        
+        backtracking(0, [])
+        return self.total
