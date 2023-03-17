@@ -28,3 +28,19 @@ class Solution:
             if flag == False:
                 ans += 1
         return ans
+
+class Solution:
+    def countArrangement(self, n: int) -> int:
+
+        self.ans = 0
+
+        def backtrack(path):
+            if len(path) == n:
+                self.ans += 1
+                return
+            for j in range(1, n + 1):
+                if j not in path and ((j == 0) or ((len(path) + 1) % j == 0) or (j % (len(path) + 1) == 0)):
+
+                    backtrack(path + [j])
+        backtrack([])
+        return self.ans
