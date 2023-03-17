@@ -11,7 +11,7 @@ class Solution:
             if i == len(s):
                 ans.add(curr)
                 return
-            if isinstance(s[i], int):
+            if s[i].isdigit():
                 backtrack(i + 1, curr + s[i])
             else:
                 backtrack(i + 1, curr + s[i].lower())
