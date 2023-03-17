@@ -2,3 +2,19 @@
 
 # Return a list of all possible strings we could create. Return the output in any order.
 
+class Solution:
+    def letterCasePermutation(self, s: str) -> List[str]:
+
+        ans = set()
+
+        def backtrack(i, curr):
+            if i == len(s):
+                ans.add(curr)
+                return
+            if isinstance(s[i], int):
+                backtrack(i + 1, curr + s[i])
+            else:
+                backtrack(i + 1, curr + s[i].lower())
+                backtrack(i + 1, curr + s[i].upper())
+        backtrack(0, "")
+        return ans
