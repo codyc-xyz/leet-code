@@ -5,18 +5,19 @@
 class Solution:
     def numsSameConsecDiff(self, n: int, k: int) -> List[int]:
 
-        ans = []
+        ans = set()
         def backtrack(path):
             if len(path) == n:
-                ans.append(int("".join(path)))
+                ans.add(int("".join(path)))
                 return
+            minus = int(path[-1]) - k
+            plus = int(path[-1]) + k
+            if minus >= 0:
+                backtrack(path + [str(minus)])
+
+            if plus < 10:
+                backtrack(path + [str(plus)])
             
-            for i in range(10):
-                if not path:
-                    if i > 0:
-                        backtrack(path + [str(i)])
-                else:
-                    if abs(int(path[-1]) - i) == k:
-                        backtrack(path + [str(i)])
-        backtrack([])
+        for i in range(1, 10):
+            backtrack([str(i)])
         return ans
