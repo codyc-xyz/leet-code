@@ -8,19 +8,14 @@ class Solution:
     def maximumEvenSplit(self, finalSum: int) -> List[int]:
         if finalSum % 2:
             return []
-        self.ans = []
-        def backtrack(num, path, currSum):
-            if currSum > finalSum or num > finalSum:
-                return
-            if currSum == finalSum:
-                if not self.ans or len(path) > len(self.ans):
-                    self.ans = path
-                return
-            if num == finalSum:
-                if not self.ans:
-                    self.ans = [num]
-                return
-            backtrack(num + 2, path + [num], currSum + num)
-            backtrack(num + 2, path, currSum)
-        backtrack(2, [], 0)
-        return self.ans
+        num = 2
+        currSum = 0
+        ans = []
+
+        while currSum + num + num <= finalSum - 2:
+            currSum += num
+            ans.append(num)
+            num += 2
+        if currSum < finalSum:
+            ans.append(finalSum - currSum)
+        return ans               
