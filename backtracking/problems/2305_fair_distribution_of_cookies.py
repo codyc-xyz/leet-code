@@ -11,10 +11,13 @@ class Solution:
         seen = [False] * len(cookies)
         buckets = [0] * k
         def backtrack(i):
+            if max(buckets) >= self.ans:
+                return
             if i >= len(seen):
                 if False not in seen:
                     self.ans = min(self.ans, max(buckets))
                 return
+        
             for k in range(i, len(seen)):
                 if seen[k]:
                     continue
