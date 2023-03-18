@@ -10,3 +10,25 @@
 # You are tasked with finding the optimal student-mentor pairings to maximize the sum of the compatibility scores.
 
 # Given students and mentors, return the maximum compatibility score sum that can be achieved.
+
+class Solution:
+    def maxCompatibilitySum(self, students: List[List[int]], mentors: List[List[int]]) -> int:
+
+        self.maxScore = 0
+        seen = [False] * len(mentors)
+        def backtrack(i, score):
+            if i >= len(students):
+                self.maxScore = max(self.maxScore, score)
+                return
+            for j, m in enumerate(mentors):
+                if seen[j]:
+                    continue
+                currScore = 0
+                for k in range(len(m)):
+                    if mentors[j][k] == students[i][k]:
+                        currScore += 1
+                seen[j] = True
+                backtrack(i + 1, score + currScore)
+                seen[j] = False
+        backtrack(0, 0)
+        return self.maxScore
