@@ -4,3 +4,20 @@
 
 # A substring is a contiguous sequence of characters within a string.
 
+class Solution:
+    def maxUniqueSplit(self, s: str) -> int:
+
+        self.ans = 0
+        def backtrack(path, i):
+            if i >= len(s):
+                self.ans = max(self.ans, len(path))
+                return
+
+            for j in range(i+1, len(s)+1):
+                if s[i:j] not in path:
+                    path.add(s[i:j])
+                    backtrack(path, j)
+                    path.remove(s[i:j])
+
+        backtrack(set(), 0)
+        return self.ans
