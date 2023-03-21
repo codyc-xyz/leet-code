@@ -8,3 +8,40 @@
 # Return the lexicographically largest sequence. It is guaranteed that under the given constraints, there is always a solution.
 
 # A sequence a is lexicographically larger than a sequence b (of the same length) if in the first position where a and b differ, sequence a has a number greater than the corresponding number in b. For example, [0,1,9,0] is lexicographically larger than [0,1,5,6] because the first position they differ is at the third number, and 9 is greater than 5.
+
+class Solution:
+    def constructDistancedSequence(self, n: int) -> List[int]:
+        self.maxAns = [0] * (n * 2 - 1)
+        ans = [0] * (n * 2 - 1)
+        used = set()
+        def backtrack(i, ans, used):
+            if len(used) == n - 1:
+                if 0 not in ans:
+                    return
+                idx = ans.index(0)
+                ans[idx] = 1
+                for i in range(len(ans)):
+                    if ans[i] > self.maxAns[i]:
+                        self.maxAns = ans[:]
+                        break
+                    elif ans[i] < self.maxAns[i]:
+                        break
+                return
+            if i >= len(ans):
+                return
+            
+            if ans[i] == 0:
+                for j in range(n, 1, -1):
+                    if j not in used and j + i < len(ans) and ans[j + i] == 0:
+                        ans[i] = j
+                        ans[i + j] = j
+                        used.add(j)
+                        backtrack(i + 1, ans, used)
+                        used.remove(j)
+                        ans[i] = 0
+                        ans[i + j] = 0
+           
+            backtrack(i + 1, ans, used)
+
+        backtrack(0, ans, used)
+        return self.maxAns
