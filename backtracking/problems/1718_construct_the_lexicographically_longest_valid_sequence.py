@@ -11,23 +11,16 @@
 
 class Solution:
     def constructDistancedSequence(self, n: int) -> List[int]:
-        self.maxAns = [0] * (n * 2 - 1)
-        ans = [0] * (n * 2 - 1)
+        self.maxAns = ans = [0] * (n * 2 - 1)
         used = set()
         def backtrack(i, ans, used):
-            if len(used) == n - 1:
-                if 0 not in ans:
-                    return
-                idx = ans.index(0)
-                ans[idx] = 1
+            if len(used) == n:
                 for i in range(len(ans)):
                     if ans[i] > self.maxAns[i]:
                         self.maxAns = ans[:]
                         break
                     elif ans[i] < self.maxAns[i]:
                         break
-                return
-            if i >= len(ans):
                 return
             
             if ans[i] == 0:
@@ -40,8 +33,14 @@ class Solution:
                         used.remove(j)
                         ans[i] = 0
                         ans[i + j] = 0
+                if 1 not in used:
+                    used.add(1)
+                    ans[i] = 1
+                    backtrack(i + 1, ans, used)
+                    used.remove(1)
+                    ans[i] = 0
+            else:
+                backtrack(i + 1, ans, used)
            
-            backtrack(i + 1, ans, used)
-
         backtrack(0, ans, used)
         return self.maxAns
