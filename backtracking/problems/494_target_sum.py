@@ -7,15 +7,17 @@
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-
+        remaining = sum(nums)
         self.ans = 0
-        def backtrack(i, target):
+        def backtrack(i, target, remaining):
+            if target < 0 - remaining:
+                return
             if i == len(nums):
                 if target == 0:
                     self.ans += 1
                 return
 
-            backtrack(i + 1, target - nums[i])
-            backtrack(i + 1, target + nums[i])
-        backtrack(0, target)
+            backtrack(i + 1, target - nums[i], remaining - nums[i])
+            backtrack(i + 1, target + nums[i], remaining - nums[i])
+        backtrack(0, target, remaining)
         return self.ans
