@@ -21,3 +21,14 @@ class Solution:
             backtrack(i + 1, target + nums[i], remaining - nums[i])
         backtrack(0, target, remaining)
         return self.ans
+
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+
+        @lru_cache(None)
+        def backtrack(i, target):
+            if i == len(nums):
+                return target == 0
+            return backtrack(i + 1, target + nums[i]) + backtrack(i + 1, target - nums[i])
+        return backtrack(0, target)
