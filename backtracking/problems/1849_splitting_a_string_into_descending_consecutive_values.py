@@ -29,3 +29,26 @@ class Solution:
             return backtrack(i + 1, path + [curr + s[i]], "") or backtrack(i + 1, path, curr + s[i])
             
         return backtrack(0, [], "")
+
+class Solution:
+    def splitString(self, s: str) -> bool:
+        N = len(s)
+
+     
+        def backtrack(i, path, curr):
+            if len(path) > 1 and (int(path[-2]) - int(path[-1])) != 1:
+                return False
+
+            if i == N and len(path) > 1 and not curr:
+                return True
+            elif i == N:
+                return False
+            
+
+            return backtrack(i + 1, path + [curr + s[i]], "") or backtrack(i + 1, path, curr + s[i])
+            
+        for i in range(len(s) - 1):
+            if backtrack(i + 1, [s[:i + 1]], ""):
+                return True
+        return False
+            
