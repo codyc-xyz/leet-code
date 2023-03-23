@@ -8,3 +8,24 @@
 
 # A substring is a contiguous sequence of characters in a string.
 
+class Solution:
+    def splitString(self, s: str) -> bool:
+        N = len(s)
+        self.ans = []
+        def backtrack(i, path, curr):
+            if len(path) > 1 and (int(path[-2]) - int(path[-1])) != 1:
+                return False
+
+            if i == N:
+                if len(path) > 1:
+                    currLen = 0
+                    for i in range(len(path)):
+                        currLen += len(path[i])
+                    return currLen == N
+                else:
+                    return False
+            
+
+            return backtrack(i + 1, path + [curr + s[i]], "") or backtrack(i + 1, path, curr + s[i])
+            
+        return backtrack(0, [], "")
