@@ -40,3 +40,31 @@ class Solution:
 
         backtrack(0, [], "")
         return self.ans
+
+class Solution:
+    def splitIntoFibonacci(self, num: str) -> List[int]:
+        
+        self.ans = []
+        def backtrack(i, path, curr):
+
+            if len(path) > 2 and path[-3] + path[-2] != path[-1] or self.ans or (path and path[-1] >= 2**31) or curr == '0':
+                return
+            if i == len(num) and len(path) > 2 and not curr:
+                self.ans = path
+                return
+            elif i == len(num):
+                return 
+            backtrack(i + 1, path + [int(curr + num[i])], "")
+            backtrack(i + 1, path, curr + num[i])
+
+        N = min(len(num), 10)
+
+        if num[0] == '0':
+            backtrack(0, [], "")
+        else:
+             for i in range(N):
+                if not self.ans:
+                    backtrack(i + 1, [int(num[:i + 1])], "")
+
+        return self.ans
+            
