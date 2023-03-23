@@ -14,6 +14,8 @@ class Solution:
         def backtrack(i, path, curr):
             if self.ans:
                 return
+            if len(path) > 2 and path[-1] != path[-2] + path[-3] or curr == '0' or path and path[-1] > 2147483647:
+                return
             if i == len(num):
                 self.flag = True
                 if len(path) > 2:
@@ -29,15 +31,12 @@ class Solution:
                     self.ans = path
                 return
             
-            if len(curr) < 3:
-                if curr == '0':
-                    return
-                curr = curr + num[i]
-                path.append(int(curr))
-                backtrack(i + 1, path[:], "")
-                path.pop()
-                backtrack(i + 1, path[:], curr)
-      
+            curr = curr + num[i]
+            path.append(int(curr))
+            backtrack(i + 1, path[:], "")
+            path.pop()
+            backtrack(i + 1, path[:], curr)
+           
 
         backtrack(0, [], "")
         return self.ans
