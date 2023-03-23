@@ -7,3 +7,37 @@
 
 # Return any Fibonacci-like sequence split from num, or return [] if it cannot be done.
 
+class Solution:
+    def splitIntoFibonacci(self, num: str) -> List[int]:
+        self.ans = []
+        N = len(num)
+        def backtrack(i, path, curr):
+            if self.ans:
+                return
+            if i == len(num):
+                self.flag = True
+                if len(path) > 2:
+                    self.flag = False
+                    currLen = 0
+                    for i in range(len(path) - 1, 1, -1):
+                        if path[i] != path[i - 1] + path[i - 2]:
+                            self.flag = True
+                            break
+                    for i in range(len(path)):
+                        currLen += len(str(path[i]))
+                if not self.flag and currLen == N:
+                    self.ans = path
+                return
+            
+            if len(curr) < 3:
+                if curr == '0':
+                    return
+                curr = curr + num[i]
+                path.append(int(curr))
+                backtrack(i + 1, path[:], "")
+                path.pop()
+                backtrack(i + 1, path[:], curr)
+      
+
+        backtrack(0, [], "")
+        return self.ans
