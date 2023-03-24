@@ -9,3 +9,32 @@
 # Given tasks and sessionTime, return the minimum number of work sessions needed to finish all the tasks following the conditions above.
 
 # The tests are generated such that sessionTime is greater than or equal to the maximum element in tasks[i].
+
+class Solution:
+    def minSessions(self, tasks: List[int], sessionTime: int) -> int:
+        tasks.sort(reverse = True)
+
+        def completeTasks(i):
+            if i == len(tasks):
+                return True
+            
+            for j in range(self.m):
+                if timeRemaining[j] >= tasks[i]:
+                    timeRemaining[j] -= tasks[i]
+                    if completeTasks(i + 1):
+                        return True
+                    timeRemaining[j] += tasks[i]
+                    if timeRemaining[j] == tasks[i]:
+                        break
+            return False
+
+        l, r = 1, len(tasks)
+        while l < r:
+            self.m = (l + r) // 2
+            timeRemaining = [sessionTime] * self.m
+            if completeTasks(0):
+                r = self.m
+            else:
+                l = self.m + 1      
+        return l
+            
