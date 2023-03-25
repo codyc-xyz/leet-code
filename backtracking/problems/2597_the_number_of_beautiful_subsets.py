@@ -8,14 +8,13 @@
 
 class Solution:
     def beautifulSubsets(self, nums: List[int], k: int) -> int:
-
+        nums.sort()
         def backtrack(i, path):
             if i == len(nums):
-                for j in path:
-                    if j - k in path:
-                        return 0
                 return 1 if path else 0
+            if nums[i] - k in path:
+                return backtrack(i + 1, path)
 
-            return backtrack(i + 1, path + [nums[i]]) + backtrack(i + 1, path)
+            return backtrack(i + 1, path | {nums[i]}) + backtrack(i + 1, path)
 
-        return backtrack(0, [])
+        return backtrack(0, set())
