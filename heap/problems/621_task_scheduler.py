@@ -29,3 +29,25 @@ class Solution:
             if arr[0] < 0:
                 time += k 
         return time
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        
+        count = collections.Counter(tasks)
+        maxHeap = []
+        for i, c in enumerate(count):
+            maxHeap.append(count[c] * -1)
+
+        heapq.heapify(maxHeap)
+        q = deque()
+        time = 0
+        while q or maxHeap:
+            time += 1
+            if maxHeap:
+                cnt = 1 + heapq.heappop(maxHeap)
+                if cnt:
+                    q.append([cnt, n + time])
+            if q and q[0][1] == time:
+                heapq.heappush(maxHeap, q.popleft()[0])
+
+        return time
