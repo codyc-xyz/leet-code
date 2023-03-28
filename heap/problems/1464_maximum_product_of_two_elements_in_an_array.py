@@ -6,3 +6,10 @@ class Solution:
         maxHeap = [n * -1 for n in nums]
         heapq.heapify(maxHeap)
         return (heapq.heappop(maxHeap) + 1) * (heapq.heappop(maxHeap) + 1)
+
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+
+       nums.sort()
+       return (nums[-1] - 1) * (nums[-2] - 1)
