@@ -4,3 +4,18 @@
 # Subtract x from every positive element in nums.
 # Return the minimum number of operations to make every element in nums equal to 0.
 
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+       
+        heapq.heapify(nums)
+        ops = 0
+        while nums:
+            curr = heapq.heappop(nums)
+            if curr == 0:
+                continue
+            ops += 1
+            if nums:
+                for i in range(len(nums)):
+                    if nums[i] >= curr:
+                        nums[i] -= curr
+        return ops
