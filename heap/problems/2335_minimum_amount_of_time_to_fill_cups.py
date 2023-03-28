@@ -19,5 +19,12 @@ class Solution:
             
         return seconds + abs(amount[0]) if amount else seconds
         
-
+class Solution:
+    def fillCups(self, amount: List[int]) -> int:
         
+        amount.sort()
+
+        if amount[2] >= amount[1] + amount[0]:
+            return amount[2]
+        amountSum = sum(amount)
+        return amountSum // 2 + amountSum % 2
