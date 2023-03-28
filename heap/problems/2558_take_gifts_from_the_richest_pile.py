@@ -5,3 +5,12 @@
 # Leave behind the floor of the square root of the number of gifts in the pile. Take the rest of the gifts.
 # Return the number of gifts remaining after k seconds.
 
+class Solution:
+    def pickGifts(self, gifts: List[int], k: int) -> int:
+        
+        maxHeap = [-1 * g for g in gifts]
+        heapq.heapify(maxHeap)
+        while k > 0:
+            heapq.heappush(maxHeap, (int(math.sqrt(heapq.heappop(maxHeap) * -1))) * -1)
+            k -= 1
+        return sum(maxHeap) * -1
