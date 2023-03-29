@@ -15,7 +15,5 @@ class Solution:
 
         while heap:
             count, char = heapq.heappop(heap)
-            while count > 0:
-                ans = char + ans
-                count -= 1
+            ans = char * count + ans
         return ans
