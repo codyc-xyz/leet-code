@@ -26,3 +26,22 @@ class Solution:
 
             i += 1
         return res
+
+
+class Solution:
+    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
+    
+        
+        heap = []
+        heapq.heapify(heap)
+        for i, n in enumerate(nums):
+            if len(heap) < k:
+                heapq.heappush(heap, [n, i])
+            else:
+                heapq.heappushpop(heap, [n, i])
+
+        
+        heap.sort(key=lambda x: x[1])
+
+        return [n[0] for n in heap]
+
