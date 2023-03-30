@@ -7,3 +7,14 @@
 
 # floor(x) is the greatest integer that is smaller than or equal to x (i.e., rounds x down).
 
+class Solution:
+    def minStoneSum(self, piles: List[int], k: int) -> int:
+
+        piles = [-p for p in piles]
+        heapq.heapify(piles)
+
+        while k > 0:
+            heapq.heappushpop(piles, piles[0] // 2)
+            k -= 1
+        
+        return abs(sum(piles))
