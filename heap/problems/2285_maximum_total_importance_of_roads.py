@@ -6,3 +6,29 @@
 
 # Return the maximum total importance of all roads possible after assigning the values optimally.
 
+class Solution:
+    def maximumImportance(self, n: int, roads: List[List[int]]) -> int:
+
+        adj = defaultdict(list)
+
+        for a, b in roads:
+            adj[a].append(b)
+            adj[b].append(a)
+
+        lengths = []
+        heapq.heapify(lengths)
+        for res in adj:
+            heapq.heappush(lengths, [-len(adj[res]), res])
+
+        vals = [None] * (n)
+    
+        while lengths:
+            _, city = heapq.heappop(lengths)
+            vals[city] = n
+            n -= 1
+        ans = 0
+        for a, b in roads:
+            ans += vals[a] + vals[b]
+        return ans
+
+
