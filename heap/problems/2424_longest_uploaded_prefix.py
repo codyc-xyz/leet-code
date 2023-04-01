@@ -25,3 +25,18 @@ def __init__(self, n: int):
 # obj = LUPrefix(n)
 # obj.upload(video)
 # param_2 = obj.longest()
+
+class LUPrefix:
+
+    def __init__(self, n: int):
+        self.pfix = [False] * n
+        self.i = 0
+        
+    def upload(self, video: int) -> None:
+        self.pfix[video - 1] = True
+        
+    def longest(self) -> int:
+        while self.i < len(self.pfix) and self.pfix[self.i]:
+            self.i += 1
+        return self.i
+        
