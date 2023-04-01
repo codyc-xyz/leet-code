@@ -11,3 +11,25 @@
 # If Alice wins, return 1.
 # If Bob wins, return -1.
 # If the game results in a draw, return 0.
+
+class Solution:
+    def stoneGameVI(self, aliceValues: List[int], bobValues: List[int]) -> int:
+
+        totValues = []
+        for i in range(len(aliceValues)):
+            totValues.append([-(aliceValues[i] + bobValues[i]), i])
+        heapq.heapify(totValues)
+        alice = bob = 0
+        while totValues:
+
+            alice += aliceValues[heapq.heappop(totValues)[1]]
+            if totValues:
+                bob += bobValues[heapq.heappop(totValues)[1]]
+
+        if alice > bob:
+            return 1
+        elif alice < bob:
+            return -1
+        else:
+            return 0
+
