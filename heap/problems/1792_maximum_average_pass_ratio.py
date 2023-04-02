@@ -6,3 +6,18 @@
 
 # Return the maximum possible average pass ratio after assigning the extraStudents students. Answers within 10-5 of the actual answer will be accepted.
 
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
+
+        heap = [ [(p / t) - ((p + 1) / (t + 1)), i] for i, [p, t] in enumerate(classes)]
+        heapq.heapify(heap)
+
+        while extraStudents:
+            _, i = heapq.heappop(heap)
+            classes[i][0] += 1
+            classes[i][1] += 1
+            heapq.heappush(heap, [(classes[i][0] / classes[i][1]) - ((classes[i][0] + 1) / (classes[i][1] + 1)), i])
+            extraStudents -= 1
+        
+        ratio = [p / t for p, t in classes]
+
+        return sum(ratio) / len(ratio)
