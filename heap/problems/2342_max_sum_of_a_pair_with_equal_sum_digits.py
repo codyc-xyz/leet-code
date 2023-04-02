@@ -2,3 +2,20 @@
 
 # Return the maximum value of nums[i] + nums[j] that you can obtain over all possible indices i and j that satisfy the conditions.
 
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+
+        digitSums = defaultdict(list)
+        for i in range(len(nums)):
+            digitSum = 0
+            char = str(nums[i])
+            for c in char:
+                digitSum += int(c)
+            heapq.heappush(digitSums[digitSum], -nums[i])
+
+        maxVal = 0
+        for d in digitSums:
+            if len(digitSums[d]) > 1:
+                maxVal = min(maxVal, heapq.heappop(digitSums[d]) + heapq.heappop(digitSums[d]))
+
+        return -maxVal or -1
