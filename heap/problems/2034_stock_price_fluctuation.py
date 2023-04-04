@@ -21,22 +21,36 @@ class StockPrice:
 
     def __init__(self):
         self.hm = {}
+        self.minHeap = []
+        self.maxHeap = []
+        self.latest = [-1, 0]
         
     def update(self, timestamp: int, price: int) -> None:
         self.hm[timestamp] = price
+
+        heapq.heappush(self.minHeap, [price, timestamp])
+        heapq.heappush(self.maxHeap, [-price, timestamp])
+        if timestamp >= self.latest[0]:
+            self.latest = [timestamp, price]
         
     def current(self) -> int:
-        time = max(self.hm)
-        return self.hm[time]
+        return self.latest[1]
         
-
     def maximum(self) -> int:
-        return max(self.hm.values())
-        
+        price, time = self.maxHeap[0]
+        while self.hm[time] != -price:
+            heapq.heappop(self.maxHeap)
+            price, time = self.maxHeap[0]
 
-    def minimum(self) -> int:
-        return min(self.hm.values())
+        return -price
         
+    def minimum(self) -> int:
+        price, time = self.minHeap[0]
+        while self.hm[time] != price:
+            heapq.heappop(self.minHeap)
+            price, time = self.minHeap[0]
+        return price
+
 
 
 # Your StockPrice object will be instantiated and called as such:
