@@ -24,10 +24,31 @@ class Solution:
                         subseqs[i].append(n)
                         flag = True
                         break
+                    elif n > subseqs[i][-1] + 1:
+                      break
                 if not flag:
                     subseqs.append([n])
                     j += 1
         for s in subseqs:
             if len(s) < 3:
                 return False
+        return True
+
+
+class Solution:
+    def isPossible(self, nums: List[int]) -> bool:
+        
+        tails = defaultdict(list)
+
+        for n in nums:
+            if tails[n - 1]:
+                length = heapq.heappop(tails[n - 1]) + 1
+                heapq.heappush(tails[n], length)
+            else:
+                heapq.heappush(tails[n], 1)
+
+        for t in tails.values():
+            for l in t:
+                if l < 3:
+                    return False
         return True
