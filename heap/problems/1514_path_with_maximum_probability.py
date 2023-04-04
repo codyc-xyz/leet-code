@@ -4,3 +4,22 @@
 
 # If there is no path from start to end, return 0. Your answer will be accepted if it differs from the correct answer by at most 1e-5.
 
+class Solution:
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+
+        adj = defaultdict(list)
+
+        for i, e in enumerate(edges):
+            heapq.heappush(adj[e[0]], [-succProb[i], e[1]])
+            heapq.heappush(adj[e[1]], [-succProb[i], e[0]])
+
+        curr = [[-1, start]]
+        while curr:
+            currProb, node = heapq.heappop(curr)
+            if node == end:
+                return -currProb
+            while adj[node]:
+                nextProb, nextNode = heapq.heappop(adj[node])
+                heapq.heappush(curr, [currProb * -nextProb, nextNode])
+
+        return 0
