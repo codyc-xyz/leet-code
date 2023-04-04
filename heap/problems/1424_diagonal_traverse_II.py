@@ -15,4 +15,19 @@ class Solution:
          
         return ans
 
+class Solution:
+    def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
+        rows = len(nums)
+        heap = []
+        for i in range(rows):
+            for j in range(len(nums[i])):
+                heapq.heappush(heap, [i + j, j, nums[i][j]])
+
+        ans = []
+        while heap:
+            ans.append(heapq.heappop(heap)[2])
+         
+        return ans
+
             
+
