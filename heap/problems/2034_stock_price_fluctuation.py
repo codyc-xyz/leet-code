@@ -15,3 +15,33 @@
 # int current() Returns the latest price of the stock.
 # int maximum() Returns the maximum price of the stock.
 # int minimum() Returns the minimum price of the stock.
+
+
+class StockPrice:
+
+    def __init__(self):
+        self.hm = {}
+        
+    def update(self, timestamp: int, price: int) -> None:
+        self.hm[timestamp] = price
+        
+    def current(self) -> int:
+        time = max(self.hm)
+        return self.hm[time]
+        
+
+    def maximum(self) -> int:
+        return max(self.hm.values())
+        
+
+    def minimum(self) -> int:
+        return min(self.hm.values())
+        
+
+
+# Your StockPrice object will be instantiated and called as such:
+# obj = StockPrice()
+# obj.update(timestamp,price)
+# param_2 = obj.current()
+# param_3 = obj.maximum()
+# param_4 = obj.minimum()
