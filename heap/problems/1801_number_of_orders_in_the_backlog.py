@@ -13,30 +13,41 @@
 class Solution:
     def getNumberOfBacklogOrders(self, orders: List[List[int]]) -> int:
         mod = 10**9 + 7
-
         buy = []
         sell = []
 
         for price, amount, orderType in orders:
             if orderType == 0:
                 while sell and sell[0][0] <= price and amount > 0:
-                    if sell[0][1] > 1:
-                        sell[0][1] -= 1
-                        amount -= 1
+                    if sell[0][1] > amount:
+                        sell[0][1] -= amount
+                        amount = 0
+                        break
+                    elif sell[0][1] < amount:
+                        amount -= sell[0][1]
+                        heapq.heappop(sell)
                         continue
-                    heapq.heappop(sell)
-                    amount -= 1
+                    else:
+                        heapq.heappop(sell)
+                        amount = 0
+                        break
                 if amount > 0:
                     heapq.heappush(buy, [-price, amount])
 
             elif orderType == 1:
                 while buy and -buy[0][0] >= price and amount > 0:
-                    if buy[0][1] > 1:
-                        buy[0][1] -= 1
-                        amount -= 1
+                    if buy[0][1] > amount:
+                        buy[0][1] -= amount
+                        amount = 0
+                        break
+                    elif buy[0][1] < amount:
+                        amount -= buy[0][1]
+                        heapq.heappop(buy)
                         continue
-                    heapq.heappop(buy)
-                    amount -= 1
+                    else:
+                        heapq.heappop(buy)
+                        amount = 0
+                        break
                 if amount > 0:
                     heapq.heappush(sell, [price, amount])
         
