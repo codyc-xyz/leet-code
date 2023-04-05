@@ -10,17 +10,19 @@
 
 class Solution:
     def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
-
         maxJumps = []
-        totalReq = 0
-
+        currSum = totalReq = 0
+    
         for i in range(1, len(heights)):
-            if heights[i] - heights[i - 1] > 0:
-                heapq.heappush(maxJumps, heights[i] - heights[i - 1])
-                totalReq += heights[i] - heights[i - 1]
-                if len(maxJumps) > ladders:
-                    heapq.heappop(maxJumps)
-            if totalReq - sum(maxJumps) > bricks:
+            jump = heights[i] - heights[i - 1]
+            if jump > 0:
+                if not maxJumps or len(maxJumps) < ladders or jump > maxJumps[0]:
+                    heapq.heappush(maxJumps, jump)
+                    currSum += jump
+                    if len(maxJumps) > ladders:
+                        currSum -= heapq.heappop(maxJumps)
+                totalReq += jump
+            if totalReq - currSum > bricks:
                 return i - 1
         
         return len(heights) - 1
