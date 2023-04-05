@@ -8,3 +8,20 @@
 # If the current building's height is less than the next building's height, you can either use one ladder or (h[i+1] - h[i]) bricks.
 # Return the furthest building index (0-indexed) you can reach if you use the given ladders and bricks optimally.
 
+class Solution:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
+
+        maxJumps = []
+        totalReq = 0
+
+        for i in range(1, len(heights)):
+            if heights[i] - heights[i - 1] > 0:
+                heapq.heappush(maxJumps, heights[i] - heights[i - 1])
+                totalReq += heights[i] - heights[i - 1]
+                if len(maxJumps) > ladders:
+                    heapq.heappop(maxJumps)
+            if totalReq - sum(maxJumps) > bricks:
+                return i - 1
+        
+        return len(heights) - 1
+
