@@ -10,3 +10,39 @@
 # Vice versa, if the order is a sell order, you look at the buy order with the largest price in the backlog. If that buy order's price is larger than or equal to the current sell order's price, they will match and be executed, and that buy order will be removed from the backlog. Else, the sell order is added to the backlog.
 # Return the total amount of orders in the backlog after placing all the orders from the input. Since this number can be large, return it modulo 109 + 7.
 
+class Solution:
+    def getNumberOfBacklogOrders(self, orders: List[List[int]]) -> int:
+        mod = 10**9 + 7
+
+        buy = []
+        sell = []
+
+        for price, amount, orderType in orders:
+            if orderType == 0:
+                while sell and sell[0][0] <= price and amount > 0:
+                    if sell[0][1] > 1:
+                        sell[0][1] -= 1
+                        amount -= 1
+                        continue
+                    heapq.heappop(sell)
+                    amount -= 1
+                if amount > 0:
+                    heapq.heappush(buy, [-price, amount])
+
+            elif orderType == 1:
+                while buy and -buy[0][0] >= price and amount > 0:
+                    if buy[0][1] > 1:
+                        buy[0][1] -= 1
+                        amount -= 1
+                        continue
+                    heapq.heappop(buy)
+                    amount -= 1
+                if amount > 0:
+                    heapq.heappush(sell, [price, amount])
+        
+        totAmt = 0
+        for price, amount in buy:
+            totAmt += amount
+        for price, amount in sell:
+            totAmt += amount
+        return totAmt % mod
