@@ -7,3 +7,25 @@
 
 # Given an integer k, return the top k students after ranking them in non-increasing order by their points. In case more than one student has the same points, the one with the lower ID ranks higher.
 
+class Solution:
+    def topStudents(self, positive_feedback: List[str], negative_feedback: List[str], report: List[str], student_id: List[int], k: int) -> List[int]:
+        heap = []
+        positive_feedback = set(positive_feedback)
+        negative_feedback = set(negative_feedback)
+
+        for i, r in zip(student_id, report):
+            currScore = 0
+            word_list = r.split(" ")
+            for w in word_list:
+                if w in positive_feedback:
+                    currScore -= 3
+                elif w in negative_feedback:
+                    currScore += 1
+            heapq.heappush(heap, [currScore, i])
+
+        ans = []
+        while k > 0:
+            ans.append(heapq.heappop(heap)[1])
+            k -= 1
+        return ans
+
