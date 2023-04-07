@@ -8,3 +8,23 @@
 # The CPU can finish a task then start a new one instantly.
 # Return the order in which the CPU will process the tasks.
 
+class Solution:
+    def getOrder(self, tasks: List[List[int]]) -> List[int]:
+        time = 0
+        heap = []
+        ans = []
+        for i in range(len(tasks)):
+            tasks[i].append(i)
+          
+        heapq.heapify(tasks)
+        while tasks or heap:
+            if not heap and time < tasks[0][0]:
+                time = tasks[0][0]
+            while tasks and time >= tasks[0][0]:
+                _, processTime, idx = heapq.heappop(tasks)
+                heapq.heappush(heap, [processTime, idx])
+            pTime, idx = heapq.heappop(heap)
+            ans.append(idx)
+            time += pTime
+            
+        return ans
