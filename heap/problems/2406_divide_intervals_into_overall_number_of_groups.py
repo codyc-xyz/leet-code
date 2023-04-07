@@ -6,5 +6,13 @@
 
 # Two intervals intersect if there is at least one common number between them. For example, the intervals [1, 5] and [5, 8] intersect.
 
- 
+class Solution:
+    def minGroups(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        heap = []
 
+        for l, r in intervals:
+            if heap and heap[0] < l:
+                heapq.heappop(heap)
+            heapq.heappush(heap, r)
+        return len(heap)
