@@ -4,3 +4,8 @@
 
 # Note: Duplicate numbers should be counted distinctly. For example, if nums is ["1","2","2"], "2" is the first largest integer, "2" is the second-largest integer, and "1" is the third-largest integer.
 
+class Solution:
+    def kthLargestNumber(self, nums: List[str], k: int) -> str:
+
+        nums.sort(key=lambda x: int(x))
+        return nums[-k]
