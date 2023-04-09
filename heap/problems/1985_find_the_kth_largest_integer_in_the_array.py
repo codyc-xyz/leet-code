@@ -9,3 +9,16 @@ class Solution:
 
         nums.sort(key=lambda x: int(x))
         return nums[-k]
+
+class Solution:
+    def kthLargestNumber(self, nums: List[str], k: int) -> str:
+
+        heap = []
+        for n in nums:
+            heapq.heappush(heap, -int(n))
+
+        while k > 1:
+            heapq.heappop(heap)
+            k -= 1
+
+        return str(-heap[0])
