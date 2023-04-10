@@ -15,3 +15,34 @@
 # The column number (smaller column number has a higher rank).
 # Return the k highest-ranked items within the price range sorted by their rank (highest to lowest). If there are fewer than k reachable items within the price range, return all of them.
 
+class Solution:
+    def highestRankedKItems(self, grid: List[List[int]], pricing: List[int], start: List[int], k: int) -> List[List[int]]:
+        row = len(grid)
+        col = len(grid[0])
+        dq = deque([(start[0], start[1], 0)])
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        seen = set()
+        seen.add((start[0], start[1]))
+        heap = []
+        while dq:
+    
+            x, y, dist = dq.popleft()
+            if grid[x][y] == 0:
+                continue
+            elif grid[x][y] != 1 and pricing[0] <= grid[x][y] <= pricing[1]:
+                heapq.heappush(heap, [dist, grid[x][y], x, y])
+            for dx, dy in directions:
+                if 0 <= x + dx < row and 0 <= y + dy < col and (x + dx, y + dy) not in seen:
+                    dq.append([x + dx, y + dy, dist + 1])
+                    seen.add((x + dx, y + dy))
+
+        ans = []
+        while heap and k > 0:
+            _, _, x, y = heapq.heappop(heap)
+            ans.append([x,y])
+            k -= 1
+        return ans
+
+
+
+
