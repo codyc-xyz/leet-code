@@ -8,3 +8,25 @@
 
 # Return the maximum points the mice can achieve if the first mouse eats exactly k types of cheese.
 
+class Solution:
+    def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:
+        eaten = [False] * len(reward1)
+        heap = []
+        i = 0
+        for r1, r2 in zip(reward1, reward2):
+            heapq.heappush(heap, (-r1 + r2, i))
+            i += 1
+
+        ans = 0
+        while k > 0:
+            _, i = heapq.heappop(heap)
+            ans += reward1[i]
+            eaten[i] = True
+            k -= 1
+        
+        for i in range(len(reward2)):
+            if eaten[i] == True:
+                continue
+            else:
+                ans += reward2[i]
+        return ans
