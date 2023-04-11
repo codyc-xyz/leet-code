@@ -11,3 +11,20 @@
 
 # To trim to the rightmost x digits means to keep removing the leftmost digit, until only x digits remain.
 # Strings in nums may contain leading zeros.
+
+
+class Solution:
+    def smallestTrimmedNumbers(self, nums: List[str], queries: List[List[int]]) -> List[int]:
+        ans = []
+        for i in range(len(queries)):
+            k, trim = queries[i]
+            currNums = nums
+            heap = []
+            for j in range(len(currNums)):
+                heapq.heappush(heap, (int(currNums[j][-trim:]), j))
+            while k > 1:
+                heapq.heappop(heap)
+                k -= 1
+            ans.append(heap[0][1])
+
+        return ans
