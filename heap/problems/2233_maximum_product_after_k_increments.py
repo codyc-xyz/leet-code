@@ -6,18 +6,16 @@ class Solution:
     def maximumProduct(self, nums: List[int], k: int) -> int:
         mod = 10**9+7
 
-        nums = [(n, i) for i, n in enumerate(nums)]
         heapq.heapify(nums)
 
         while k > 0:
-            n, i = heapq.heappop(nums)
-            heapq.heappush(nums, (n + 1, i))
+            heapq.heappush(nums, heapq.heappop(nums) + 1)
             k -= 1
 
-        nums.sort(key=lambda x: x[1])
+        ans = 1
+        for n in nums:
+            ans *= n
+            ans %= mod
+        return ans 
 
-        ans = nums[0][0]
-        for i in range(1, len(nums)):
-            ans *= nums[i][0]
-            
-        return ans % mod
+        
