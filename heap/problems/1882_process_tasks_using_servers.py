@@ -12,3 +12,24 @@
 
 # Return the array ans​​​​.
 
+class Solution:
+    def assignTasks(self, servers: List[int], tasks: List[int]) -> List[int]:
+        ans = []
+        servers = [[s, i] for i, s in enumerate(servers)]
+        heapq.heapify(servers)
+        inUse = []
+
+        j = i = 0
+        while j < len(tasks):
+            i = max(j, i)
+            if len(servers) == 0:
+                i = inUse[0][0]
+            while inUse and inUse[0][0] <= i:
+                _, weight, idx = heapq.heappop(inUse)
+                heapq.heappush(servers, [weight, idx])
+
+            weight, idx = heapq.heappop(servers)
+            heapq.heappush(inUse, [i + tasks[j], weight, idx])
+            ans.append(idx)
+            j += 1
+        return ans
