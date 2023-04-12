@@ -7,3 +7,19 @@
 
 # Return the chair number that the friend numbered targetFriend will sit on.
 
+class Solution:
+    def smallestChair(self, times: List[List[int]], targetFriend: int) -> int:
+
+        chairs = [0] * len(times)
+        for i, t in enumerate(times):
+            t.append(i)
+            
+        times.sort()
+        
+        for arrive, leave, i in times:
+            for j, leaveTime in enumerate(chairs):
+                if leaveTime <= arrive:
+                    chairs[j] = leave
+                    if i == targetFriend:
+                        return j
+                    break
