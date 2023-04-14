@@ -10,3 +10,26 @@
 
 # Given an integer k, return the maximum star sum of a star graph containing at most k edges.
 
+class Solution:
+    def maxStarSum(self, vals: List[int], edges: List[List[int]], k: int) -> int:
+
+        adj = defaultdict(list)
+        for e1, e2 in edges:
+            adj[e1].append([vals[e2], e2])
+            adj[e2].append([vals[e1], e1])
+
+        maxSum = max(vals)
+        for node in adj:
+            K = k
+            adj[node].sort()
+            currSum = vals[node]
+            i = len(adj[node]) - 1
+            while K > 0 and i >= 0:
+                if vals[adj[node][i][1]] <= 0:
+                    break
+                currSum += vals[adj[node][i][1]]
+                i -= 1
+                K -= 1
+
+            maxSum = max(maxSum, currSum)
+        return maxSum
