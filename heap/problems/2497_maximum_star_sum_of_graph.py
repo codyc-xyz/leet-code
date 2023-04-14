@@ -15,8 +15,8 @@ class Solution:
 
         adj = defaultdict(list)
         for e1, e2 in edges:
-            adj[e1].append([vals[e2], e2])
-            adj[e2].append([vals[e1], e1])
+            adj[e1].append(vals[e2])
+            adj[e2].append(vals[e1])
 
         maxSum = max(vals)
         for node in adj:
@@ -25,11 +25,13 @@ class Solution:
             currSum = vals[node]
             i = len(adj[node]) - 1
             while K > 0 and i >= 0:
-                if vals[adj[node][i][1]] <= 0:
+                if adj[node][i] <= 0:
                     break
-                currSum += vals[adj[node][i][1]]
+                currSum += adj[node][i]
                 i -= 1
                 K -= 1
 
             maxSum = max(maxSum, currSum)
         return maxSum
+
+
