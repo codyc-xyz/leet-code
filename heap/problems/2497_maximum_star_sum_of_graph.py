@@ -35,3 +35,21 @@ class Solution:
         return maxSum
 
 
+class Solution:
+    def maxStarSum(self, vals: List[int], edges: List[List[int]], k: int) -> int:
+
+        adj = defaultdict(list)
+        for e1, e2 in edges:
+            heapq.heappush(adj[e1], -vals[e2])
+            heapq.heappush(adj[e2], -vals[e1])
+        
+        maxSum = float('-inf')
+        for i in range(len(vals)):
+            currSum = vals[i]
+            K = k
+            while adj[i] and adj[i][0] < 0 and K > 0:
+                currSum -= heapq.heappop(adj[i])
+                K -= 1
+
+            maxSum = max(maxSum, currSum)
+        return maxSum
