@@ -23,3 +23,20 @@ class Solution:
         backtrack(0, k, 0, float('inf'))
         return self.maxScore
         
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        
+        nums = [[i, j] for i, j in zip(nums1, nums2)]
+        nums.sort(key=lambda x: x[1], reverse = True)
+
+        heap = [nums[i][0] for i in range(k)]
+        currSum = sum(heap)
+        heapq.heapify(heap)
+        ans = currSum * nums[k - 1][1]
+        for i in range(k, len(nums)):
+            currSum -= heapq.heappop(heap)
+            currSum += nums[i][0]
+            heapq.heappush(heap, nums[i][0])
+            ans = max(ans, currSum * nums[i][1])
+
+        return ans
