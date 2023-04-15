@@ -7,3 +7,19 @@
 # Return the maximum possible score.
 
 # A subsequence of indices of an array is a set that can be derived from the set {0, 1, ..., n-1} by deleting some or no elements.
+
+
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        self.maxScore = 0
+        def backtrack(i, k, currSum, minMulti):
+            if k == 0:
+                self.maxScore = max(self.maxScore, currSum * minMulti)
+                return
+            if i >= len(nums1):
+                return
+            backtrack(i + 1, k - 1, currSum + nums1[i], min(minMulti, nums2[i]))
+            backtrack(i + 1, k, currSum, minMulti)
+        backtrack(0, k, 0, float('inf'))
+        return self.maxScore
+        
