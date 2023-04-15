@@ -9,16 +9,16 @@ class Solution:
 
         heap = []
         i = applesEaten = 0
-        while True:
+        while i < len(days) or heap:
             if i < len(days):
-                for _ in range(apples[i]):
-                    heapq.heappush(heap, i + days[i])
-            while heap and i >= heap[0]:
-                heapq.heappop(heap)
+               heapq.heappush(heap, [i + days[i], apples[i]])
             if heap:
-                heapq.heappop(heap)
-                applesEaten += 1
-            elif not heap and i >= len(days):
-                break
+                while heap and heap[0][0] <= i:
+                    heapq.heappop(heap)
+                if heap:
+                    expiry, count = heapq.heappop(heap)
+                    applesEaten += 1
+                    if expiry > i + 1 and count > 1:
+                        heapq.heappush(heap, [expiry, count - 1])
             i += 1
-        return applesEaten
+        return applesEaten 
