@@ -10,3 +10,31 @@
 # A worker can only be chosen once.
 # Return the total cost to hire exactly k workers.
 
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs)
+        ans = 0
+        heap = []
+        i, j = 0, n - 1
+        while i < candidates:
+            heapq.heappush(heap, [costs[i], i, 1])
+            i += 1
+
+        while j >= max(i, n - candidates):
+            heapq.heappush(heap, [costs[j], j, -1])
+            j -= 1
+        
+
+        while k > 0:
+            val, idx, direction = heapq.heappop(heap)
+            ans += val
+            if i <= j:
+                if direction == -1:
+                    heapq.heappush(heap, [costs[j], j, -1])
+                    j -= 1
+                elif direction == 1:
+                    heapq.heappush(heap, [costs[i], i, 1])
+                    i += 1
+            k -= 1
+        return ans
+           
