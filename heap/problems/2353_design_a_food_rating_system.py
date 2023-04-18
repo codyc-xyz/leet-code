@@ -15,25 +15,24 @@ class FoodRatings:
 
     def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
         self.hm = { c: [] for c in cuisines}
+        self.foodRatings = {}
         for f, c in zip(foods, cuisines):
             self.hm[c].append(f)
         self.foodGroups = defaultdict(list)
         for f, c, r in zip(foods, cuisines, ratings):
             heapq.heappush(self.foodGroups[c], [-r, f])
+            self.foodRatings[f] = -r
 
     def changeRating(self, food: str, newRating: int) -> None:
         for c in self.hm:
             if food in self.hm[c]:
-                currCuisine = c
-                break
-        
-        for i in range(len(self.foodGroups[currCuisine])):
-            if self.foodGroups[c][i][1] == food:
-                self.foodGroups[c][i][0] = -newRating
-                heapq.heapify(self.foodGroups[c])
+                heapq.heappush(self.foodGroups[c], [-newRating, food])
+                self.foodRatings[food] = -newRating
                 break
        
     def highestRated(self, cuisine: str) -> str:
+        while self.foodGroups[cuisine][0][0] != self.foodRatings[self.foodGroups[cuisine][0][1]]:
+            heapq.heappop(self.foodGroups[cuisine])
         return self.foodGroups[cuisine][0][1]
         
 
