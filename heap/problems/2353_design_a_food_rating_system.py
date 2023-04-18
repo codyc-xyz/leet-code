@@ -11,3 +11,34 @@
 # String highestRated(String cuisine) Returns the name of the food item that has the highest rating for the given type of cuisine. If there is a tie, return the item with the lexicographically smaller name.
 # Note that a string x is lexicographically smaller than string y if x comes before y in dictionary order, that is, either x is a prefix of y, or if i is the first position such that x[i] != y[i], then x[i] comes before y[i] in alphabetic order.
 
+class FoodRatings:
+
+    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
+        self.hm = { c: [] for c in cuisines}
+        for f, c in zip(foods, cuisines):
+            self.hm[c].append(f)
+        self.foodGroups = defaultdict(list)
+        for f, c, r in zip(foods, cuisines, ratings):
+            heapq.heappush(self.foodGroups[c], [-r, f])
+
+    def changeRating(self, food: str, newRating: int) -> None:
+        for c in self.hm:
+            if food in self.hm[c]:
+                currCuisine = c
+                break
+        
+        for i in range(len(self.foodGroups[currCuisine])):
+            if self.foodGroups[c][i][1] == food:
+                self.foodGroups[c][i][0] = -newRating
+                heapq.heapify(self.foodGroups[c])
+                break
+       
+    def highestRated(self, cuisine: str) -> str:
+        return self.foodGroups[cuisine][0][1]
+        
+
+
+# Your FoodRatings object will be instantiated and called as such:
+# obj = FoodRatings(foods, cuisines, ratings)
+# obj.changeRating(food,newRating)
+# param_2 = obj.highestRated(cuisine)
