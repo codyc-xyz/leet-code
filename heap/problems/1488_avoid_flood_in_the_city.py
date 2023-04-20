@@ -13,3 +13,31 @@
 
 # Notice that if you chose to dry a full lake, it becomes empty, but if you chose to dry an empty lake, nothing changes.
 
+class Solution:
+    def avoidFlood(self, rains: List[int]) -> List[int]:
+        ans = []
+        heap = []
+        full = set()
+        rainDict = defaultdict(list)
+
+        for i, r in enumerate(rains):
+            rainDict[r].append(i)
+
+        for day, city in enumerate(rains):
+            if city > 0:
+                if city in full:
+                    return []
+                full.add(city)
+                rainDict[city].pop(0)
+                if rainDict[city]:
+                    heapq.heappush(heap, rainDict[city][0])
+                ans.append(-1)
+            else:
+                if heap:
+                    idx = heapq.heappop(heap)
+                    ans.append(rains[idx])
+                    full.remove(rains[idx])
+                else:
+                    ans.append(1)
+        return ans
+
