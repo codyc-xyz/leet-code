@@ -9,3 +9,15 @@
 
 # It is guaranteed that num does not contain any leading zeros.
 # The order of occurrence of the digits in num1 and num2 may differ from the order of occurrence of num.
+
+class Solution:
+    def splitNum(self, num: int) -> int:
+        nums = sorted(str(num))
+        n1, n2 = "", ""
+        for i, n in enumerate(nums):
+            if not i % 2:
+                n1 += n
+            else:
+                n2 += n
+        return int(n1) + int(n2)
+
