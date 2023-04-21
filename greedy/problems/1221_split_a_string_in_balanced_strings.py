@@ -5,3 +5,16 @@
 # Each substring is balanced.
 # Return the maximum number of balanced strings you can obtain.
 
+class Solution:
+    def balancedStringSplit(self, s: str) -> int:
+        countR = countL = 0
+        ans = 0
+        for c in s:
+            if c == 'R':
+                countR += 1
+            else:
+                countL += 1
+            if countR == countL:
+                ans += 1
+                countR = countL = 0
+        return ans
