@@ -4,3 +4,19 @@
 
 # Note that the solution with the given constraints is guaranteed to be unique. Also return the answer sorted in non-increasing order.
 
+class Solution:
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+
+        curr = sum(nums) 
+        nums.sort()
+        i = res = 0
+
+        while i < len(nums):
+            if res + nums[i] < curr - nums[i]:
+                res += nums[i]
+                curr -= nums[i]
+            else:
+                break
+            i += 1
+
+        return nums[i:][::-1]
