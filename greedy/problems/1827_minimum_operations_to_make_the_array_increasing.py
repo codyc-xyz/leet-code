@@ -5,5 +5,14 @@
 
 # An array nums is strictly increasing if nums[i] < nums[i+1] for all 0 <= i < nums.length - 1. An array of length 1 is trivially strictly increasing.
 
- 
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        ans = 0
+        for i in range(1, len(nums)):
+            if nums[i] <= nums[i - 1]:
+                res = abs(nums[i] - nums[i - 1]) + 1
+                nums[i] += res
+                ans += res
+            
+        return ans
 
