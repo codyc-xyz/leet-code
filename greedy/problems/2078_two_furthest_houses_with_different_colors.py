@@ -4,3 +4,21 @@
 
 # The distance between the ith and jth houses is abs(i - j), where abs(x) is the absolute value of x.
 
+class Solution:
+    def maxDistance(self, colors: List[int]) -> int:
+
+        l, r = 0, len(colors) - 1
+
+        if colors[l] != colors[r]:
+            return r - l
+        L, R = l, r
+        while colors[l] == colors[r]:
+            r -= 1
+        res1 = r - l
+
+        while colors[L] == colors[R]:
+            L += 1
+        
+        res2 = R - L
+
+        return max(res1, res2)
