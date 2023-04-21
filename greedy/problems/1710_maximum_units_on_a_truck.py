@@ -6,3 +6,18 @@
 
 # Return the maximum total number of units that can be put on the truck.
 
+class Solution:
+    def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:
+        boxTypes.sort(key = lambda x: x[1])
+        ans = 0
+        while truckSize > 0 and boxTypes:
+            numBoxes, numUnits = boxTypes.pop()
+
+            if truckSize >= numBoxes:
+                truckSize -= numBoxes
+                ans += numBoxes * numUnits
+            else:
+                ans += truckSize * numUnits
+                return ans
+        return ans
+        
