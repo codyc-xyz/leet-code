@@ -9,5 +9,21 @@
 # numNegOnes items with -1s written on them.
 # We want to pick exactly k items among the available items. Return the maximum possible sum of numbers written on the items.
 
- 
+class Solution:
+    def kItemsWithMaximumSum(self, numOnes: int, numZeros: int, numNegOnes: int, k: int) -> int:
 
+        ans = 0
+    
+        if k >= numOnes:
+            k -= numOnes
+            ans += numOnes
+        else:
+            return k
+            
+        if k >= numZeros:
+            k -= numZeros
+        else:
+            return ans
+            
+        return ans - k
+            
