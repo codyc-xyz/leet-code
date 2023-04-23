@@ -4,3 +4,28 @@
 
 # Given an integer array bills where bills[i] is the bill the ith customer pays, return true if you can provide every customer with the correct change, or false otherwise.
 
+class Solution:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+
+        leftOver = [0, 0, 0]
+
+        for b in bills:
+            if b == 5:
+                leftOver[0] += 1
+            elif b == 10:
+                if not leftOver[0]:
+                    return False
+                else:
+                    leftOver[0] -= 1
+                    leftOver[1] += 1
+            else:
+                if not leftOver[0] or not leftOver[1] and leftOver[0] < 3:
+                    return False
+                else:
+                    if leftOver[1]:
+                        leftOver[1] -= 1
+                        leftOver[0] -= 1
+                    elif not leftOver[1]:
+                        leftOver[0] -= 3
+                    leftOver[2] += 1
+        return True
