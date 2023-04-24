@@ -10,3 +10,17 @@
 
 # Return the minimum number of training hours required to defeat all n opponents.
 
+class Solution:
+    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:
+        if sum(energy) >= initialEnergy:
+            ans = sum(energy) + 1 - initialEnergy 
+        else:
+            ans = 0
+        for energ, exp in zip(energy, experience):
+            if initialExperience > exp:
+                initialExperience += exp
+            else:
+                currExp = exp + 1 - initialExperience
+                ans += currExp
+                initialExperience += currExp + exp
+        return ans
