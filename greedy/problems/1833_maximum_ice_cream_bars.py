@@ -8,3 +8,12 @@
 
 # You must solve the problem by counting sort.
 
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+
+        heapq.heapify(costs)
+        ans = 0
+        while costs and costs[0] <= coins:
+            coins -= heapq.heappop(costs)
+            ans += 1
+        return ans
