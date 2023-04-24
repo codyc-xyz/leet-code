@@ -6,3 +6,20 @@
 
 # Return the maximum total sum that the height of the buildings can be increased by without changing the city's skyline from any cardinal direction.
 
+class Solution:
+    def maxIncreaseKeepingSkyline(self, grid: List[List[int]]) -> int:
+        row = len(grid)
+        col = len(grid[0])
+        Xs = defaultdict(list)
+        Ys = defaultdict(list)
+        ans = 0
+        for x in range(row):
+            for y in range(col):
+                heapq.heappush(Xs[x], -grid[x][y])
+                heapq.heappush(Ys[y], -grid[x][y])
+
+        for x in range(row):
+            for y in range(col):
+                ans += -max(Xs[x][0], Ys[y][0]) - grid[x][y]
+
+        return ans
