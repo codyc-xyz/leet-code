@@ -2,3 +2,20 @@
 
 # Reconstruct and return the queue that is represented by the input array people. The returned queue should be formatted as an array queue, where queue[j] = [hj, kj] is the attributes of the jth person in the queue (queue[0] is the person at the front of the queue).
 
+class Solution:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        ans = [None] * len(people)
+        heapq.heapify(people)
+        while people:
+            h, k = heapq.heappop(people)
+            empties = -1
+            for K in range(len(ans)):
+               if not ans[K] or ans[K][0] == h:
+                   empties += 1
+                   if empties == k:
+                       placement = K
+                       break
+            ans[placement] = [h, k]
+            
+        return ans
+
