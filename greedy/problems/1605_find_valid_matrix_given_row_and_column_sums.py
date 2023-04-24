@@ -4,3 +4,21 @@
 
 # Return a 2D array representing any matrix that fulfills the requirements. It's guaranteed that at least one matrix that fulfills the requirements exists.
 
+class Solution:
+    def restoreMatrix(self, rowSum: List[int], colSum: List[int]) -> List[List[int]]:
+        
+        grid = [[0 for i in range(len(colSum))] for j in range(len(rowSum))]
+            
+        for x in range(len(grid)):
+            for y in range(len(grid[0])):
+                if rowSum[x] < colSum[y]:
+                    val = rowSum[x]
+                    grid[x][y] = val
+                    rowSum[x] -= val
+                    colSum[y] -= val
+                else:
+                    val = colSum[y]
+                    grid[x][y] = val
+                    colSum[y] -= val
+                    rowSum[x] -= val
+        return grid
