@@ -2,3 +2,7 @@
 
 # Given a string n that represents a positive decimal integer, return the minimum number of positive deci-binary numbers needed so that they sum up to n.
 
+class Solution:
+    def minPartitions(self, n: str) -> int:
+
+        return int(max(n))
