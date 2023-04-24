@@ -9,5 +9,13 @@
 
 # Return the maximum number of coins that you can have.
 
- 
-
+class Solution:
+    def maxCoins(self, piles: List[int]) -> int:
+        b = you = 0
+        y = len(piles) - 2
+        piles.sort()
+        while b < y:
+            you += piles[y]
+            y -= 2
+            b += 1
+        return you
