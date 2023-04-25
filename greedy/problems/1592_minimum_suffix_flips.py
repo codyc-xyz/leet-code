@@ -4,3 +4,12 @@
 
 # Return the minimum number of operations needed to make s equal to target.
 
+class Solution:
+    def minFlips(self, target: str) -> int:
+        flips = 0
+        for i in range(len(target)):
+            if target[i] == '1' and not flips % 2:
+                flips += 1
+            elif target[i] == '0' and flips % 2:
+                flips += 1
+        return flips
