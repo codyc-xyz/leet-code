@@ -6,3 +6,19 @@
 
 # Note that a string x is lexicographically smaller than string y if x comes before y in dictionary order, that is, either x is a prefix of y, or if i is the first position such that x[i] != y[i], then x[i] comes before y[i] in alphabetic order.
 
+class Solution:
+    def getSmallestString(self, n: int, k: int) -> str:
+        ans = ""
+        k -= n
+        i = 1
+        while i <= n:
+            if k >= 25:
+                ans = 'z' + ans
+                k -= 25
+            elif k > 0:
+                ans = chr((97 + k)) + ans
+                k -= k
+            else:
+                ans = 'a' + ans
+            i += 1
+        return ans
