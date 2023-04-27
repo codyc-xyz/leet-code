@@ -9,16 +9,15 @@
 class Solution:
     def mergeTriplets(self, triplets: List[List[int]], target: List[int]) -> bool:
 
-        heap = []
+        arr = []
 
         for a, b, c in triplets:
             if a == target[0] or b == target[1] or c == target[2]  :
-                heapq.heappush(heap, [a, b, c])
+                arr.append([a,b,c])
 
         A = B = C = 0
 
-        while heap:
-            a, b, c = heapq.heappop(heap)
+        for a, b, c in arr:
             if a > target[0] or b > target[1] or c > target[2]:
                 continue
             A, B, C = max(A, a), max(B, b), max(C, c)
