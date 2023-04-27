@@ -2,3 +2,21 @@
 
 # Return the minimum rounds required to complete all the tasks, or -1 if it is not possible to complete all the tasks.
 
+class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+
+        count = collections.Counter(tasks)
+        rounds = 0
+        for c in count:
+            curr = count[c]
+            if curr == 1:
+                return -1
+            while curr - 3 >= 2:
+                curr -= 3
+                rounds += 1
+            if curr == 4:
+                rounds += 2
+            else:
+                rounds += 1
+        return rounds
+
