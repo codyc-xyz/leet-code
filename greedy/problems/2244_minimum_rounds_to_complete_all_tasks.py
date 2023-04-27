@@ -11,12 +11,14 @@ class Solution:
             curr = count[c]
             if curr == 1:
                 return -1
-            while curr - 3 >= 2:
-                curr -= 3
-                rounds += 1
+            if curr - 3 >= 2:
+                div, mod = divmod(curr, 3)
+                curr = mod
+                rounds += div
+                if not curr:
+                    continue
             if curr == 4:
                 rounds += 2
             else:
                 rounds += 1
         return rounds
-
