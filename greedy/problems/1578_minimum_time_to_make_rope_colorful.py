@@ -4,3 +4,17 @@
 
 # Return the minimum time Bob needs to make the rope colorful.
 
+class Solution:
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        prevTime = prevColor = None
+        time = 0
+        for c, t in zip(colors, neededTime):
+            if c == prevColor:
+                if t > prevTime:
+                    time += prevTime
+                else:
+                    time += t
+                    continue
+            prevTime = t
+            prevColor = c
+        return time
