@@ -8,3 +8,22 @@
 
 # Return the maximum score of a subset s.
 
+class Solution:
+    def largestValsFromLabels(self, values: List[int], labels: List[int], numWanted: int, useLimit: int) -> int:
+
+        heap = [[-v, l] for v, l in zip(values, labels)]
+        heapq.heapify(heap)
+        taken = ans = 0
+        hm = {}
+
+        while heap and taken < numWanted:
+            value, label = heapq.heappop(heap)
+            if label not in hm:
+                hm[label] = 1
+                ans -= value
+                taken += 1
+            elif hm[label] < useLimit:
+                hm[label] += 1
+                ans -= value
+                taken += 1
+        return ans
