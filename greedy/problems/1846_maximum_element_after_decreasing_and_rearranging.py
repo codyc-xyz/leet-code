@@ -8,3 +8,17 @@
 # Rearrange the elements of arr to be in any order.
 # Return the maximum possible value of an element in arr after performing the operations to satisfy the conditions.
 
+class Solution:
+    def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:
+
+        arr.sort()
+        arr[0] = 1
+
+        for i in range(1, len(arr)):
+            currDiff = arr[i] - arr[i - 1]
+            if arr[i] - arr[i - 1] > 1:
+                arr[i] = i + 1
+        if len(arr) > 1:
+            if arr[-1] - arr[-2] > 1:
+                arr[-1] = arr[-2] + 1
+        return arr[-1]
