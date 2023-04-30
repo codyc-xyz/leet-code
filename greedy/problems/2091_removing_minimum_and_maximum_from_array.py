@@ -6,5 +6,25 @@
 
 # Return the minimum number of deletions it would take to remove both the minimum and maximum element from the array.
 
- 
+class Solution:
+    def minimumDeletions(self, nums: List[int]) -> int:
+
+        maxIdx, minIdx = nums.index(max(nums)), nums.index(min(nums))
+
+        l, r = 0, len(nums) - 1
+        ans = 0
+        closestTo0 = min(maxIdx, minIdx)
+        closestToLen = r - max(minIdx, maxIdx)
+        if closestTo0 < closestToLen:
+            l = closestTo0
+            ans = closestTo0 + 1
+            last = max(minIdx, maxIdx)
+            ans += min(abs(last - l), abs(r - last + 1)) 
+        else:
+            r = max(minIdx, maxIdx)
+            ans = closestToLen + 1
+            ans += min(abs(closestTo0 - l + 1), abs(r - closestTo0)) 
+        return ans
+
+
 
