@@ -4,3 +4,14 @@
 
 # Note that you may have multiple coins of the same value.
 
+class Solution:
+    def getMaximumConsecutive(self, coins: List[int]) -> int:
+        
+        coins.sort()
+        x = 1
+        for c in coins:
+            if c <= x:
+                x += c
+        return x
+
+
