@@ -15,3 +15,20 @@ class Solution:
             k -= 1
 
         return len(heap)
+
+
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        count = collections.Counter(arr)
+        arr = []
+
+        for c in count:
+            arr.append(count[c])
+        arr.sort()
+
+        for i in range(len(arr)):
+            if k >= arr[i]:
+                k -= arr[i]
+            else:
+                return len(arr) - i
+        return 0
