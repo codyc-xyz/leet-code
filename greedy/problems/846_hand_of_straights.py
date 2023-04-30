@@ -27,3 +27,28 @@ class Solution:
                     heapq.heappush(heap, [num, countNum])
                 addBack = []
         return False if seen or addBack else True
+
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        if len(hand) % groupSize:
+            return False
+        count = collections.Counter(hand)
+        heap = []
+        for c in count:
+            heapq.heappush(heap, c)
+
+        while heap:
+            minN = heap[0]
+
+            for i in range(minN, groupSize + minN):
+                if i not in count:
+                    return False
+                count[i] -= 1
+                if count[i] == 0:
+                    if i != heap[0]:
+                        return False
+                    heapq.heappop(heap)
+                    del count[i]
+        return True
+                
+                
