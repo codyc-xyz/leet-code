@@ -6,3 +6,22 @@
 
 # If it cannot be done, return -1.
 
+class Solution:
+    def minDominoRotations(self, tops: List[int], bottoms: List[int]) -> int:
+        countTop = collections.Counter(tops)
+        countBottom = collections.Counter(bottoms)
+        maxTopCount = max(countTop.values())
+        maxBottomCount = max(countBottom.values())
+        res = 0
+        if maxTopCount > maxBottomCount:
+            maxCountKey= max(countTop, key=lambda k: countTop[k])
+            for t, b in zip(tops, bottoms):
+                if b == maxCountKey and t != maxCountKey:
+                    res += 1
+            return res if res + maxTopCount == len(tops) else -1
+        else:
+            maxCountKey = max(countBottom, key=lambda k: countBottom[k])
+            for t, b in zip(tops, bottoms):
+                if t == maxCountKey and b != maxCountKey:
+                    res += 1
+            return res if res + maxBottomCount == len(tops) else -1
