@@ -4,3 +4,16 @@
 
 # Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
 
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+
+        heapq.heapify(points)
+        ans = 0
+        while points:
+            s, e = heapq.heappop(points)
+            while points and points[0][0] <= e:
+                start, end = heapq.heappop(points)
+                if end < e:
+                    e = end
+            ans += 1
+        return ans
