@@ -7,19 +7,15 @@
 class Solution:
     def minIncrementForUnique(self, nums: List[int]) -> int:
 
-        count = collections.Counter(nums)
+        nums.sort()
         ans = 0
-        res = set()
-        arr = [[c, count[c]] for c in count]
-        arr.sort(reverse=True)
-        for c, count in arr:
-            for _ in range(count):
-                if c not in res:
-                    res.add(c)
-                else:
-                    curr = c
-                    while curr in res:
-                        curr += 1
-                        ans += 1
-                    res.add(curr)
+        prev = nums[0]
+        dupes = 0
+        for i in range(1, len(nums)):
+            curr = nums[i]
+            if curr <= prev:
+                ans += prev - curr + 1
+                curr = prev + 1
+            prev = curr
         return ans
+        
