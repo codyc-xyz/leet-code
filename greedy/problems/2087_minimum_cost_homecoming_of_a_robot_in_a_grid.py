@@ -6,3 +6,21 @@
 # If the robot moves left or right into a cell whose column is c, then this move costs colCosts[c].
 # Return the minimum total cost for this robot to return home.
 
+class Solution:
+    def minCost(self, startPos: List[int], homePos: List[int], rowCosts: List[int], colCosts: List[int]) -> int:
+        ans = 0
+
+        if startPos[0] <= homePos[0]:
+            for i in range(startPos[0] + 1, homePos[0] + 1):
+                ans += rowCosts[i]
+        else:
+            for i in range(startPos[0] - 1, homePos[0] - 1, -1):
+                ans += rowCosts[i]
+        if startPos[1] <= homePos[1]:
+            for i in range(startPos[1] + 1, homePos[1] + 1):
+                ans += colCosts[i]
+        else:
+            for i in range(startPos[1] - 1, homePos[1] - 1, -1):
+                ans += colCosts[i]
+                print(i)
+        return ans
