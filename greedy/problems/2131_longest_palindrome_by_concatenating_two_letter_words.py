@@ -6,3 +6,23 @@
 
 # A palindrome is a string that reads the same forward and backward.
 
+class Solution:
+    def longestPalindrome(self, words: List[str]) -> int:
+        count = collections.Counter(words)
+        ans = extras = 0
+        for c in count:
+            if count[c] < 1:
+                continue
+            rev = c[::-1]
+            while count[c] > 1 and count[rev] > 1:
+                ans += 4
+                count[c] -= 1
+                count[rev] -= 1
+            if count[c] >= 1 and count[rev] >= 1 and c[0] != c[1]:
+                ans += 4
+                count[c] -= 1
+                count[rev] -= 1
+        
+            if c[0] == c[1] and count[c] == 1:
+                extras = 2
+        return ans + extras
