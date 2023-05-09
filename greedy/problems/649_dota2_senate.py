@@ -10,3 +10,26 @@
 
 # Suppose every senator is smart enough and will play the best strategy for his own party. Predict which party will finally announce the victory and change the Dota2 game. The output should be "Radiant" or "Dire".
 
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+        radiant, dire = deque(), deque()
+        for i, s in enumerate(senate):
+            if s == 'R':
+                radiant.append([i, 0])
+            else:
+                dire.append([i, 0])
+
+        while radiant and dire:
+            if (radiant[0][0] < dire[0][0] and radiant[0][1] <= dire[0][1]) or radiant[0][1] < dire[0][1]:
+                dire.popleft()
+                idx, turns = radiant.popleft()
+                radiant.append([idx, turns + 1])
+            else:
+                radiant.popleft()
+                idx, turns = dire.popleft()
+                dire.append([idx, turns + 1])
+        if radiant:
+            return 'Radiant'
+        else:
+            return 'Dire'
+        
