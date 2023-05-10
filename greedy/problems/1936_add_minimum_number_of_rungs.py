@@ -4,3 +4,12 @@
 
 # Return the minimum number of rungs that must be added to the ladder in order for you to climb to the last rung.
 
+class Solution:
+    def addRungs(self, rungs: List[int], dist: int) -> int:
+        ans = prev = 0
+        for r in rungs:
+            prev += dist
+            if r > dist:
+                ans += math.ceil((r - prev) / dist)
+            prev = r
+        return ans
