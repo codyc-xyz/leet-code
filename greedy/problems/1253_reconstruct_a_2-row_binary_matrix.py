@@ -12,3 +12,32 @@
 
 # If no valid solution exists, return an empty 2-D array.
 
+class Solution:
+    def reconstructMatrix(self, upper: int, lower: int, colsum: List[int]) -> List[List[int]]:
+        if upper + lower != sum(colsum):
+            return []
+        ans = [[0 for _ in range(len(colsum))] for _ in range(2)]
+
+        colVals = []
+        for i, c in enumerate(colsum):
+            colVals.append([-c, i])
+
+        heapq.heapify(colVals)
+
+        while upper > 0 or lower > 0:
+            num, idx = heapq.heappop(colVals)
+            if num == -2:
+                ans[0][idx] = 1
+                ans[1][idx] = 1
+                upper -= 1
+                lower -= 1
+            elif num == -1:
+                if upper > lower:
+                    ans[0][idx] = 1
+                    upper -= 1
+                else:
+                    ans[1][idx] = 1
+                    lower -= 1
+            else:
+                return []
+        return ans
