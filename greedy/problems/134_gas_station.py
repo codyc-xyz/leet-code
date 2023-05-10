@@ -7,32 +7,15 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         gasCost = []
-        costSum = 0
-        for i, (g, c) in enumerate(zip(gas, cost)):
-            gasCost.append([g - c, i])
-            costSum += gasCost[-1][0]
-
-        if costSum < 0:
+        for g, c in zip(gas, cost):
+            gasCost.append(g - c)
+ 
+        if sum(gasCost) < 0:
             return -1
-    
-        for c, i in gasCost:
-            if c >= 0:
-                j = i + 1
-                rollingCost = c
-                while j != i:
-                    if j == len(gasCost):
-                        if i == 0:
-                            break
-                        j = 0
-                    rollingCost += gasCost[j][0]
-                    if rollingCost < 0:
-                        break
-                    j += 1
-                if rollingCost >= 0:
-                    return i
-        return -1
-
-
-        
-
-        
+        currSum = 0
+        idx = 0
+        for i in range(len(gasCost)):
+            currSum += gasCost[i]
+            if currSum < 0:
+                currSum, idx = 0, i + 1
+        return idx
