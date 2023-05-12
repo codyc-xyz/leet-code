@@ -3,16 +3,20 @@
 class Solution:
     def increasingTriplet(self, nums: List[int]) -> bool:
         
-        arrDict = defaultdict(list)
+        smallestAt = [[None] for _ in range(len(nums))]
+        largestAt = [[None] for _ in range(len(nums))]
+        minNum = float('inf')
+        maxNum = float('-inf')
+        for i in range(len(nums)):
+            minNum = min(minNum, nums[i])
+            smallestAt[i] = minNum
+        
+        for i in range(len(nums) - 1, -1, -1):
+            maxNum = max(maxNum, nums[i])
+            largestAt[i] = maxNum
 
         for i, n in enumerate(nums):
-            for a in arrDict:
-                if n > arrDict[a][-1]:
-                    arrDict[a].append(n)
-                    if len(arrDict[a]) == 3:
-                        return True
-                elif n < arrDict[a][-1] and n > min(arrDict[a]):
-                    arrDict[a].pop()
-                    arrDict[a].append(n)
-            arrDict[i].append(n)
+            if n < largestAt[i] and n > smallestAt[i]:
+                return True
         return False
+
