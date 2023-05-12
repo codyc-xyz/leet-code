@@ -20,3 +20,15 @@ class Solution:
                 return True
         return False
 
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        
+        n1 = n2 = float('inf')
+        for n in nums:
+            if n > n2:
+                return True
+            if n > n1:
+                n2 = min(n, n2)
+            n1 = min(n, n1)
+        return False
+
