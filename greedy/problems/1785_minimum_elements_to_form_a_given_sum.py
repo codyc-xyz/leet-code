@@ -4,5 +4,16 @@
 
 # Note that abs(x) equals x if x >= 0, and -x otherwise.
 
- 
+class Solution:
+    def minElements(self, nums: List[int], limit: int, goal: int) -> int:
 
+        currSum = sum(nums)
+        ans = 0
+        if goal > currSum:
+            target = goal - currSum
+            ans += math.ceil(target / limit)
+        elif goal < currSum:
+            target = currSum - goal
+            ans += math.ceil(target / limit)
+
+        return ans
