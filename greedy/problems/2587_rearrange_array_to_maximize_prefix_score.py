@@ -4,3 +4,15 @@
 
 # Return the maximum score you can achieve.
 
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+        ans = 0
+        nums.sort(reverse = True)
+        currSum = 0
+        for n in nums:
+            currSum += n
+            if currSum > 0:
+                ans += 1
+            else:
+                break
+        return ans 
