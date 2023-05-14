@@ -8,5 +8,24 @@
 
 # Return the maximum number of weeks you would be able to work on the projects without violating the rules mentioned above.
 
- 
+class Solution:
+    def numberOfWeeks(self, milestones: List[int]) -> int:
 
+        heap = [-m for m in milestones]
+        prev = None
+        heapq.heapify(heap)
+        weeks = 0
+        while heap:
+            skip = None
+            if heap[0] == prev:
+                skip = heapq.heappop(heap)
+            if not heap:
+                break
+            weeks += 1
+            curr = heapq.heappop(heap) + 1
+            if curr < 0:
+                heapq.heappush(heap, curr)
+            if skip:
+                heapq.heappush(heap, skip)
+            prev = curr
+        return weeks
