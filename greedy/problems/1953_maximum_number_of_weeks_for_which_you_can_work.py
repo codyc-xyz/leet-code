@@ -10,22 +10,11 @@
 
 class Solution:
     def numberOfWeeks(self, milestones: List[int]) -> int:
+        maxMilestone = max(milestones)
+        sumMilestones = sum(milestones)
 
-        heap = [-m for m in milestones]
-        prev = None
-        heapq.heapify(heap)
-        weeks = 0
-        while heap:
-            skip = None
-            if heap[0] == prev:
-                skip = heapq.heappop(heap)
-            if not heap:
-                break
-            weeks += 1
-            curr = heapq.heappop(heap) + 1
-            if curr < 0:
-                heapq.heappush(heap, curr)
-            if skip:
-                heapq.heappush(heap, skip)
-            prev = curr
-        return weeks
+        if maxMilestone > sumMilestones // 2:
+            return (sumMilestones - maxMilestone) * 2 + 1
+        else:
+            return sumMilestones
+        
