@@ -9,3 +9,28 @@
 # ATM() Initializes the ATM object.
 # void deposit(int[] banknotesCount) Deposits new banknotes in the order $20, $50, $100, $200, and $500.
 # int[] withdraw(int amount) Returns an array of length 5 of the number of banknotes that will be handed to the user in the order $20, $50, $100, $200, and $500, and update the number of banknotes in the ATM after withdrawing. Returns [-1] if it is not possible (do not withdraw any banknotes in this case).
+
+class ATM:
+
+    def __init__(self):
+        self.amounts = [[0, 0, 20], [0, 0, 50], [0, 0, 100], [0, 0, 200], [0, 0, 500]]
+        
+    def deposit(self, banknotesCount: List[int]) -> None:
+        for i in range(len(banknotesCount)):
+           self.amounts[i][0] += banknotesCount[i] * self.amounts[i][2]
+           self.amounts[i][1] += banknotesCount[i]
+
+    def withdraw(self, amount: int) -> List[int]:
+        withdrawn = [0 for _ in range(5)]
+        remaining = amount
+        for i in range(len(self.amounts) - 1, -1, -1):
+            banknote_count = min(self.amounts[i][1], remaining // self.amounts[i][2])
+            withdrawn[i] = banknote_count
+            remaining -= banknote_count * self.amounts[i][2]
+            if remaining == 0:
+                for j in range(len(withdrawn)):
+                    self.amounts[j][1] -= withdrawn[j]
+                    self.amounts[j][0] -= withdrawn[j] * self.amounts[j][2]
+                return withdrawn
+        return [-1]
+
