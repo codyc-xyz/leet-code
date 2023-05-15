@@ -6,3 +6,19 @@
 
 # A substring is a contiguous sequence of characters within the string.
 
+class Solution:
+    def maximumNumber(self, num: str, change: List[int]) -> str:
+        ans = ""
+        i = 0
+        while i < len(num):
+            if change[int(num[i])] > int(num[i]):
+                while change[int(num[i])] >= int(num[i]):
+                    ans += str(change[int(num[i])])
+                    if i == len(num) - 1:
+                        return ans 
+                    if change[int(num[i + 1])] < int(num[i + 1]):
+                        return ans + num[i + 1:]
+                    i += 1
+            ans += num[i]
+            i += 1
+        return ans
