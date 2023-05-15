@@ -6,18 +6,21 @@
 
 class Solution:
     def maxSumRangeQuery(self, nums: List[int], requests: List[List[int]]) -> int:
-        arr = [0 for _ in range(len(nums))]
+        arr = [0 for _ in range(len(nums) + 1)]
         mod = 10**9+7
         for s, e in requests:
-            for i in range(s, e + 1):
-                arr[i] -= 1
+            arr[s] += 1
+            arr[e+1] -= 1
 
-        heapq.heapify(arr)
+        for i in range(1, len(nums) + 1):
+            arr[i] += arr[i - 1]
+        arr.sort()
         nums.sort()
         i = len(nums) - 1
+        j = len(arr) - 1
         ans = 0
-        while arr and arr[0] < 0:
-            ans += nums[i] * -arr[0]
-            heapq.heappop(arr)
+        while j >= 0 and arr[j] > 0:
+            ans += nums[i] * arr[j]
+            j -= 1
             i -= 1
         return ans % mod
