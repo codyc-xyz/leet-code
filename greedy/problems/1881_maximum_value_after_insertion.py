@@ -6,3 +6,23 @@
 # If n = -55 and x = 2, it would be best to insert it before the first 5, making n = -255.
 # Return a string representing the maximum value of n​​​​​​ after the insertion.
 
+class Solution:
+    def maxValue(self, n: str, x: int) -> str:
+
+        strX = str(x)
+        firstInsertDig = strX[0]
+        ans = ""
+        if n[0] != '-':
+            for i in range(len(n)):
+                if n[i] < firstInsertDig:
+                    return ans + strX + n[i:]
+                ans += n[i]
+            return ans + strX
+        else:
+            ans += '-'
+            for i in range(1, len(n)):
+                if n[i] > firstInsertDig:
+                    return ans + strX + n[i:]
+                ans += n[i]
+            return ans + strX
+
