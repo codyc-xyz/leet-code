@@ -8,5 +8,18 @@
 
 # Return the maximum number of monsters that you can eliminate before you lose, or n if you can eliminate all the monsters before they reach the city.
 
- 
+class Solution:
+    def eliminateMaximum(self, dist: List[int], speed: List[int]) -> int:
 
+        heap = [d / s for d, s in zip(dist, speed)]
+        heapq.heapify(heap)
+
+        ans = i = 0
+        while heap:
+            if i < heap[0]:
+                heapq.heappop(heap)
+                ans += 1
+            else:
+                break
+            i += 1
+        return ans
