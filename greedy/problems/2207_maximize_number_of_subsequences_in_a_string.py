@@ -6,3 +6,14 @@
 
 # A subsequence is a string that can be derived from another string by deleting some or no characters without changing the order of the remaining characters.
 
+class Solution:
+    def maximumSubsequenceCount(self, text: str, pattern: str) -> int:
+
+        seenAs = seenBs = ans = 0
+        for i in range(len(text)):
+            if text[i] == pattern[1]:
+                ans += seenAs 
+                seenBs += 1
+            if text[i] == pattern[0]:
+                seenAs += 1
+        return ans + max(seenAs, seenBs)
