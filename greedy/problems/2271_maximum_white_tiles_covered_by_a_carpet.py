@@ -7,21 +7,23 @@
 class Solution:
     def maximumWhiteTiles(self, tiles: List[List[int]], carpetLen: int) -> int:
         tiles.sort()
-        pSum = [0 for _ in range(tiles[-1][1] + 1)]
-        for l, r in tiles:
-            for i in range(l, r + 1):
-                pSum[i] = 1
-        currSum = 0
-        carpetLen = min(carpetLen, len(pSum))
-        for i in range(carpetLen):
-            currSum += pSum[i]
-        maxSum = currSum
-        j = 0
-        for i in range(carpetLen, len(pSum)):
-            currSum -= pSum[j]
-            currSum += pSum[i]
-            maxSum = max(maxSum, currSum)
-            j += 1
-        
+        n = j = 0
+        if carpetLen >= tiles[-1][1]:
+            return sum(1 + r - l for l, r in tiles)
+        q = n = j = currSum = maxSum = 0
+        for i in range(tiles[-1][1] + 1):
+            if i >= tiles[j][0] and i <= tiles[j][1]:
+                currSum += 1
+                maxSum = max(maxSum, currSum)
+            if i == tiles[j][1] and j < len(tiles):
+                j += 1
+            if i >= carpetLen - 1:
+                if n >= tiles[q][0] and n <= tiles[q][1]:
+                    currSum -= 1
+                if n == tiles[q][1] and q < len(tiles):
+                    q += 1
+                n += 1
+                    
+            
         return maxSum
             
