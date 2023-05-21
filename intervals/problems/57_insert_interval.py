@@ -4,3 +4,45 @@
 
 # Return intervals after the insertion.
 
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left, right = newInterval
+        if not intervals:
+            return [newInterval]
+        if right < intervals[0][0]:
+            return [newInterval] + intervals
+        elif left > intervals[-1][1]:
+            return intervals + [newInterval]
+        skips = 0
+        ans = []
+        overlap = False
+        for i, (l, r) in enumerate(intervals):
+            if skips > 0:
+                skips -=1
+                continue
+            if left <= l and right >= l:
+                intervals[i] = [left, max(right, r)]
+                j = i + 1
+                overlap = True
+                while j < len(intervals) and intervals[i][1] >= intervals[j][0]:
+                    intervals[i][1] = max(intervals[i][1], intervals[j][1])
+                    skips += 1
+                    j += 1
+
+            elif left >= l and left <= r:
+                intervals[i] = [l, max(right, r)]
+                j = i + 1
+                overlap = True
+                while j < len(intervals) and intervals[i][1] >= intervals[j][0]:
+
+                    intervals[i][1] = max(intervals[i][1], intervals[j][1])
+                    skips += 1
+                    j += 1
+            ans.append(intervals[i])
+
+        if not overlap:
+            ans.append(newInterval)
+        ans.sort()
+        
+        return ans
+
