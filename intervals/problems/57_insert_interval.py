@@ -15,15 +15,15 @@ class Solution:
             return intervals + [newInterval]
         skips = 0
         ans = []
-        overlap = False
         for i, (l, r) in enumerate(intervals):
+            if i > 0 and left > intervals[i - 1][1] and right < l:
+                ans.append(newInterval)
             if skips > 0:
                 skips -=1
                 continue
             if left <= l and right >= l:
                 intervals[i] = [left, max(right, r)]
                 j = i + 1
-                overlap = True
                 while j < len(intervals) and intervals[i][1] >= intervals[j][0]:
                     intervals[i][1] = max(intervals[i][1], intervals[j][1])
                     skips += 1
@@ -32,7 +32,6 @@ class Solution:
             elif left >= l and left <= r:
                 intervals[i] = [l, max(right, r)]
                 j = i + 1
-                overlap = True
                 while j < len(intervals) and intervals[i][1] >= intervals[j][0]:
 
                     intervals[i][1] = max(intervals[i][1], intervals[j][1])
@@ -40,9 +39,5 @@ class Solution:
                     j += 1
             ans.append(intervals[i])
 
-        if not overlap:
-            ans.append(newInterval)
-        ans.sort()
         
         return ans
-
