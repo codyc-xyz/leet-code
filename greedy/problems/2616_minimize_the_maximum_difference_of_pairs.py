@@ -4,3 +4,27 @@
 
 # Return the minimum maximum difference among all p pairs. We define the maximum of an empty set to be zero.
 
+class Solution:
+    def minimizeMax(self, nums: List[int], p: int) -> int:
+        if p == 0:
+            return 0
+
+        nums.sort()
+        l, r = 0, nums[-1] - nums[0]
+
+        while l < r:
+            m = (l + r) // 2
+            i = 1
+            P = p
+            while i < len(nums):
+                if nums[i] - nums[i - 1] <= m:
+                    P -= 1
+                    if P == 0:
+                        break
+                    i += 1
+                i += 1
+            if P == 0:
+                r = m
+            else:
+                l = m + 1
+        return l
