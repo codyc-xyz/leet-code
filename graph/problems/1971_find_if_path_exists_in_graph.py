@@ -4,3 +4,23 @@
 
 # Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise.
 
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+
+        adj = defaultdict(list)
+
+        for e1, e2 in edges:
+            heapq.heappush(adj[e1], e2)
+            heapq.heappush(adj[e2], e1)
+
+        curr = [source]
+        while curr:
+            currNode = heapq.heappop(curr)
+            if currNode == destination:
+                return True
+            while adj[currNode]:
+                heapq.heappush(curr, heapq.heappop(adj[currNode]))
+
+        return False
+
+        
