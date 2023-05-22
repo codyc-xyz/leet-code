@@ -9,3 +9,16 @@
 
 # Return the label of the town judge if the town judge exists and can be identified, or return -1 otherwise.
 
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+
+        res = [[0, 0] for _ in range(n)]
+
+        for truster, trustee in trust:
+            res[trustee - 1][1] += 1
+            res[truster - 1][0] += 1
+
+        for i, (trusting, trusted) in enumerate(res):
+            if trusting == 0 and trusted == n - 1:
+                return i + 1
+        return -1
