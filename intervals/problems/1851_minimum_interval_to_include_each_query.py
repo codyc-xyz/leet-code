@@ -10,14 +10,21 @@ class Solution:
         for i, (l, r) in enumerate(intervals):
             intervals[i].append(r - l + 1)
 
-        intervals.sort(key=lambda x: [x[2]])
-        ans = []
-        for q in queries:
-            j = 0
-            while j < len(intervals) and (q > intervals[j][1] or q < intervals[j][0]):
+        for i, q in enumerate(queries):
+            queries[i] = [q, i]
+        intervals.sort()
+        queries.sort()
+        ans = [None for _ in range(len(queries))]
+        j = 0
+        heap = []
+        for q, i in queries:
+            while j < len(intervals) and q > intervals[j][1]:
                 j += 1
-            if j < len(intervals):
-                ans.append(intervals[j][2])
-            else:
-                ans.append(-1)
+            while j < len(intervals) and intervals[j][0] <= q:
+                heapq.heappush(heap, [intervals[j][2], intervals[j][1]])
+                j += 1
+            while heap and q > heap[0][1]:
+                heapq.heappop(heap)
+            ans[i] = heap[0][0] if heap else -1
+
         return ans
