@@ -18,3 +18,16 @@ class Solution:
                     curr.append(key)
         
         return len(seen) == len(rooms)
+
+
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        seen = set()
+
+        def dfs(curr):
+            seen.add(curr)
+            for key in rooms[curr]:
+                if key not in seen:
+                    dfs(key)
+        dfs(0)
+        return len(seen) == len(rooms)
