@@ -4,3 +4,18 @@
 
 # Notice that you can return the vertices in any order.
 
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+
+        incoming = [False for _ in range(n)]
+
+        for e1, e2 in edges:
+            incoming[e2] = True
+
+        ans = []
+        for i in range(n):
+            if not incoming[i]:
+                ans.append(i)
+        return ans
+
+
