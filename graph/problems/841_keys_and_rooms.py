@@ -6,24 +6,15 @@
 
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-
-        adj = defaultdict(list)
-
-        for i, keys in enumerate(rooms):
-            for k in keys:
-                heapq.heappush(adj[i], k)
-
-
-        seen = [False for _ in range(len(rooms))]
+        seen = set()
 
         curr = [0]
-        seen[0] = True
         while curr:
-            currRoom = heapq.heappop(curr)
+            currRoom = curr.pop()
+            seen.add(currRoom)
 
-            for key in adj[currRoom]:
-                if not seen[key]:
-                    seen[key] = True
+            for key in rooms[currRoom]:
+                if key not in seen:
                     curr.append(key)
         
-        return True if all(seen) == True else False
+        return len(seen) == len(rooms)
