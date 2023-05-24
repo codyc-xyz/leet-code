@@ -20,15 +20,32 @@ class Solution:
             return node
         curr = collections.deque()
         curr.append(node)
+        hm[node] = Node(node.val)
         while curr:
             currNode = curr.popleft()
-            if currNode not in hm:
-                hm[currNode] = Node(currNode.val)
             for n in currNode.neighbors:
                 if n not in hm:
                     hm[n] = Node(n.val)
                     curr.append(n)
                 hm[currNode].neighbors.append(hm[n])
         return hm[node]
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+
+        if not node:
+            return node
+        hm = {}
+
+        def dfs(node):
+            if node in hm:
+                return hm[node]
+            hm[node] = Node(node.val)
+            for n in node.neighbors:
+                hm[node].neighbors.append(dfs(n))
+            return hm[node]
+        return dfs(node)
+
+
 
 
