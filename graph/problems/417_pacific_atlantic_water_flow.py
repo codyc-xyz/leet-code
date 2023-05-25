@@ -7,4 +7,30 @@
 # Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
 
  
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
 
+        res = []
+        ROWS, COLS = len(heights), len(heights[0])
+        def dfs(row, col, pac, atl, seen):
+            seen.add((row, col))
+            if row == 0 or col == 0:
+                pac = True
+            if row == ROWS - 1 or col == COLS - 1:
+                atl = True
+            if pac and atl:
+                return [True, True]
+            for r, c in ((row+1, col), (row-1, col), (row, col+1), (row, col-1)):
+                if 0 <= r < ROWS and 0 <= c < COLS and (r, c) not in seen and heights[row][col] >= heights[r][c]:
+                    pac2, atl2 = dfs(r, c, pac, atl, seen)
+                    pac = True if pac2 else pac
+                    atl = True if atl2 else atl
+
+            return [pac, atl]
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                pac, atl = dfs(r, c, False, False, set())
+                if pac and atl:
+                    res.append([r, c])
+        return res
