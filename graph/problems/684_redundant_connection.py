@@ -4,5 +4,21 @@
 
 # Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.
 
- 
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
 
+        adj = defaultdict(list)
+        def dfs(curr, target):
+            if curr not in seen:
+                seen.add(curr)
+
+                if curr == target:
+                    return True
+                return any(dfs(n, target) for n in adj[curr])
+            
+        for e1, e2 in edges:
+            seen = set()
+            if e1 in adj and e2 in adj and dfs(e1, e2):
+                return [e1, e2]
+            adj[e1].append(e2)
+            adj[e2].append(e1)
