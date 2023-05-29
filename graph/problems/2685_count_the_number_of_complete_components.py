@@ -6,3 +6,31 @@
 
 # A connected component is said to be complete if there exists an edge between every pair of its vertices.
 
+class Solution:
+    def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
+
+        adj = defaultdict(list)
+
+        for e1, e2 in edges:
+            adj[e1].append(e2)
+            adj[e2].append(e1)
+
+        
+        def dfs(curr, component, paths):
+            if curr in seen:
+                return 0
+            res = 0
+            seen.add(curr)
+            component.add(curr)
+            for n in adj[curr]:
+                paths[curr].append(n)
+                dfs(n, component, paths)
+            return 1 if all(len(paths[c]) == (len(component) - 1) for c in component) else 0
+
+        seen = set()
+        ans = 0
+        for i in range(n):
+            component = set()
+            paths = defaultdict(list)
+            ans += dfs(i, component, paths)
+        return ans
