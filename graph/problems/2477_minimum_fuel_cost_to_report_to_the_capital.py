@@ -8,3 +8,23 @@
 
 # Return the minimum number of liters of fuel to reach the capital city.
 
+class Solution:
+    def minimumFuelCost(self, roads: List[List[int]], seats: int) -> int:
+        adj = defaultdict(list)
+
+        for r1, r2 in roads:
+            adj[r1].append(r2)
+            adj[r2].append(r1)
+
+        self.res = 0
+        def dfs(curr, prev):
+            passengers = 0
+            for n in adj[curr]:
+                if n != prev:
+                    p = dfs(n, curr)
+                    self.res += math.ceil(p / seats)
+                    passengers += p
+            return passengers + 1
+
+        dfs(0, -1)
+        return self.res
