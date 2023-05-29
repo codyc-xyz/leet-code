@@ -8,3 +8,24 @@
 
 # It's guaranteed that each city can reach city 0 after reorder.
 
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+
+        adj = defaultdict(list)
+        hm = defaultdict(list)
+
+        for c1, c2 in connections:
+            adj[c1].append(c2)
+            adj[c2].append(c1)
+            hm[c1].append(c2)
+
+        self.ans = 0
+        def dfs(curr, prev):
+            if prev in hm and curr in hm[prev]:
+                self.ans += 1
+            for n in adj[curr]:
+                if n != prev:
+                    dfs(n, curr)
+
+        dfs(0, -1)
+        return self.ans
