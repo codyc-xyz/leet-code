@@ -15,18 +15,19 @@ class Solution:
             for richerP in richerThan[p]:
                 if quiet[richerP] < self.minLoud:
                     self.minLoud = quiet[richerP]
-                    self.loudestP = richerP
-                dfs(richerP)
+                    self.quietestP = richerP
+                if richerP > p:
+                    dfs(richerP)
+                else:
+                    if quiet[ans[richerP]] < self.minLoud:
+                        self.minLoud = quiet[ans[richerP]]
+                        self.quietestP = ans[richerP]
 
         ans = []
 
         for i in range(len(quiet)):
             self.minLoud = quiet[i]
-            self.loudestP = i
+            self.quietestP = i
             dfs(i)
-            ans.append(self.loudestP)
+            ans.append(self.quietestP)
         return ans
-
-
-
-
