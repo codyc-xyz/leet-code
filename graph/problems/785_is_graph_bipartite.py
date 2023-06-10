@@ -8,3 +8,34 @@
 
 # Return true if and only if it is bipartite.
 
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+
+    
+        def dfs(curr, groupA, groupB, bias):
+            if bias:
+                if curr in groupA:
+                    return True
+                if curr not in groupB:
+                    groupA.add(curr)
+                else:
+                    return False
+            else:
+                if curr in groupB:
+                    return True
+                if curr not in groupA:
+                    groupB.add(curr)
+                else:
+                    return False
+
+            for n in graph[curr]:
+                if not dfs(n, groupA, groupB, not bias):
+                    return False
+
+            return True
+
+        
+        for i in range(len(graph)):
+            if not dfs(i, set(), set(), True):
+                return False
+        return True
