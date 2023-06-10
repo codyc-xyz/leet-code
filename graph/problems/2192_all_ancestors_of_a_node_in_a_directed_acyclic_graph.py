@@ -6,3 +6,29 @@
 
 # A node u is an ancestor of another node v if u can reach v via a set of edges.
 
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+
+        adj = defaultdict(list)
+
+        for e1, e2 in edges:
+            adj[e1].append(e2)
+
+
+        def dfs(curr, path):
+            for p in path:
+                if p not in ans[curr]:
+                    ans[curr].append(p)
+            path.append(curr)
+            for n in adj[curr]:
+                if n not in path:
+                    dfs(n, path[:])
+
+            
+        ans = [[] for _ in range(n)]
+        for i in range(n):
+            dfs(i, [])
+
+        for anc in ans:
+            anc.sort()
+        return ans
