@@ -12,23 +12,21 @@ class Solution:
         adj = defaultdict(list)
 
         for e1, e2 in edges:
-            adj[e1].append(e2)
+            adj[e2].append(e1)
 
-
-        def dfs(curr, path):
-            for p in path:
-                if p not in ans[curr]:
-                    ans[curr].append(p)
-            path.append(curr)
-            for n in adj[curr]:
-                if n not in path:
-                    dfs(n, path[:])
-
-            
+        
         ans = [[] for _ in range(n)]
+        def dfs(curr):   
+            if ans[curr]:
+                return ans[curr]
+            for n in adj[curr]:
+                ans[curr].append(n)
+                ans[curr] += dfs(n)
+            return ans[curr]             
+            
+            
         for i in range(n):
-            dfs(i, [])
+            dfs(i)
+            ans[i] = sorted(list(set(ans[i])))
 
-        for anc in ans:
-            anc.sort()
         return ans
