@@ -14,19 +14,20 @@ class Solution:
         for e1, e2 in edges:
             adj[e2].append(e1)
 
-        
+        cache = [None] * n
         ans = [[] for _ in range(n)]
-        def dfs(curr):   
-            if ans[curr]:
-                return ans[curr]
+        def dfs(curr):
+            if cache[curr]:
+                return cache[curr]
+            anc = set()
             for n in adj[curr]:
-                ans[curr].append(n)
-                ans[curr] += dfs(n)
-            return ans[curr]             
+                anc.add(n)
+                anc.update(dfs(n))
+            cache[curr] = anc
+            return anc         
             
             
         for i in range(n):
-            dfs(i)
-            ans[i] = sorted(list(set(ans[i])))
+            ans[i] = sorted(list(dfs(i)))
 
         return ans
