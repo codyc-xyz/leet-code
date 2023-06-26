@@ -7,5 +7,30 @@
 
 # Return a boolean array answer, where answer[j] is the answer to the jth query.
 
- 
+class Solution:
+    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
 
+        adj = defaultdict(list)
+
+        for c1, c2 in prerequisites:
+            adj[c1].append(c2)
+
+        def dfs(curr, target):
+            if curr in seen:
+                return
+            seen.add(curr)
+            if curr == target:
+                return True
+            if any(dfs(c, target) for c in adj[curr]):
+                return True
+            return False
+
+        ans = []
+        for q1, q2 in queries:
+            seen = set()
+            if dfs(q1, q2):
+                ans.append(True)
+            else:
+                ans.append(False)
+
+        return ans
