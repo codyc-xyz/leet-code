@@ -6,3 +6,22 @@
 
 # Note that two recipes may contain each other in their ingredients.
 
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+
+        supplies = set(supplies)
+        ans = []
+        newRecipe = True
+        seen = set()
+        while newRecipe:
+            newRecipe = False
+            for i in range(len(recipes)):
+                if i in seen:
+                    continue
+                if all(j in supplies for j in ingredients[i]):
+                    ans.append(recipes[i])
+                    supplies.add(recipes[i])
+                    seen.add(i)
+                    newRecipe = True
+
+        return ans
