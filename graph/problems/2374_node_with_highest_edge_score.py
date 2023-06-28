@@ -6,3 +6,18 @@
 
 # Return the node with the highest edge score. If multiple nodes have the same edge score, return the node with the smallest index.
 
+class Solution:
+    def edgeScore(self, edges: List[int]) -> int:
+
+        scores = [0 for _ in range(len(edges))]
+
+        for i, e in enumerate(edges):
+            scores[e] += i
+
+        maxScore = -1
+        ans = -1
+        for i, s in enumerate(scores):
+            if s > maxScore:
+                maxScore = s
+                ans = i
+        return ans
