@@ -8,3 +8,47 @@
 
 # Note that edges may contain cycles.
 
+class Solution:
+    def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
+
+        adj = defaultdict(list)
+        for i, n in enumerate(edges):
+            if n != -1:
+                adj[i].append(n)
+
+        minDepth = float('inf')
+        ans = -1
+        q1 = deque([(node1, 0)])
+        seen1 = set()
+        seen1.add(node1)
+        depth1 = [float('inf') for _ in range(len(edges))]
+        depth1[node1] = 0
+        while q1:
+            curr, depth = q1.popleft()
+            for n in adj[curr]:
+                if n not in seen1:
+                    seen1.add(n)
+                    depth1[n] = depth + 1
+                    q1.append((n, depth + 1))
+
+        q2 = deque([(node2, 0)])
+        seen2 = set()
+        seen2.add(node2)
+        depth2 = [float('inf') for _ in range(len(edges))]
+        depth2[node2] = 0
+        while q2:
+            curr, depth = q2.popleft()
+            for n in adj[curr]:
+                if n not in seen2:
+                    seen2.add(n)
+                    depth2[n] = depth + 1
+                    q2.append((n, depth + 1))
+        i = 0
+        for a, b in zip(depth1, depth2):
+            if max(a, b) < minDepth:
+                ans = i
+                minDepth = max(a, b)
+            i += 1
+        return ans
+
+
