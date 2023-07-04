@@ -35,3 +35,26 @@ class Solution:
 
         return hm[min(hm)]
 
+class Solution:
+    def findMinHeightTrees(self, N: int, edges: List[List[int]]) -> List[int]:
+        if N == 1:
+            return [0]
+        adj = defaultdict(list)
+
+        for n1, n2 in edges:
+            adj[n1].append(n2)
+            adj[n2].append(n1)
+
+        leaves = [n for n in adj if len(adj[n]) == 1]
+
+        while N > 2:
+            N -= len(leaves)
+            new_leaves = deque()
+            for leaf in leaves:
+                nei = adj[leaf].pop()
+                adj[nei].remove(leaf)
+                if len(adj[nei]) == 1:
+                    new_leaves.append(nei)
+            leaves = new_leaves
+
+        return leaves
