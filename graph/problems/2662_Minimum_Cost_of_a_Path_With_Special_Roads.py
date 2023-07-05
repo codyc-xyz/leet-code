@@ -9,14 +9,15 @@
 class Solution:
     def minimumCost(self, start: List[int], target: List[int], specialRoads: List[List[int]]) -> int:
 
-
+        roads = [float('inf') for _ in range(len(specialRoads))]
         q = deque([(start[0], start[1], 0)])
         ans = float('inf')
         while q:
             currX, currY, currCost = q.popleft()
-            for startX, startY, endX, endY, cost in specialRoads:
-                if cost + abs(currX - startX) + abs(currY - startY) >= abs(endX - currX) + abs(endY - currY) or abs(target[0] - currX) + abs(target[1] - currY) <= abs(target[0] - endX) + abs(target[1] - endY):
+            for i, (startX, startY, endX, endY, cost) in enumerate(specialRoads):
+                if roads[i] <= currCost + abs(currX - startX) + abs(currY - startY):
                     continue
+                roads[i] = currCost + abs(currX - startX) + abs(currY - startY)
                 q.append([endX, endY, currCost + cost + abs(currX - startX) + abs(currY - startY)])
             ans = min(ans, currCost + abs(target[0] - currX) + abs(target[1] - currY))
         return ans
