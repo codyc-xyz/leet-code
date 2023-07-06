@@ -8,3 +8,8 @@
 
 # Return true if and only if Alice wins the game, assuming both players play optimally.
 
+class Solution:
+    def divisorGame(self, n: int) -> bool:
+
+        return False if n % 2 else True
+
