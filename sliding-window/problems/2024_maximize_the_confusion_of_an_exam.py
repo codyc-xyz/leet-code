@@ -28,4 +28,26 @@ class Solution:
             fMax = max(fMax, fWindowEnd - fWindowStart + 1)
         return max(tMax, fMax)
 
+class Solution:
+    def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
 
+        maxLen = numTs = numFs = windowStart = windowEnd = 0
+        
+        while windowEnd < len(answerKey):
+            if answerKey[windowEnd] == 'T':
+                numTs += 1
+            else:
+                numFs += 1
+            while min(numTs, numFs) > k:
+                if answerKey[windowStart] == 'T':
+                    numTs -= 1
+                else:
+                    numFs -= 1
+                windowStart += 1
+            windowEnd += 1
+            maxLen = max(maxLen, windowEnd - windowStart)
+
+        return maxLen
+                
+            
+        
