@@ -9,3 +9,28 @@
 
 # Return the difference between the maximum and minimum scores among marble distributions.
 
+class Solution:
+    def putMarbles(self, weights: List[int], k: int) -> int:
+
+        N = len(weights)
+        adj = []
+        for i in range(1, N):
+            adj.append(weights[i] + weights[i - 1])
+
+        adj.sort()
+        cutsMax = cutsMin = k - 1
+        minW = weights[0] + weights[-1]
+        maxW = weights[0] + weights[-1]
+        for w in adj:
+            if cutsMin == 0:
+                break
+            minW += w
+            cutsMin -= 1
+
+        for w in adj[::-1]:
+            if cutsMax == 0:
+                break
+            maxW += w
+            cutsMax -= 1
+
+        return maxW - minW
