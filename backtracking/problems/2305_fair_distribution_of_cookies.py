@@ -29,3 +29,25 @@ class Solution:
                     seen[k] = False
         backtrack(0)
         return self.ans
+    
+
+class Solution:
+    def distributeCookies(self, cookies: List[int], k: int) -> int:
+
+        buckets = [0] * k
+        self.ans = float('inf')
+        def backtrack(i, currBucket):
+            if i == len(cookies):
+                self.ans = min(self.ans, max(currBucket))
+                return
+            for j in range(k):
+                currBucket[j] += cookies[i]
+                if currBucket[j] < self.ans:
+                    backtrack(i + 1, currBucket)
+                currBucket[j] -= cookies[i]
+
+        backtrack(0, buckets)
+        return self.ans
+            
+
+
