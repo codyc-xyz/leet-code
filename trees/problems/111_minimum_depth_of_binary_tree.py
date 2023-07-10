@@ -38,3 +38,24 @@ class Solution:
                 return dfs(node.left) + 1
             return min(dfs(node.left), dfs(node.right)) + 1
         return dfs(root)
+    
+
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        q = deque([root])
+        depth = 0
+        while q:
+            depth += 1
+            lenQ = len(q)
+            for _ in range(lenQ):
+                curr = q.popleft()
+                if not curr.left and not curr.right:
+                    return depth
+                if curr.left:
+                    q.append(curr.left)
+                if curr.right:
+                    q.append(curr.right)
+
+        return depth
