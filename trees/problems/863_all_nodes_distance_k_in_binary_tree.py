@@ -35,3 +35,41 @@ class Solution:
                     seen.add(n)
                     dq.append([n, depth + 1])
         return ans
+    
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        
+        def add_parent(node, prev):
+            node.parent = prev
+            if node.left:
+                add_parent(node.left, node)
+            if node.right:
+                add_parent(node.right, node)
+
+        add_parent(root, None)
+        ans = set()
+        seen = set()
+        def dfs(node, seenTarget, dist):
+            if node == target:
+                seenTarget = True
+            if seenTarget:
+                seen.add(node)
+                if dist == k:
+                    ans.add(node.val)
+                elif dist < k:
+                    if node.left and node.left not in seen:
+                        dfs(node.left, seenTarget, dist + 1)
+                    if node.right and node.right not in seen:
+                        dfs(node.right, seenTarget, dist + 1)
+                    if node.parent and node.parent not in seen:
+                        dfs(node.parent, seenTarget, dist + 1)
+            else:
+                if node.left:
+                    dfs(node.left, seenTarget, dist)
+                if node.right:
+                    dfs(node.right, seenTarget, dist)
+        dfs(root, False, 0)
+        return list(ans)
+
+                    
