@@ -52,3 +52,21 @@ class Solution:
                 prev = curr
                 curr = curr.right
         return res
+    
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        seen = []
+        def dfs(node):
+            seen.append(node.val)
+            if node.left:
+                dfs(node.left)
+            if node.right:
+                dfs(node.right)
+
+        dfs(root)
+        seen.sort()
+        minDiff = float('inf')
+        for i in range(1, len(seen)):
+            minDiff = min(minDiff, seen[i] - seen[i - 1])
+
+        return minDiff
