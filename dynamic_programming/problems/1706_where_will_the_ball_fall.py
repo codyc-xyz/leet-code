@@ -8,3 +8,30 @@
 
 # Return an array answer of size n where answer[i] is the column that the ball falls out of at the bottom after dropping the ball from the ith column at the top, or -1 if the ball gets stuck in the box.
 
+class Solution:
+    def findBall(self, grid: List[List[int]]) -> List[int]:
+
+        ROWS = len(grid)
+        COLS = len(grid[0])
+
+        def dfs(row, col):
+            if grid[row][col] == 1:
+                if col+1 < COLS and grid[row][col + 1] != -1:
+                    if row < ROWS - 1:
+                        return dfs(row+1, col+1)
+                    else:
+                        return col + 1 if col < COLS else COLS - 1
+                else:
+                    return -1
+            else:
+                if col-1 >= 0 and grid[row][col - 1] != 1:
+                    if row < ROWS - 1:
+                        return dfs(row+1, col-1)
+                    else:
+                        return col - 1 if col > 0 else 0
+                else:
+                    return -1
+        ans = []
+        for i in range(COLS):
+            ans.append(dfs(0, i))
+        return ans
