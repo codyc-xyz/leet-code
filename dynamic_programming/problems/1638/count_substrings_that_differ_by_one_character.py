@@ -6,3 +6,23 @@
 
 # A substring is a contiguous sequence of characters within a string.
 
+class Solution:
+    def countSubstrings(self, s: str, t: str) -> int:
+        if len(s) > len(t):
+            s, t = t, s
+        ans = 0
+        N = len(s)
+        M = len(t)
+        for i in range(N):
+            for j in range(M):
+                count = 0
+                for x in range(N):
+                    if i + x >= N or j + x >= M:
+                        break
+                    if s[i+x] != t[j+x]:
+                        count += 1
+                        if count > 1:
+                            break
+                    if count == 1:
+                        ans += 1
+        return ans
