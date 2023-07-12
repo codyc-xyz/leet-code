@@ -24,3 +24,29 @@ class Solution:
                 ans.append(i)
 
         return ans
+
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        
+        safe = set()
+        seen = set()
+        def dfs(node):
+            seen.add(node)
+            N = len(graph[node])
+            for n in graph[node]:
+                if n not in seen:
+                    if dfs(n):
+                        N -= 1
+                elif n in safe:
+                    N -= 1
+            if N == 0:
+                safe.add(node)
+                return True
+            return False
+
+        ans = []
+        for j in range(len(graph)):
+            if dfs(j):
+                ans.append(j)
+
+        return ans
