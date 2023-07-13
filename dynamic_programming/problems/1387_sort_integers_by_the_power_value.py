@@ -37,3 +37,24 @@ class Solution:
             _, ans = heapq.heappop(heap)
             k -= 1
         return ans
+
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+
+        hm = {1: 0}
+
+        def getPower(curr):
+            if curr not in hm:
+                if curr % 2:
+                    hm[curr] = 1 + getPower(curr * 3 + 1)
+                else:
+                    hm[curr] = 1 + getPower(curr // 2)
+            return hm[curr]
+            
+        arr = []
+        for i in range(lo, hi + 1):
+            hm[i] = getPower(i)
+            arr.append([hm[i], i])
+
+        arr.sort()
+        return arr[k - 1][1]
