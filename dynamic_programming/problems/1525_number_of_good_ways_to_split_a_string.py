@@ -6,12 +6,29 @@
 
 class Solution:
     def numSplits(self, s: str) -> int:
-        currL = s[0]
-        currR = s[1:]
+        rCount = {}
+        lCount = {}
+        for i in range(len(s)):
+            if i == 0:
+                lCount[s[i]] = 1
+            else:
+                if s[i] in rCount:
+                    rCount[s[i]] += 1
+                else:
+                    rCount[s[i]] = 1
         ans = 0
+        numL = 1
+        numR = len(set(s[1:]))
         for i in range(1, len(s)):
-            if len(set(currL)) == len(set(currR)):
+            if numL == numR:
                 ans += 1
-            currR = currR[1:]
-            currL += s[i]
+            rCount[s[i]] -= 1
+            if rCount[s[i]] == 0:
+                del rCount[s[i]]
+                numR -= 1
+            if s[i] in lCount:
+                lCount[s[i]] += 1
+            else:
+                lCount[s[i]] = 1
+                numL += 1
         return ans
