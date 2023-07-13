@@ -41,3 +41,27 @@ class Solution:
             if len(seen) == numCourses:
                 return True
         return False if len(prerequisites) > 1 else True
+    
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+
+        adj = defaultdict(list)
+        required = defaultdict(list)
+        for c, req in prerequisites:
+            adj[req].append(c)
+            required[c].append(req)
+
+        notAvail = set([p[0] for p in prerequisites])
+        seen = set()
+        def dfs(curr):
+            seen.add(curr)
+            for p in adj[curr]:
+                required[p].remove(curr)
+                if p not in seen and not required[p]:
+                    dfs(p)
+
+        for i in range(numCourses):
+            if i not in notAvail:
+                dfs(i)
+        return len(seen) == numCourses
