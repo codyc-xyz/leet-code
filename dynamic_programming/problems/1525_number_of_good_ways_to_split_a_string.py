@@ -4,3 +4,14 @@
 
 # Return the number of good splits you can make in s.
 
+class Solution:
+    def numSplits(self, s: str) -> int:
+        currL = s[0]
+        currR = s[1:]
+        ans = 0
+        for i in range(1, len(s)):
+            if len(set(currL)) == len(set(currR)):
+                ans += 1
+            currR = currR[1:]
+            currL += s[i]
+        return ans
