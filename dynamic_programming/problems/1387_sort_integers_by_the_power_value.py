@@ -10,3 +10,30 @@
 
 # Notice that for any integer x (lo <= x <= hi) it is guaranteed that x will transform into 1 using these steps and that the power of x is will fit in a 32-bit signed integer.
 
+class Solution:
+    def getKth(self, lo: int, hi: int, k: int) -> int:
+
+        hm = {1: 0}
+
+        for i in range(lo, hi + 1):
+            curr = i
+            steps = 0
+            while curr not in hm:
+                if curr % 2:
+                    curr *= 3
+                    curr += 1
+                else:
+                    curr /= 2
+                steps += 1
+            hm[i] = steps + hm[curr]
+        heap = []
+        if lo > 1:
+            del hm[1]
+            
+        for val in hm:
+            heapq.heappush(heap, [hm[val], val])
+
+        while k > 0:
+            _, ans = heapq.heappop(heap)
+            k -= 1
+        return ans
