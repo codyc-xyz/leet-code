@@ -6,3 +6,18 @@
 # Among all possible binary trees considered, return the smallest possible sum of the values of each non-leaf node. It is guaranteed this sum fits into a 32-bit integer.
 
 # A node is a leaf if and only if it has zero children.
+
+class Solution:
+    def mctFromLeafValues(self, arr: List[int]) -> int:
+        res = 0
+        stack = [float('inf')]
+
+        for n in arr:
+            while stack[-1] <= n:
+                mid = stack.pop()
+                res += mid * min(stack[-1], n)
+            stack.append(n)
+
+        while len(stack) > 2:
+            res += stack.pop() * stack[-1]
+        return res
