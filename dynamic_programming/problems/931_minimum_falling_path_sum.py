@@ -7,24 +7,18 @@ class Solution:
 
         ROWS = len(matrix)
         COLS = len(matrix[0])
-        hm = {}
-        dp = []
-
-        def dfs(r, c, prevSum):
-            if c >= COLS or c < 0:
-                return float('inf')
-            if r == ROWS:
-                return 0
-            if (r, c) in hm and hm[(r, c)] <= prevSum:
-                return float('inf')
-            else:
-                hm[(r, c)] = prevSum
-            currSum = matrix[r][c]
-            currSum += min(dfs(r+1, c-1, prevSum + currSum), dfs(r+1,
-                           c, prevSum + currSum), dfs(r+1, c+1, prevSum + currSum))
-            return currSum
+        dp = [[None] * ROWS for _ in range(COLS)]
+        ans = float('inf')
 
         for i in range(COLS):
-            dp.append(dfs(0, i, 0))
+            dp[0][i] = matrix[0][i]
+        for i in range(1, ROWS):
+            for j in range(COLS):
+                currMin = matrix[i][j] + dp[i-1][j]
+                if j < COLS - 1:
+                    currMin = min(currMin, dp[i - 1][j + 1] + matrix[i][j])
+                if j > 0:
+                    currMin = min(currMin, dp[i - 1][j - 1] + matrix[i][j])
+                dp[i][j] = currMin
 
-        return min(dp)
+        return min(dp[-1][i] for i in range(COLS))
