@@ -57,3 +57,48 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+class ListNode:
+    def __init__(self, key=None, next=None, prev=None, val=None):
+        self.key = key
+        self.next = next
+        self.prev = prev
+        self.val = val
+
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.head, self.tail = ListNode(), ListNode()
+        self.head.next, self.tail.prev = self.tail, self.head
+        self.hm = {}
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key in self.hm:
+            value = self.hm[key].val
+            self.remove(self.hm[key])
+            self.insert(ListNode(key=key, val=value))
+            return self.hm[key].val
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.hm:
+            self.remove(self.hm[key])
+        self.insert(ListNode(key=key, val=value))
+
+    def remove(self, node):
+        prev, nxt = node.prev, node.next
+        prev.next, nxt.prev = nxt, prev
+        del self.hm[node.key]
+        self.capacity += 1
+
+    def insert(self, node):
+        prevHead = self.head.next
+        self.head.next = node
+        prevHead.prev = node
+        node.prev, node.next = self.head, prevHead
+        self.hm[node.key] = node
+        self.capacity -= 1
+        if self.capacity < 0:
+            self.remove(self.tail.prev)
