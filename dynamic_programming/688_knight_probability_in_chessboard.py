@@ -7,3 +7,32 @@
 # The knight continues moving until it has made exactly k moves or has moved off the chessboard.
 
 # Return the probability that the knight remains on the board after it has stopped moving.
+
+class Solution:
+    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:
+
+        self.numerator = 0
+        self.denominator = 0
+
+        def backtrack(r, c, K):
+            if r >= n or c >= n or r < 0 or c < 0:
+                self.denominator += 1
+                return
+            if K == 0:
+                self.numerator += 1
+                return
+            backtrack(r+2, c+1, K - 1)
+            backtrack(r+2, c-1, K - 1)
+            backtrack(r+1, c+2, K - 1)
+            backtrack(r+1, c-2, K - 1)
+            backtrack(r-2, c-1, K - 1)
+            backtrack(r-1, c+2, K - 1)
+            backtrack(r-1, c-2, K - 1)
+            backtrack(r-2, c+1, K - 1)
+        backtrack(row, column, k)
+        if not self.numerator:
+            return 0
+        if not self.denominator:
+            return 1
+
+        return self.numerator / (8**k)
