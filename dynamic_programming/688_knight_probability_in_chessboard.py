@@ -36,3 +36,34 @@ class Solution:
             return 1
 
         return self.numerator / (8**k)
+
+
+class Solution:
+    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:
+
+        dp = [[[0 for _ in range(k+1)] for _ in range(n)] for _ in range(n)]
+
+        def backtrack(r, c, K):
+            if r >= n or c >= n or r < 0 or c < 0:
+                return 0
+            if K == 0:
+                return 1
+            if dp[r][c][K]:
+                return dp[r][c][K]
+            res = 0
+            res += backtrack(r+2, c+1, K - 1)
+            res += backtrack(r+2, c-1, K - 1)
+            res += backtrack(r+1, c+2, K - 1)
+            res += backtrack(r+1, c-2, K - 1)
+            res += backtrack(r-2, c-1, K - 1)
+            res += backtrack(r-1, c+2, K - 1)
+            res += backtrack(r-1, c-2, K - 1)
+            res += backtrack(r-2, c+1, K - 1)
+            dp[r][c][K] = res
+            return res
+        if row < 0 or column < 0 or row >= n or column >= n:
+            return 0
+        if k == 0:
+            return 1
+        backtrack(row, column, k)
+        return dp[row][column][k] / (8**k)
