@@ -31,3 +31,29 @@ class Solution:
             return res
         
         return dfs(n)
+    
+
+class Solution:
+    def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
+
+        if not n % 2:
+            return []
+
+        memo = {0: [], 1: [TreeNode(0)]}
+
+        def dfs(n):
+            res = []
+
+            if n not in memo:
+                for i in range(n):
+                    j = n - 1 - i
+                    leftTrees, rightTrees = dfs(i), dfs(j)
+                    for l in leftTrees:
+                        for r in rightTrees:
+                            res.append(TreeNode(0, l, r))
+                memo[n] = res
+            else:
+                res.extend(memo[n])
+            return res
+
+        return dfs(n)
