@@ -16,3 +16,18 @@ class Solution:
             else:
                 return curr
         return pow(1, x, n)
+
+
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+
+        def pow(x, n):
+            if x == 0:
+                return 0
+            if n == 0:
+                return 1
+            res = pow(x, n // 2)
+            res = res*res
+            return res if not n % 2 else x*res
+        res = pow(x, abs(n))
+        return res if n > 0 else 1/res
