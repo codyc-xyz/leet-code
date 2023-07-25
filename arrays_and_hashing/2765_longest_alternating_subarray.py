@@ -5,3 +5,31 @@
 # Return the maximum length of all alternating subarrays present in nums or -1 if no such subarray exists.
 
 # A subarray is a contiguous non-empty sequence of elements within an array.
+
+class Solution:
+    def alternatingSubarray(self, nums: List[int]) -> int:
+
+        N = len(nums)
+        if N <= 1:
+            return -1
+        maxLen = -1
+        i, j = 0, 1
+        while j < N:
+            start = i
+            if nums[i] + 1 != nums[j]:
+                i += 1
+                j += 1
+                continue
+            curr = nxt = 1
+            while j < N:
+                if nums[i] + nxt == nums[j]:
+                    j += 1
+                    i += 1
+                    nxt *= -1
+                    curr += 1
+                else:
+                    break
+            i = start + 1
+            j = i + 1
+            maxLen = max(maxLen, curr)
+        return maxLen
