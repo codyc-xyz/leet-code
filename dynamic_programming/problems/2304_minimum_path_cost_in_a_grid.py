@@ -3,3 +3,31 @@
 # Each possible move has a cost given by a 0-indexed 2D array moveCost of size(m * n) x n, where moveCost[i][j] is the cost of moving from a cell with value i to a cell in column j of the next row. The cost of moving from cells in the last row of grid can be ignored.
 
 # The cost of a path in grid is the sum of all values of cells visited plus the sum of costs of all the moves made. Return the minimum cost of a path that starts from any cell in the first row and ends at any cell in the last row.
+
+class Solution:
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        COLS = len(grid[0])
+        ROWS = len(grid)
+        dp = [[float('inf') for _ in range(COLS)] for _ in range(ROWS)]
+        hm = {}
+        for i in range(len(moveCost)):
+            for j in range(len(moveCost[0])):
+                if i in hm:
+                    hm[i].append([moveCost[i][j], j])
+                else:
+                    hm[i] = [[moveCost[i][j], j]]
+
+        def dfs(r, c, cost):
+            dp[r][c] = cost
+            if r == ROWS - 1:
+                return
+
+            for i in range(len(hm[grid[r][c]])):
+                currVal, nextCol = hm[grid[r][c]][i]
+                if dp[r+1][nextCol] > cost + currVal + grid[r+1][nextCol]:
+                    dfs(r+1, nextCol, cost + currVal + grid[r+1][nextCol])
+
+        for c in range(COLS):
+            dfs(0, c, grid[0][c])
+
+        return min(dp[-1][c] for c in range(COLS))
