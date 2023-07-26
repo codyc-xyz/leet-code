@@ -4,3 +4,25 @@
 # Given an integer array nums, return the number of arithmetic subarrays of nums.
 
 # A subarray is a contiguous subsequence of the array.
+
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        N = len(nums)
+        if len(nums) < 3:
+            return 0
+
+        ans = 0
+        for i in range(N - 2):
+            curr = nums[i]
+            currDiff = nums[i] - nums[i+1]
+            res = 1
+            for j in range(i + 1, N):
+                if curr - nums[j] == currDiff:
+                    res += 1
+                    if res > 2:
+                        ans += 1
+                    curr = nums[j]
+                else:
+                    break
+
+        return ans
