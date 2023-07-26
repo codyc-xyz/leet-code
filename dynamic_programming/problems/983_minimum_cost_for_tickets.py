@@ -9,3 +9,22 @@
 
 # For example, if we get a 7-day pass on day 2, then we can travel for 7 days: 2, 3, 4, 5, 6, 7, and 8.
 # Return the minimum number of dollars you need to travel every day in the given list of days.
+
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+
+        if len(days) == 1:
+            return min(costs)
+        dp = [c * costs[0] for c in range(1, len(days) + 1)]
+
+        for i in range(1, len(days)):
+            dp[i] = min(dp[i], dp[i-1] + costs[0])
+            for j in range(0, i + 1):
+                if days[i] - days[j] < 7:
+                    dp[i] = min(dp[i], dp[j-1] + costs[1]
+                                if j > 0 else costs[1])
+                if days[i] - days[j] < 30:
+                    dp[i] = min(dp[i], dp[j-1] + costs[2]
+                                if j > 0 else costs[2])
+
+        return dp[-1]
