@@ -32,3 +32,27 @@ class Solution:
                 l = m + 1
 
         return int(ans)
+    
+
+class Solution:
+    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        N = len(dist)
+        l, r = 1, 10**7+1
+        flag = False
+
+        def onTime(speed):
+            curr = 0
+            for i in range(N):
+                curr += math.ceil(dist[i] / speed) if i != N - \
+                    1 else dist[i] / speed
+            return curr <= hour
+
+        while l < r:
+            m = (l + r) // 2
+            if onTime(m):
+                r = m
+                flag = True
+            else:
+                l = m + 1
+
+        return r if flag else -1
