@@ -31,3 +31,21 @@ class Solution:
             dfs(0, c, grid[0][c])
 
         return min(dp[-1][c] for c in range(COLS))
+
+
+class Solution:
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        COLS = len(grid[0])
+        ROWS = len(grid)
+        dp = [[float('inf') for _ in range(COLS)] for _ in range(ROWS)]
+
+        for c in range(COLS):
+            dp[0][c] = grid[0][c]
+
+        for r in range(1, ROWS):
+            for c in range(COLS):
+                for prev_c in range(COLS):
+                    dp[r][c] = min(dp[r][c], dp[r-1][prev_c] +
+                                   moveCost[grid[r-1][prev_c]][c] + grid[r][c])
+
+        return min(dp[-1][c] for c in range(COLS))
