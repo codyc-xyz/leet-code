@@ -32,3 +32,30 @@ class Solution:
             else:
                 return ans
         return ans
+
+
+class Solution:
+    def maxRunTime(self, n: int, batteries: List[int]) -> int:
+
+        batteries.sort()
+        if len(batteries) > n:
+            final = batteries[-n:]
+            leftovers = sum(batteries[:-n])
+        elif len(batteries) == n:
+            return min(batteries)
+        else:
+            return 0
+        ans = 0
+        while leftovers or len(final) == n:
+            for i in range(len(final)):
+                if final[i] > 0:
+                    final[i] -= 1
+                else:
+                    if leftovers > 0:
+                        leftovers -= 1
+                    else:
+                        return ans
+            ans += 1
+
+        return ans
+
