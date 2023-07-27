@@ -59,3 +59,24 @@ class Solution:
 
         return ans
 
+class Solution:
+    def maxRunTime(self, n: int, batteries: List[int]) -> int:
+
+        batteries.sort(reverse=True)
+
+        def canRun(target):
+            curr = 0
+            for b in batteries:
+                curr += min(b, target)
+
+            return curr >= n * target
+
+        l, r = 1, sum(batteries) // n
+
+        while l < r:
+            m = (l + r + 1) // 2
+            if canRun(m):
+                l = m
+            else:
+                r = m - 1
+        return l
