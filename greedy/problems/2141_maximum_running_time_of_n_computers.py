@@ -5,3 +5,30 @@
 # Note that the batteries cannot be recharged.
 
 # Return the maximum number of minutes you can run all the n computers simultaneously.
+
+class Solution:
+    def maxRunTime(self, n: int, batteries: List[int]) -> int:
+
+        batteryHeap = [-b for b in batteries]
+        heapq.heapify(batteryHeap)
+        inUse = []
+        for i in range(n):
+            if batteryHeap[0] < 0:
+                inUse.append(heapq.heappop(batteryHeap) + 1)
+            else:
+                return 0
+        ans = 1
+        while len(batteryHeap) + len(inUse) >= n:
+            while inUse:
+                curr = inUse.pop()
+                if curr < 0:
+                    heapq.heappush(batteryHeap, curr)
+
+            while batteryHeap and len(inUse) < n:
+                inUse.append(heapq.heappop(batteryHeap) + 1)
+
+            if len(inUse) == n:
+                ans += 1
+            else:
+                return ans
+        return ans
