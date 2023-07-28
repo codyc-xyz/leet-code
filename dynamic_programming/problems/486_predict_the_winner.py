@@ -16,3 +16,26 @@ class Solution:
             return max(max_r, max_l)
 
         return recurse(0, N) >= 0
+
+
+class Solution:
+    def PredictTheWinner(self, nums: List[int]) -> bool:
+        N = len(nums)
+
+        has_cache = [[False for _ in range(N)] for _ in range(N)]
+        cache = [[None for _ in range(N)] for _ in range(N)]
+
+        def recurse(l, r):
+            if l == r:
+                return nums[l]
+            if has_cache[l][r]:
+                return cache[l][r]
+
+            max_l = nums[l] - recurse(l + 1, r)
+            max_r = nums[r] - recurse(l, r - 1)
+
+            has_cache[l][r] = True
+            cache[l][r] = max(max_r, max_l)
+            return cache[l][r]
+
+        return recurse(0, N - 1) >= 0
