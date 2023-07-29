@@ -9,3 +9,24 @@
 # Here, nums[i, ..., j] denotes the subarray of nums starting at index i and ending at index j, both ends being inclusive. Particularly, if j < i then nums[i, ..., j] denotes an empty subarray.
 
 # Return the minimum index of a valid split. If no valid split exists, return -1.
+
+class Solution:
+    def minimumIndex(self, nums: List[int]) -> int:
+        N = len(nums)
+        count = collections.Counter(nums)
+
+        domElement = max(count, key=count.get)
+
+        pSum = [0]
+
+        for i, n in enumerate(nums):
+            if n == domElement:
+                pSum.append(pSum[-1] + 1)
+            else:
+                pSum.append(pSum[-1])
+
+        for i in range(1, len(pSum)):
+            if pSum[i] * 2 > i and (pSum[-1] - pSum[i]) * 2 > N - i:
+                return i - 1
+
+        return -1
