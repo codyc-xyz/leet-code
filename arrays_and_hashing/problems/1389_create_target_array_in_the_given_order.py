@@ -6,3 +6,14 @@
 # Return the target array.
 
 # It is guaranteed that the insertion operations will be valid.
+
+class Solution:
+    def createTargetArray(self, nums: List[int], index: List[int]) -> List[int]:
+        N = len(nums)
+        arr = []
+
+        for i in range(N):
+            idx = index[i]
+            curr = nums[i]
+            arr.insert(idx, curr)
+        return arr
