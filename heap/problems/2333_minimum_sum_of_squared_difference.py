@@ -56,3 +56,36 @@ class Solution:
             if not remaining:
                 break
         return sum(d**2 for d in diffs)
+
+
+class Solution:
+    def minSumSquareDiff(self, nums1: List[int], nums2: List[int], k1: int, k2: int) -> int:
+
+        N = len(nums1)
+        remaining = k1 + k2
+        diffs = [abs(nums1[i] - nums2[i]) for i in range(N)]
+        if remaining >= sum(diffs):
+            return 0
+        if remaining == 0:
+            return sum(d**2 for d in diffs)
+
+        diffDict = defaultdict(int)
+
+        for n in diffs:
+            diffDict[n] += 1
+
+        maxK = max(diffDict.keys())
+
+        for i in range(maxK, -1, -1):
+            if diffDict[i] > 0:
+                tmp = min(remaining, diffDict[i])
+                diffDict[i] -= tmp
+                diffDict[i - 1] += tmp
+                remaining -= tmp
+
+        ans = 0
+
+        for d in diffDict:
+            ans += d ** 2 * diffDict[d]
+
+        return ans
