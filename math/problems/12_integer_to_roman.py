@@ -16,3 +16,48 @@
 # X can be placed before L(50) and C(100) to make 40 and 90.
 # C can be placed before D(500) and M(1000) to make 400 and 900.
 # Given an integer, convert it to a roman numeral.
+
+class Solution:
+    def intToRoman(self, num: int) -> str:
+
+        digits = {'1': 'I', '2': 'II', '3': 'III', '4': 'IV',
+                  '5': 'V', '6': 'VI', '7': 'VII', '8': 'VIII', '9': 'IX'}
+        i = ans = 0
+
+        NUM = str(num)
+        N = len(NUM)
+        ans = ""
+        while i < N:
+            if N - i > 3:
+                ans += int(NUM[i]) * 'M'
+            elif N - i > 2:
+                if NUM[i] == '9':
+                    ans += 'CM'
+                elif NUM[i] == '4':
+                    ans += 'CD'
+                elif int(NUM[i]) >= 5:
+                    hundreds = int(NUM[i]) - 5
+                    ans += 'D'
+
+                    if hundreds:
+                        ans += 'C' * int(hundreds)
+                else:
+                    ans += 'C' * int(NUM[i])
+            elif N - i > 1:
+                if NUM[i] == '9':
+                    ans += 'XC'
+                elif NUM[i] == '4':
+                    ans += 'XL'
+                elif int(NUM[i]) >= 5:
+                    tens = int(NUM[i]) - 5
+                    ans += 'L'
+                    if tens:
+                        ans += 'X' * int(tens)
+                else:
+                    ans += int(NUM[i]) * 'X'
+            else:
+                if NUM[i] != '0':
+                    ans += digits[NUM[i]]
+            i += 1
+
+        return ans
