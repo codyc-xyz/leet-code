@@ -16,3 +16,21 @@ class Solution:
                     path.remove(i)
         backtrack(set(), 1)
         return ans
+    
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        self.ans = []
+
+        def backtrack(N, K, curr):
+            if K == 0:
+                self.ans.append(curr)
+                return
+            if N > n:
+                return
+
+            backtrack(N+1, K - 1, curr + [N])
+            backtrack(N+1, K, curr)
+
+        backtrack(1, k, [])
+        return self.ans
