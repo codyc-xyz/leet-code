@@ -38,3 +38,24 @@ class Solution:
 
         dfs(0)
         return self.ans
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        N = len(s)
+        wordDict = set(wordDict)
+        self.ans = False
+        dp = [None for _ in range(N + 1)]
+
+        def dfs(i):
+            if self.ans or i == N:
+                self.ans = True
+                return
+            for w in wordDict:
+                lenW = len(w)
+                if i + lenW <= N and s[i:i+lenW] == w and dp[i+lenW] != False:
+                    dfs(i + lenW)
+            dp[i] = False
+
+        dfs(0)
+        return self.ans
