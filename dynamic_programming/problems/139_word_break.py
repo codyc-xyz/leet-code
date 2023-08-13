@@ -19,3 +19,22 @@ class Solution:
             return dfs(i + 1, curr + s[i])
 
         return dfs(0, "")
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        N = len(s)
+        wordDict = set(wordDict)
+        self.ans = False
+
+        def dfs(i):
+            if self.ans or i == N:
+                self.ans = True
+                return
+            for w in wordDict:
+                lenW = len(w)
+                if i + lenW <= N and s[i:i+lenW] == w:
+                    dfs(i + lenW)
+
+        dfs(0)
+        return self.ans
