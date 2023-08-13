@@ -31,3 +31,19 @@ class Solution:
                     path.pop()
         backtrack([])
         return ans
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+
+        def backtrack(i, res):
+            if i == len(nums):
+                self.ans.append(res)
+                return
+            for n in nums:
+                if n not in res:
+                    backtrack(i + 1, res + [n])
+
+        backtrack(0, [])
+        return self.ans
