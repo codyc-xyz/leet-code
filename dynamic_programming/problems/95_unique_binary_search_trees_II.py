@@ -23,3 +23,25 @@ class Solution:
             return res
 
         return generate(1, n)
+
+
+class Solution:
+    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
+        dp = {}
+
+        def generate(left, right):
+            if left == right:
+                return [TreeNode(left)]
+            if left > right:
+                return [None]
+            if (left, right) in dp:
+                return dp[(left, right)]
+            res = []
+            for val in range(left, right + 1):
+                for leftTree in generate(left, val - 1):
+                    for rightTree in generate(val+1, right):
+                        res.append(TreeNode(val, leftTree, rightTree))
+            dp[(left, right)] = res
+            return res
+
+        return generate(1, n)
