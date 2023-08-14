@@ -39,3 +39,35 @@ class Solution:
             elif matrix[m][end] < target:
                 l = m + 1
         return r
+    
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+
+        ROWS = len(matrix)
+        COLS = len(matrix[0])
+
+        row = ROWS - 1
+
+        for r in range(ROWS):
+            if matrix[r][0] > target:
+                row = r - 1
+                break
+            elif matrix[r][0] == target:
+                return True
+
+        if row < 0:
+            return False
+
+        l, r = 0, COLS - 1
+
+        while l <= r:
+            m = (l + r) // 2
+
+            if matrix[row][m] < target:
+                l = m + 1
+            elif matrix[row][m] > target:
+                r = m - 1
+            else:
+                return True
+        return False
