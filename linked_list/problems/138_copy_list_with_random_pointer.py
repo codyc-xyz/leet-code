@@ -62,3 +62,23 @@ class Solution:
             head = head.next
 
         return ans.next
+    
+
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+
+        hm = {}
+        curr = curr2 = head
+
+        while curr:
+            hm[curr] = Node(curr.val)
+            curr = curr.next
+
+        while curr2:
+            if curr2.next:
+                hm[curr2].next = hm[curr2.next]
+            if curr2.random:
+                hm[curr2].random = hm[curr2.random]
+            curr2 = curr2.next
+
+        return hm[head] if head else None
