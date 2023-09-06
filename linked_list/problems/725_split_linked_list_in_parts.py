@@ -47,3 +47,35 @@ class Solution:
             arr.append(curr)
             n += 1
         return arr
+    
+
+class Solution:
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+
+        curr = head
+        length = 0
+        while curr:
+            curr = curr.next
+            length += 1
+
+        lenModK = length % k
+        lenDivK = int(length / k)
+        ans = []
+        curr = head
+        while curr:
+            ans.append(curr)
+            K = lenDivK
+            while K > 0 and curr:
+                prev = curr
+                curr = curr.next
+                K -= 1
+            if lenModK > 0 and curr:
+                lenModK -= 1
+                prev = curr
+                curr = curr.next
+            if prev:
+                prev.next = None
+
+        while len(ans) < k:
+            ans.append(None)
+        return ans
