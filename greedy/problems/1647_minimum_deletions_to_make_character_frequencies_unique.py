@@ -21,3 +21,21 @@ class Solution:
         return deletions
 
 
+class Solution:
+    def minDeletions(self, s: str) -> int:
+
+        count = collections.Counter(s)
+        ans = 0
+        freq = []
+        for c in count:
+            freq.append(count[c])
+
+        freq.sort()
+        seen = set()
+        for n in freq:
+            while n in seen and n > 0:
+                n -= 1
+                ans += 1
+            seen.add(n)
+
+        return ans
