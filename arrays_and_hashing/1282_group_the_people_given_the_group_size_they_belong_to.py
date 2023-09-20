@@ -5,3 +5,17 @@
 # Return a list of groups such that each person i is in a group of size groupSizes[i].
 
 # Each person should appear in exactly one group, and every person must be in a group. If there are multiple answers, return any of them. It is guaranteed that there will be at least one valid solution for the given input.
+
+class Solution:
+    def groupThePeople(self, groupSizes: List[int]) -> List[List[int]]:
+
+        groups = defaultdict(list)
+        for i, n in enumerate(groupSizes):
+            groups[n].append(i)
+
+        ans = []
+        for g, vals in groups.items():
+            for i in range(0, len(vals), g):
+                ans.append(vals[i:i+g])
+
+        return ans
