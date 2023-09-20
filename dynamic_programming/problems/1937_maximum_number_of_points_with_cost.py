@@ -10,3 +10,18 @@
 
 # x for x >= 0.
 # -x for x < 0.
+
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+
+        arr = [[0 for _ in range(len(points[0]))] for _ in range(len(points))]
+
+        for i in range(len(points[0])):
+            arr[0][i] = points[0][i]
+
+        for i in range(1, len(points)):
+            for j in range(len(points[0])):
+                arr[i][j] = max(points[i][j] + arr[i - 1][n] - abs(n - j)
+                                for n in range(len(points[0])))
+
+        return max(arr[-1])
