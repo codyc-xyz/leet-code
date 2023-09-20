@@ -24,7 +24,24 @@ class Solution:
             return -1
                 
             
-            
-        
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+
+        currSum = windowStart = 0
+        target = sum(nums) - x
+        if target == 0:
+            return len(nums)
+        ans = float('inf')
+
+        for windowEnd in range(len(nums)):
+            currSum += nums[windowEnd]
+            while currSum > target and windowStart < windowEnd:
+                currSum -= nums[windowStart]
+                windowStart += 1
+            if currSum == target:
+                ans = min(ans, len(nums) - (windowEnd - windowStart + 1))
+
+        return ans if ans != float('inf') else -1
+
 
 
