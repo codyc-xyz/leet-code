@@ -25,3 +25,27 @@ class Solution:
                                 for n in range(len(points[0])))
 
         return max(arr[-1])
+
+
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        rows, cols = len(points), len(points[0])
+        dp = points[0]
+        left, right = [0] * cols, [0] * cols
+        for i in range(1, rows):
+            for j in range(cols):
+                if j == 0:
+                    left[j] = dp[j]
+                else:
+                    left[j] = max(left[j - 1] - 1, dp[j])
+
+            for n in range(cols - 1, -1, -1):
+                if n == cols - 1:
+                    right[n] = dp[n]
+                else:
+                    right[n] = max(right[n + 1] - 1, dp[n])
+
+            for c in range(cols):
+                dp[c] = points[i][c] + max(left[c], right[c])
+
+        return max(dp)
