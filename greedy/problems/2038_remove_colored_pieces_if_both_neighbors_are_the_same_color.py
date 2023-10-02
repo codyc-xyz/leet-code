@@ -7,3 +7,30 @@
 # Alice and Bob cannot remove pieces from the edge of the line.
 # If a player cannot make a move on their turn, that player loses and the other player wins.
 # Assuming Alice and Bob play optimally, return true if Alice wins, or return false if Bob wins.
+
+class Solution:
+    def winnerOfGame(self, colors: str) -> bool:
+
+        consecAs, consecBs = [0], [0]
+        for c in colors:
+            if c == 'A':
+                consecAs.append(consecAs[-1] + 1)
+                consecBs.append(0)
+            else:
+                consecBs.append(consecBs[-1] + 1)
+                consecAs.append(0)
+        i = sumAs = sumBs = 0
+
+        while i < len(colors):
+            while i < len(colors) and consecAs[i + 1] == consecAs[i] + 1:
+                i += 1
+            if consecAs[i] > 2:
+                sumAs += consecAs[i] - 2
+            while i < len(colors) and consecBs[i + 1] == consecBs[i] + 1:
+                i += 1
+            if consecBs[i] > 2:
+                sumBs += consecBs[i] - 2
+
+        if sumAs > 0 or sumBs > 0:
+            return sumAs > sumBs
+        return False
