@@ -11,3 +11,14 @@ class Solution:
                     ans += 1
 
         return ans
+
+
+class Solution:
+    def numIdenticalPairs(self, nums: List[int]) -> int:
+        count = collections.Counter(nums)
+        ans = 0
+
+        for c in count:
+            ans += count[c] * (count[c] - 1) // 2
+
+        return ans
