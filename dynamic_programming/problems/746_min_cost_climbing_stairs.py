@@ -14,3 +14,15 @@ class Solution:
             dp[i] = min(dp[i -1], dp[i-2]) + cost[i]
 
         return min(dp[-1], dp[-2])
+    
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        if len(cost) < 3:
+            return min(cost)
+        dp = [cost[0], cost[1]]
+
+        for i in range(2, len(cost)):
+            if i == len(cost) - 1:
+                return min(dp[-2] + cost[i], dp[-1])
+            dp.append(min(dp[-1], dp[-2]) + cost[i])
