@@ -72,3 +72,29 @@ class Solution:
             else:
                 return True
         return False
+    
+
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+
+        l, r = 0, len(nums)
+
+        def findNumBoundaries(m):
+            l = r = m
+            while l > 0 and nums[l - 1] == nums[m]:
+                l -= 1
+            while r < len(nums) - 1 and nums[r + 1] == nums[m]:
+                r += 1
+
+            return [l, r]
+
+        while l < r:
+            m = (l + r) // 2
+
+            if nums[m] > target:
+                r = m
+            elif nums[m] < target:
+                l = m + 1
+            else:
+                return findNumBoundaries(m)
+        return [-1, -1]
