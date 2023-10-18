@@ -7,3 +7,37 @@
 # Return the minimum number of months needed to complete all the courses.
 
 # Note: The test cases are generated such that it is possible to complete every course(i.e., the graph is a directed acyclic graph).
+
+class Solution:
+    def minimumTime(self, n: int, relations: List[List[int]], time: List[int]) -> int:
+        if n == 1:
+            return time[0]
+        monthsTaken = defaultdict(int)
+
+        for i, t in enumerate(time):
+            monthsTaken[i+1] = t
+
+        reqs = defaultdict(set)
+        reqFor = defaultdict(set)
+        for start, end in relations:
+            reqs[end].add(start)
+            reqFor[start].add(end)
+
+        heap = []
+        for i in range(1, n + 1):
+            if not reqs[i]:
+                heapq.heappush(heap, [monthsTaken[i], i])
+
+        ans = 0
+        seen = set()
+
+        while heap:
+            currTime, curr = heapq.heappop(heap)
+            if curr not in seen:
+                seen.add(curr)
+                if len(seen) == n:
+                    return currTime
+                for r in reqFor[curr]:
+                    reqs[r].remove(curr)
+                    if not reqs[r]:
+                        heapq.heappush(heap, [currTime + monthsTaken[r], r])
