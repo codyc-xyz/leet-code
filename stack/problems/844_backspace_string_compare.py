@@ -23,3 +23,25 @@ class Solution:
                 stackT.append(c)
         
         return stackS == stackT
+    
+
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+
+        stackS = []
+        stackT = []
+        i = j = 0
+        while i < len(s) or j < len(t):
+            if i < len(s):
+                if s[i] == '#' and stackS:
+                    stackS.pop()
+                elif s[i] != '#':
+                    stackS.append(s[i])
+            if j < len(t):
+                if t[i] == '#' and stackT:
+                    stackT.pop()
+                elif t[i] != '#':
+                    stackT.append(t[j])
+            i += 1
+            j += 1
+        return stackS == stackT
