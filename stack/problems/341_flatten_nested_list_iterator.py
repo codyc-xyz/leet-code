@@ -56,3 +56,33 @@ class NestedIterator:
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        self.flattened = []
+        strList = str(nestedList)
+        neg = False
+        i = 0
+        while i < len(strList):
+            c = strList[i]
+            j = i
+            if c == '-':
+                neg = True
+            if c.isnumeric():
+                res = ""
+                while i < len(strList) and strList[j].isnumeric():
+                    res += strList[j]
+                    j += 1
+                self.flattened.append(
+                    int(res)) if not neg else self.flattened.append(int(res) * -1)
+                neg = False
+            i = max(j, i + 1)
+        self.i = 0
+
+    def next(self) -> int:
+        ans = self.flattened[self.i]
+        self.i += 1
+        return ans
+
+    def hasNext(self) -> bool:
+        return self.i < len(self.flattened)
