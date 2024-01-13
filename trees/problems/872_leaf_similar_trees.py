@@ -57,3 +57,21 @@ class Solution:
             return arr
             
         return constructLeaves(root1) == constructLeaves(root2)
+    
+
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+
+        def dfs(root, leaves):
+            if not root:
+                return
+            if not root.left and not root.right:
+                leaves.append(root.val)
+            dfs(root.left, leaves)
+            dfs(root.right, leaves)
+            return leaves
+
+        leaves1 = dfs(root1, [])
+        leaves2 = dfs(root2, [])
+
+        return leaves1 == leaves2
