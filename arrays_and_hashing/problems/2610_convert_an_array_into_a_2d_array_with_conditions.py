@@ -6,3 +6,18 @@
 # Return the resulting array. If there are multiple answers, return any of them.
 
 # Note that the 2D array can have a different number of elements on each row.
+
+class Solution:
+    def findMatrix(self, nums: List[int]) -> List[List[int]]:
+        hm = {}
+        ans = [[]]
+        for n in nums:
+            if n not in hm:
+                ans[0].append(n)
+                hm[n] = 1
+            else:
+                if len(ans) <= hm[n]:
+                    ans.append([])
+                ans[hm[n]].append(n)
+                hm[n] += 1
+        return ans
