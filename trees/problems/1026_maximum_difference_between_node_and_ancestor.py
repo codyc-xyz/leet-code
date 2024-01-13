@@ -24,3 +24,23 @@ class Solution:
 
         dfs(root, float('inf'), float('-inf'))
         return self.maxDiff
+    
+
+class Solution:
+    def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
+        self.maxDiff = 0
+
+        def dfs(root, currMin, currMax):
+            curr = root.val
+            self.maxDiff = max(self.maxDiff, abs(
+                curr - currMin), abs(curr - currMax))
+            if root.left or root.right:
+                currMin = min(currMin, curr)
+                currMax = max(currMax, curr)
+                if root.left:
+                    dfs(root.left, currMin, currMax)
+                if root.right:
+                    dfs(root.right, currMin, currMax)
+
+        dfs(root, root.val, root.val)
+        return self.maxDiff
