@@ -18,3 +18,17 @@ class Solution:
                 a += 1
             b += 1
         return a
+    
+
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        G = sorted(g)
+        S = sorted(s)
+        ans = j = 0
+        for i in range(len(s)):
+            if j >= len(g):
+                return ans
+            if S[i] >= G[j]:
+                j += 1
+                ans += 1
+        return ans
