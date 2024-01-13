@@ -30,3 +30,18 @@ class Solution:
         val = val + self.rangeSumBST(root.right, low, high)
         
         return val
+    
+
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        self.res = 0
+
+        def dfs(root):
+            if not root:
+                return
+            if root.val >= low and root.val <= high:
+                self.res += root.val
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
+        return self.res
