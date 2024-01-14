@@ -7,3 +7,9 @@
 # You can use the operations on either string as many times as necessary.
 
 # Given two strings, word1 and word2, return true if word1 and word2 are close, and false otherwise.
+
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        c1Count = collections.Counter(word1)
+        c2Count = collections.Counter(word2)
+        return set(word1) == set(word2) and sorted(c1Count.values()) == sorted(c2Count.values())
