@@ -8,3 +8,18 @@
 
 # Return the total number of laser beams in the bank.
 
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        R = len(bank)
+        C = len(bank[0])
+        ans = prevBeams = 0
+        for i in range(R):
+            countBeams = 0
+            for j in range(C):
+                if bank[i][j] == '1':
+                    countBeams += 1
+            if prevBeams and countBeams:
+                ans += prevBeams * countBeams
+            if countBeams:
+                prevBeams = countBeams
+        return ans
