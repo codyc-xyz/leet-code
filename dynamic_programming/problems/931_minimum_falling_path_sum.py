@@ -22,3 +22,26 @@ class Solution:
                 dp[i][j] = currMin
 
         return min(dp[-1][i] for i in range(COLS))
+
+
+class Solution:
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+
+        R = len(matrix)
+        C = len(matrix[0])
+        dp = [[[None] for _ in range(C)] for _ in range(R)]
+
+        for i in range(R):
+            dp[0][i] = matrix[0][i]
+
+        for i in range(1, R):
+            for j in range(C):
+                if j == 0:
+                    dp[i][j] = min(dp[i-1][j], dp[i-1][j+1]) + matrix[i][j]
+                elif j == C - 1:
+                    dp[i][j] = min(dp[i-1][j], dp[i-1][j-1]) + matrix[i][j]
+                else:
+                    dp[i][j] = min(dp[i-1][j], dp[i-1][j-1],
+                                   dp[i-1][j+1]) + matrix[i][j]
+
+        return min(dp[-1])
