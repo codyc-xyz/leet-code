@@ -12,6 +12,21 @@ class Solution:
                 j += 1
         return arrSums%(10**9+7)
 
+
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        ans = 0
+        MOD = 10**9+7
+        for i in range(len(arr)):
+            currMin = arr[i]
+            ans += currMin
+            for j in range(i + 1, len(arr)):
+                if arr[j] < currMin:
+                    currMin = arr[j]
+                ans += currMin
+        return ans % MOD
+
+
 class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         arrSums = 0
