@@ -3,3 +3,17 @@
 # You are given an integer array nums representing the data status of this set after the error.
 
 # Find the number that occurs twice and the number that is missing and return them in the form of an array.
+
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        seen = set()
+        ans = []
+        for n in nums:
+            if n in seen:
+                ans.append(n)
+            seen.add(n)
+
+        for i in range(1, len(nums) + 1):
+            if i not in seen:
+                ans.append(i)
+                return ans
