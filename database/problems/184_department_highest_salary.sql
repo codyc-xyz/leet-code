@@ -28,3 +28,13 @@
 
 # Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT Department.name AS Department, Employee.name AS Employee, Employee.Salary
+FROM Department
+LEFT JOIN Employee ON Department.id = Employee.departmentId
+WHERE (Department.id, Employee.Salary) IN (
+    SELECT departmentId, MAX(Salary)
+    FROM Employee
+    GROUP BY departmentId
+);
