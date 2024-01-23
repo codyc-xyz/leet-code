@@ -7,7 +7,6 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
 
-
         self.maxLen = 0
         seenChars = defaultdict(int)
         def backtrack(curr, i, seenChars):
@@ -31,3 +30,24 @@ class Solution:
             backtrack(curr, i + 1, seenChars)
         backtrack([], 0, seenChars)
         return self.maxLen
+    
+class Solution:
+    def maxLength(self, arr: List[str]) -> int:
+        self.ans = 0
+        def backtrack(i, currSet):
+            if i == len(arr):
+                self.ans = max(len(currSet), self.ans)
+                return
+            backtrack(i+1, currSet)
+            add = True
+            tempSet = set()
+            for c in arr[i]:
+                if c in currSet or c in tempSet:
+                    add = False
+                    break
+                tempSet.add(c)
+            if add:
+                newSet = currSet | tempSet
+                backtrack(i + 1, newSet)
+        backtrack(0, set())
+        return self.ans
