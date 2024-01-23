@@ -19,3 +19,4 @@ Write a solution to calculate the total time in minutes spent by each employee o
 
 Return the result table in any order.
 
+SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY emp_id, event_day;
