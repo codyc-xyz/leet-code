@@ -26,3 +26,6 @@ Write a solution to show the unique ID of each user, If a user does not have a u
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT unique_id, name FROM Employees LEFT JOIN EmployeeUNI ON Employees.id = EmployeeUNI.id;
