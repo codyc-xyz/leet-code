@@ -31,3 +31,16 @@ Write a solution to report the name and balance of users with a balance higher t
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT 
+    Users.name AS name, 
+    SUM(Transactions.amount) AS balance 
+FROM 
+    Users 
+LEFT JOIN 
+    Transactions ON Users.account = Transactions.account 
+GROUP BY 
+    Users.account
+HAVING 
+    SUM(Transactions.amount) > 10000;
