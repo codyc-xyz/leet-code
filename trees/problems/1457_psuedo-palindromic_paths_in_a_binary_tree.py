@@ -32,3 +32,34 @@ class Solution:
             path[root.val] -= 1
         dfs(root, defaultdict(int))
         return self.ans
+    
+class Solution:
+    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
+        self.ans = 0
+        def dfs(node, path, count):
+            if node.val in count:
+                count[node.val] += 1
+            else:
+                count[node.val] = 1
+            if not node.left and not node.right:
+                odds = 0
+                if len(path) % 2:
+                    for c in count:
+                        if count[c] % 2:
+                            if odds:
+                                return
+                            odds += 1
+                else:
+                    for c in count:
+                        if count[c] % 2:
+                            return
+                self.ans += 1
+            if node.left:
+                dfs(node.left, path + [node.left.val], count.copy())
+            if node.right:
+                dfs(node.right, path + [node.right.val], count.copy())
+
+        dfs(root, [root.val], {})
+        return self.ans
+            
+
