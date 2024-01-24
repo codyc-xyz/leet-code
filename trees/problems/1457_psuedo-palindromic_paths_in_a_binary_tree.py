@@ -36,14 +36,14 @@ class Solution:
 class Solution:
     def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:
         self.ans = 0
-        def dfs(node, path, count):
+        def dfs(node, numSeen, count):
             if node.val in count:
                 count[node.val] += 1
             else:
                 count[node.val] = 1
             if not node.left and not node.right:
                 odds = 0
-                if len(path) % 2:
+                if numSeen % 2:
                     for c in count:
                         if count[c] % 2:
                             if odds:
@@ -57,13 +57,15 @@ class Solution:
                             return
                 self.ans += 1
             if node.left:
-                dfs(node.left, path + [node.left.val], count)
+                dfs(node.left, numSeen + 1, count)
             if node.right:
-                dfs(node.right, path + [node.right.val], count)
+                dfs(node.right, numSeen + 1, count)
             count[node.val] -= 1
 
-        dfs(root, [root.val], {})
+        dfs(root, 1, {})
         return self.ans
+            
+
             
 
             
