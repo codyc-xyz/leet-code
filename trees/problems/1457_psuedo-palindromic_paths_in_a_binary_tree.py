@@ -47,19 +47,24 @@ class Solution:
                     for c in count:
                         if count[c] % 2:
                             if odds:
+                                count[node.val] -= 1
                                 return
                             odds += 1
                 else:
                     for c in count:
                         if count[c] % 2:
+                            count[node.val] -= 1
                             return
                 self.ans += 1
             if node.left:
-                dfs(node.left, path + [node.left.val], count.copy())
+                dfs(node.left, path + [node.left.val], count)
             if node.right:
-                dfs(node.right, path + [node.right.val], count.copy())
+                dfs(node.right, path + [node.right.val], count)
+            count[node.val] -= 1
 
         dfs(root, [root.val], {})
         return self.ans
+            
+
             
 
