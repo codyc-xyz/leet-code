@@ -29,3 +29,6 @@ Write a solution to report the first name, last name, city, and state of each pe
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT firstName, lastName, city, state FROM Person LEFT JOIN Address ON Person.personId = Address.personId;
