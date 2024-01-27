@@ -16,3 +16,7 @@ Write a solution to find the employees who earn more than their managers.
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT name AS Employee FROM Employee AS E
+WHERE salary > (SELECT salary FROM Employee WHERE id=E.managerId);
