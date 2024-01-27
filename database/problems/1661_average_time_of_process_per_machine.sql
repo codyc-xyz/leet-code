@@ -26,3 +26,11 @@ The resulting table should have the machine_id along with the average time as pr
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT machine_id, 
+ROUND((SUM(CASE WHEN activity_type = 'end' THEN timestamp END) - SUM(CASE WHEN activity_type = 'start' THEN timestamp END)) 
+/ (COUNT(machine_id) / 2),3)
+AS processing_time
+FROM Activity
+GROUP BY machine_id;
