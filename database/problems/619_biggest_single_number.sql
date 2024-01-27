@@ -13,3 +13,11 @@ A single number is a number that appeared only once in the MyNumbers table.
 
 Find the largest single number. If there is no single number, report null.
 
+# Write your MySQL query statement below
+
+SELECT COALESCE(
+    (SELECT num FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(num) = 1
+    ORDER BY num DESC
+    LIMIT 1), NULL) AS num;
