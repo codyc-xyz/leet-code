@@ -27,3 +27,6 @@ Write a solution to find the IDs of the users who visited without making any tra
 
 Return the result table sorted in any order.
 
+# Write your MySQL query statement below
+
+SELECT customer_id, COUNT(customer_id) AS count_no_trans FROM Visits LEFT JOIN Transactions ON Visits.visit_id = Transactions.visit_id WHERE transactions.visit_id IS NULL GROUP BY customer_id;
