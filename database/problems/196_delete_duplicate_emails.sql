@@ -18,3 +18,8 @@ For Pandas users, please note that you are supposed to modify Person in place.
 
 After running your script, the answer shown is the Person table. The driver will first compile and run your piece of code and then show the Person table. The final order of the Person table does not matter.
 
+# Write your MySQL query statement below
+
+DELETE P1 FROM Person P1
+LEFT JOIN Person P2 ON P1.email = P2.email
+WHERE P2.id < P1.id;
