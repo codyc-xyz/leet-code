@@ -47,3 +47,14 @@ Write a solution to find the names of all the salespersons who did not have any 
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT SalesPerson.name
+FROM SalesPerson
+WHERE NOT EXISTS (
+    SELECT Orders.sales_id 
+    FROM Orders
+    LEFT JOIN Company
+    ON Orders.com_id = Company.com_id
+    WHERE SalesPerson.sales_id = Orders.sales_id AND Company.name = "RED"
+);
