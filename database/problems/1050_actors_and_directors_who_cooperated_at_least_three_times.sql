@@ -14,3 +14,6 @@ Write a solution to find all the pairs (actor_id, director_id) where the actor h
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(director_id) > 2;
