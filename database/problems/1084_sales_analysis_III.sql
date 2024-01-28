@@ -30,3 +30,9 @@ Write a solution to report the products that were only sold in the first quarter
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT Product.product_id, product_name FROM Product
+LEFT JOIN Sales ON Product.product_id = Sales.product_id
+GROUP BY Product.product_id
+HAVING MAX(sale_date) <= "2019-03-31" AND MIN(sale_date) >= "2019-01-01";
