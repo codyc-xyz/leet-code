@@ -28,3 +28,14 @@ Both quality and poor_query_percentage should be rounded to 2 decimal places.
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT 
+    query_name, 
+    ROUND(SUM(rating / position) / COUNT(query_name), 2) AS quality, 
+    ROUND((SELECT COUNT(query_name) FROM Queries WHERE rating < 3 AND query_name = q.query_name) * 100.0 / COUNT(query_name), 2) AS poor_query_percentage
+FROM 
+    Queries q
+WHERE query_name IS NOT NULL
+GROUP BY 
+    query_name;
