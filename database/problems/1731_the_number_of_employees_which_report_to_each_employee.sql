@@ -18,3 +18,11 @@ Write a solution to report the ids and the names of all managers, the number of 
 
 Return the result table ordered by employee_id.
 
+# Write your MySQL query statement below
+
+SELECT E1.employee_id, E1.name, COUNT(E2.reports_to) AS reports_count, ROUND((SUM(E2.age) / COUNT(E2.reports_to)), 0) AS average_age
+FROM Employees E1
+RIGHT JOIN Employees E2 ON E1.employee_id = E2.reports_to
+WHERE E2.reports_to IS NOT NULL
+GROUP BY E1.employee_id, E1.name
+ORDER BY employee_id;
