@@ -16,3 +16,8 @@ Write a solution to find the patient_id, patient_name, and conditions of the pat
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT patient_id, patient_name, conditions
+FROM Patients
+WHERE conditions LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%';
