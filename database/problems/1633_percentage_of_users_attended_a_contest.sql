@@ -26,3 +26,12 @@ Write a solution to find the percentage of the users registered in each contest 
 
 Return the result table ordered by percentage in descending order. In case of a tie, order it by contest_id in ascending order.
 
+# Write your MySQL query statement below
+
+SELECT contest_id, ROUND((COUNT(Register.user_id) / 
+    (SELECT COUNT(Users.user_id) FROM Users) * 100.0), 2) AS percentage
+FROM Users
+LEFT JOIN Register ON Users.user_id = Register.user_id
+WHERE contest_id IS NOT NULL
+GROUP BY contest_id
+ORDER BY percentage DESC, contest_id;
