@@ -19,3 +19,7 @@ The prefix name is a string that may contain letters (upper or lower case), digi
 The domain is '@leetcode.com'.
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT user_id, name, mail FROM Users
+WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9_\\-\\.]*@leetcode\\.com$';
