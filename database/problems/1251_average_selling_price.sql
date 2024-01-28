@@ -29,3 +29,10 @@ Each row of this table indicates the date, units, and product_id of each product
 Write a solution to find the average selling price for each product. average_price should be rounded to 2 decimal places.
 
 Return the result table in any order.
+
+# Write your MySQL query statement below
+
+SELECT Prices.product_id, COALESCE(ROUND(SUM(price * units)/ SUM(units), 2), 0) AS average_price
+FROM Prices LEFT JOIN UnitsSold ON Prices.product_id = UnitsSold.product_id
+AND purchase_date BETWEEN start_date AND end_date
+GROUP BY Prices.product_id;
