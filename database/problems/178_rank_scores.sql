@@ -21,3 +21,10 @@ Return the result table ordered by score in descending order.
 
 SELECT score, DENSE_RANK() OVER(ORDER BY score DESC) AS 'rank'
 FROM Scores;
+
+
+SELECT S1.score, COUNT(DISTINCT S2.score) AS 'rank'
+FROM Scores S1, Scores S2
+WHERE S1.score <= S2.score
+GROUP BY S1.id
+ORDER BY score DESC;
