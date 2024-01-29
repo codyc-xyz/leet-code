@@ -25,3 +25,9 @@ Write a solution to report the customer ids from the Customer table that bought 
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+SELECT customer_id FROM Customer 
+LEFT JOIN Product ON Customer.product_key = Product.product_key
+GROUP BY customer_id
+HAVING COUNT(DISTINCT Customer.product_key) = (SELECT COUNT(Product.product_key) FROM product);
