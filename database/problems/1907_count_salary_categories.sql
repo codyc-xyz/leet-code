@@ -19,3 +19,25 @@ The result table must contain all three categories. If there are no accounts in 
 
 Return the result table in any order.
 
+WITH CategorizedAccounts AS (
+    SELECT account_id,
+    CASE 
+        WHEN income < 20000 THEN "Low Salary" 
+        WHEN income <= 50000 THEN "Average Salary"
+        ELSE "High Salary" 
+        END AS category
+    FROM Accounts
+),
+
+CategoryTypes AS (
+    SELECT "Low Salary" AS category
+    UNION ALL 
+    SELECT "Average Salary"
+    UNION ALL 
+    SELECT "High Salary"
+)
+
+SELECT CategoryTypes.category, COALESCE(COUNT(account_id), 0) AS accounts_count 
+FROM CategorizedAccounts 
+RIGHT JOIN CategoryTypes ON CategorizedAccounts.category = CategoryTypes.category
+GROUP BY CategoryTypes.category; 
