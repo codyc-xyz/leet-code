@@ -18,3 +18,15 @@ Write a solution to find managers with at least five direct reports.
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+WITH NumReports AS (
+    SELECT managerId, COUNT(managerId) AS report_count
+    FROM Employee
+    GROUP BY managerId
+    HAVING COUNT(managerId) > 4
+)
+
+SELECT name FROM Employee
+LEFT JOIN NumReports ON Employee.id = NumReports.managerId
+WHERE report_count > 4;
