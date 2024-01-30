@@ -31,3 +31,23 @@ Write a solution to find the confirmation rate of each user.
 
 Return the result table in any order.
 
+# Write your MySQL query statement below
+
+WITH NumConfirms AS (
+    SELECT user_id, COUNT(action) AS num_confirmed
+    FROM Confirmations
+    WHERE action = "confirmed"
+    GROUP BY user_id
+),
+
+ActionTotal AS (
+    SELECT user_id, COUNT(action) AS num_total
+    FROM Confirmations
+    GROUP BY user_id
+)
+
+SELECT Signups.user_id, ROUND(COALESCE(num_confirmed, 0) / COALESCE(num_total, 1), 2) AS confirmation_rate
+FROM Signups 
+LEFT JOIN NumConfirms ON Signups.user_id = NumConfirms.user_id
+LEFT JOIN ActionTotal ON Signups.user_id = ActionTotal.user_id
+GROUP BY Signups.user_id;
