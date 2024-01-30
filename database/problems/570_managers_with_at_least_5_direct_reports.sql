@@ -30,3 +30,15 @@ WITH NumReports AS (
 SELECT name FROM Employee
 LEFT JOIN NumReports ON Employee.id = NumReports.managerId
 WHERE report_count > 4;
+
+# Write your MySQL query statement below
+
+WITH NumReports AS (
+    SELECT managerId, COUNT(managerId) AS report_count
+    FROM Employee
+    GROUP BY managerId
+    HAVING COUNT(managerId) > 4
+)
+
+SELECT name FROM Employee
+INNER JOIN NumReports ON Employee.id = NumReports.managerId;
