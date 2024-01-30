@@ -32,3 +32,28 @@ class Solution:
                 stack.append(int(t))
                 
         return stack[-1]
+    
+
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        
+        ops = {'+', '-', '*', '/'}
+        stack = []
+
+        for t in tokens:
+            if t not in ops:
+                stack.append(int(t))
+            else:
+                a = stack.pop()
+                b = stack.pop()
+                if t == '+':
+                    curr = b + a
+                elif t == '-':
+                    curr = b - a
+                elif t == '*':
+                    curr = b * a
+                else:
+                    curr = int(b / a)
+                stack.append(curr)
+
+        return int(stack[-1])
