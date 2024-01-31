@@ -23,3 +23,24 @@ have the same tiv_2015 value as one or more other policyholders, and
 are not located in the same city as any other policyholder (i.e., the (lat, lon) attribute pairs must be unique).
 Round tiv_2016 to two decimal places.
 
+# Write your MySQL query statement below
+
+WITH SameAs2015 AS (
+ SELECT pid, tiv_2016 
+ FROM Insurance I1
+ WHERE tiv_2015 IN (
+     SELECT tiv_2015
+     FROM Insurance
+     WHERE Insurance.pid != I1.pid
+ )),
+
+UniqueLocation AS (
+    SELECT pid, lat, lon 
+    FROM Insurance
+    GROUP BY lat, lon
+    HAVING COUNT(*) = 1
+)
+
+SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016
+FROM SameAs2015
+INNER JOIN UniqueLocation on SameAs2015.pid = UniqueLocation.pid;
