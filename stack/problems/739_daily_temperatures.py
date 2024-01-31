@@ -27,3 +27,15 @@ class Solution:
                 
             stack.append([i, temperatures[i]])
         return ans[::-1]
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        N = len(temperatures)
+        ans = [0] * N
+        stack = []
+        for i, t in enumerate(temperatures):
+            while stack and stack[-1][0] < t:
+                _, idx = stack.pop()
+                ans[idx] = i - idx
+            stack.append([t, i])
+        return ans
