@@ -26,6 +26,20 @@ Table: Product
 product_id is the primary key (column with unique values) of this table.
 Each row of this table indicates the product name of each product.
  
-
 Write a solution to select the product id, year, quantity, and price for the first year of every product sold.
+
+Return the resulting table in any order.
+
+# Write your MySQL query statement below
+
+WITH FirstYear AS (
+SELECT product_id, MIN(year) AS first_year
+FROM Sales
+GROUP BY product_id
+)
+
+SELECT FirstYear.product_id, first_year, quantity, price
+FROM Sales
+RIGHT JOIN FirstYear ON Sales.product_id = FirstYear.product_id
+WHERE year = first_year;
 
