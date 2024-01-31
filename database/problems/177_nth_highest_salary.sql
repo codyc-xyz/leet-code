@@ -12,3 +12,12 @@ Each row of this table contains information about the salary of an employee.
 
 Write a solution to find the nth highest salary from the Employee table. If there is no nth highest salary, return null.
 
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+SET N = N-1;
+RETURN (
+    IFNULL((SELECT DISTINCT Salary FROM Employee
+    ORDER BY Salary DESC
+    LIMIT 1 OFFSET N),NULL)
+);
+END
