@@ -8,5 +8,15 @@
 # the rest of the numbers do not rotate to any other number and become invalid.
 # Given an integer n, return the number of good integers in the range [1, n].
 
- 
-
+class Solution:
+    def rotatedDigits(self, n: int) -> int:
+        goodNums = {'2', '5', '6', '9'}
+        validNums = goodNums.union({'0', '1', '8'})
+        ans = 0
+        
+        for i in range(1, n + 1):
+            s = str(i)
+            if all(digit in validNums for digit in s) and any(digit in goodNums for digit in s):
+                ans += 1
+        
+        return ans
