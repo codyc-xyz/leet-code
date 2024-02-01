@@ -2,3 +2,12 @@
 
 # A zero-based permutation nums is an array of distinct integers from 0 to nums.length - 1 (inclusive).
 
+class Solution:
+    def buildArray(self, nums: List[int]) -> List[int]:
+
+        ans = []
+
+        for i, n in enumerate(nums):
+            ans.append(nums[nums[i]])
+        return ans
+        
