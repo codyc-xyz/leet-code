@@ -6,3 +6,9 @@
 
 # Note that the resulting string can have leading zeros.
 
+class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        s = list(s)
+        s = sorted(s, reverse=True, key= lambda x: int(x))
+        s.append(s.pop(0))
+        return ''.join(s)
