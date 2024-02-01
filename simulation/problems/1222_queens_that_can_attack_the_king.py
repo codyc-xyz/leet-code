@@ -4,3 +4,24 @@
 
 # Return the coordinates of the black queens that can directly attack the king. You may return the answer in any order.
 
+class Solution:
+    def queensAttacktheKing(self, queens: List[List[int]], king: List[int]) -> List[List[int]]:
+
+        x, y = king
+        queenSet = set()
+        for qX, qY in queens:
+            queenSet.add((qX, qY))
+        
+        dirs = {(1, 1), (-1, -1), (1, 0), (0, 1), (-1, 0), (0, -1), (-1, 1), (1, -1)}
+        ans = []
+        for i, j in dirs:
+            tmpX = x
+            tmpY = y
+            while tmpX + i >= 0 and tmpX + i < 8 and tmpY + j >= 0 and tmpY + j < 8:
+                tmpX += i
+                tmpY += j
+                if (tmpX, tmpY) in queenSet:
+                    ans.append([tmpX, tmpY])
+                    break
+
+        return ans
