@@ -14,3 +14,14 @@ class Solution:
                 ans = max(ans, dp[i][-1])
             i += 1
         return ans
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        ans = nums[0]
+        currMax, currMin = 1, 1
+        for i, n1 in enumerate(nums):
+            candidates = (n1, currMax * n1, currMin * n1)
+            currMax = max(candidates)
+            currMin = min(candidates)
+            ans = max(ans, currMax)
+        return ans
