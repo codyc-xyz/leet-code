@@ -21,3 +21,23 @@ class Solution:
         for i in range(ROWS):
             dfs(i, 0, 0)
         return self.ans
+
+class Solution:
+    def maxMoves(self, grid: List[List[int]]) -> int:
+        ROWS, COLS = len(grid), len(grid[0])
+        dirs = {(-1, 1), (0, 1), (1, 1)}
+        seen = {}
+        self.ans = 0
+        def dfs(x, y, moves):
+            for dX, dY in dirs:
+                currX = dX + x
+                currY = dY + y
+                if currX  >= 0 and currX < ROWS and currY >= 0 and currY < COLS and grid[x][y] < grid[currX][currY] and (currX, currY) not in seen:
+                    dfs(currX, currY, moves + 1)
+                self.ans = max(self.ans, moves)
+                seen[(x, y)]= moves
+
+
+        for i in range(ROWS):
+            dfs(i, 0, 0)
+        return self.ans
