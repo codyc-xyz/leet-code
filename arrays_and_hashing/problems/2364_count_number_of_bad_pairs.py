@@ -10,3 +10,17 @@ class Solution:
                 if nums[j] - nums[i] != j - i:
                     ans += 1
         return ans
+
+class Solution:
+    def countBadPairs(self, nums: List[int]) -> int:
+        hm = {}
+        res = 0
+        pairs = len(nums) * (len(nums) - 1) / 2
+        for i in range(len(nums)):
+            if nums[i] - i in hm:
+                res += hm[nums[i] - i]
+                hm[nums[i] - i] += 1
+            else:
+                hm[nums[i] - i] = 1
+            
+        return int(pairs - res)
