@@ -5,3 +5,14 @@
 # If the current number is odd, you have to add 1 to it.
 # It is guaranteed that you can always reach one for all test cases.
 
+class Solution:
+    def numSteps(self, s: str) -> int:
+        binNum = int(s, 2)
+        ans = 0
+        while binNum != 1:
+            if binNum % 2:
+                binNum += 1
+            else:
+                binNum //= 2
+            ans += 1
+        return ans
