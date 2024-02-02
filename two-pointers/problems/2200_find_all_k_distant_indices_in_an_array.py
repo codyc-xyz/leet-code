@@ -15,4 +15,5 @@ class Solution:
                     if j == len(nums):
                         break
                     ans.add(j)
+                l = j
         return list(ans)
