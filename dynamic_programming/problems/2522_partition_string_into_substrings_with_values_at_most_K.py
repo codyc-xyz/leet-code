@@ -11,4 +11,25 @@
 # The value of a string is its result when interpreted as an integer. For example, the value of "123" is 123 and the value of "1" is 1.
 # A substring is a contiguous sequence of characters within a string.
  
+class Solution:
+    def minimumPartition(self, s: str, k: int) -> int:
+
+        ans = i = 0
+        while i < len(s):
+            currStr = s[i]
+            j = None
+            if int(currStr) > k:
+                return -1
+            for j in range(1, k):
+                if i + j < len(s):
+                    if int(currStr + s[i+j]) <= k:
+                        currStr += s[i+j]
+                    else:
+                        break
+            if j:
+                i = i+j
+            else:
+                i += 1
+            ans += 1
+        return ans
 
