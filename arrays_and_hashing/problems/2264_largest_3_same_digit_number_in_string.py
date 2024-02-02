@@ -8,3 +8,20 @@
 
 # A substring is a contiguous sequence of characters within a string.
 # There may be leading zeroes in num or a good integer.
+
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        
+        maxNum = float('-inf')
+        count = 1
+        prev = num[0]
+        for i in range(1, len(num)):
+            if num[i] == prev:
+                count += 1 
+            else:
+                count = 1       
+            if count == 3:
+                maxNum = max(maxNum, int(prev))
+                count = 0
+            prev = num[i]
+        return str(maxNum) * 3 if maxNum > float('-inf') else ""
