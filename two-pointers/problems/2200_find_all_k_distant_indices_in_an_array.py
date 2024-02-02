@@ -2,3 +2,17 @@
 
 # Return a list of all k-distant indices sorted in increasing order.
 
+class Solution:
+    def findKDistantIndices(self, nums: List[int], key: int, k: int) -> List[int]:
+        
+        ans = set()
+        l = 0
+        for i, n in enumerate(nums):
+            if i - l > k:
+                l += 1
+            if n == key:
+                for j in range(l, i + k + 1):
+                    if j == len(nums):
+                        break
+                    ans.add(j)
+        return list(ans)
