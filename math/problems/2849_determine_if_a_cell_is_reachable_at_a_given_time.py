@@ -8,3 +8,23 @@
 
  
 
+class Solution:
+    def isReachableAtTime(self, sx: int, sy: int, fx: int, fy: int, t: int) -> bool:
+        
+        dirs = {(1,1), (1,0), (0,1), (-1,-1), (-1,0), (0,-1), (1, -1), (-1, 1)}
+
+        seen = set()
+        self.flag = False
+        def dfs(x, y, T):
+            if (x,y,T) in seen or self.flag or T < 0:
+                return 
+            seen.add((x,y,T))
+            if x == fx and y == fy:
+                self.flag = True
+                return
+            for dx, dy in dirs:
+                dfs(x+dx,y+dy, T-1)
+        if sx == fx and sy == fy and t < 2 and t != 0:
+            return False
+        dfs(sx,sy,t)
+        return self.flag
