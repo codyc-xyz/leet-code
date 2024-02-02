@@ -28,3 +28,14 @@ class Solution:
             return False
         dfs(sx,sy,t)
         return self.flag
+
+class Solution:
+    def isReachableAtTime(self, sx: int, sy: int, fx: int, fy: int, t: int) -> bool:
+        
+        dist = max(abs(fx-sx), abs(fy-sy))
+        if dist == 0 and t == 1:
+            return False
+        return t >= dist
+
+        
+
