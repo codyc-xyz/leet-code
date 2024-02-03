@@ -6,3 +6,15 @@
 # All the cards in one group have the same integer written on them.
 # Return true if such partition is possible, or false otherwise.
 
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+
+        numCards = len(set(deck))
+        gcd = defaultdict(int)
+        count = collections.Counter(deck)
+
+        for c in count:
+            for i in range(2, count[c] + 1):
+                if not count[c] % i:
+                    gcd[i] += 1
+        return numCards in gcd.values()
