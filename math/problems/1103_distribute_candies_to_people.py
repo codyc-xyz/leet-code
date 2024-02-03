@@ -8,3 +8,17 @@
 
 # Return an array (of length num_people and sum candies) that represents the final distribution of candies.
 
+class Solution:
+    def distributeCandies(self, candies: int, num_people: int) -> List[int]:
+
+        curr = 1
+        ans = [0] * num_people
+        while candies:
+            for i in range(1, num_people + 1):
+                if candies <= curr:
+                    ans[i-1] += candies
+                    return ans
+                ans[i-1] += curr
+                candies -= curr
+                curr += 1
+            
