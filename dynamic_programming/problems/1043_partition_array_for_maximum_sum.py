@@ -15,3 +15,21 @@ class Solution:
         return dp[N]
                 
         
+class Solution:
+    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
+
+        self.cache = {}
+        def dfs(i):
+            if i in self.cache:
+                return self.cache[i]
+            res = currMax = 0
+            for j in range(i, min(len(arr), i+k)):
+                currMax = max(currMax, arr[j])
+                window = j - i + 1
+                res = max(res, dfs(j+1) + window * currMax)
+            self.cache[i] = res
+            return self.cache[i] 
+        
+        return dfs(0)
+
+            
