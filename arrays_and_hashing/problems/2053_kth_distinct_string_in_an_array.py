@@ -4,3 +4,14 @@
 
 # Note that the strings are considered in the order in which they appear in the array.
 
+class Solution:
+    def kthDistinct(self, arr: List[str], k: int) -> str:
+        
+        count = collections.Counter(arr)
+
+        for c in arr:
+            if count[c] == 1:
+                k -= 1
+                if k == 0:
+                    return c
+        return ""
