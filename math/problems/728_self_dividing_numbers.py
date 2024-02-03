@@ -5,3 +5,18 @@
 
 # Given two integers left and right, return a list of all the self-dividing numbers in the range [left, right].
 
+class Solution:
+    def selfDividingNumbers(self, left: int, right: int) -> List[int]:
+        ans = []
+        for i in range(left, right+1):
+            s = str(i)
+            flag = True
+            for c in s:
+                if c == '0' or i % int(c):
+                    flag = False
+                    break
+            if flag:
+                ans.append(i)
+        return ans
+
+            
