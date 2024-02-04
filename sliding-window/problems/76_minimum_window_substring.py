@@ -32,3 +32,30 @@ class Solution:
             return s[left:right]
         else:
             return ""
+        
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        charsT = set(t)
+        countT = collections.Counter(t)
+        countS = defaultdict(int)
+        satisfied = set()
+        windowStart = 0
+        ans = ""
+        for windowEnd, c in enumerate(s):
+            countS[c] += 1
+            if c in countT and countS[c] >= countT[c]:
+                satisfied.add(c)
+                while satisfied == charsT:
+                    currC = s[windowStart]
+                    if ans == "" or windowEnd - windowStart + 1 < len(ans):
+                        ans = s[windowStart:windowEnd+1]
+                    countS[currC] -= 1
+                    if currC in countT and countS[currC] < countT[currC]:
+                        satisfied.remove(currC)
+                    windowStart += 1
+        return ans
+
+
+
+
+
