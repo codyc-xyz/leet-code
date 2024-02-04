@@ -6,3 +6,29 @@
 
 # Return a 2D array containing the 4-length arrays described above for each group of farmland in land. If there are no groups of farmland, return an empty array. You may return the answer in any order.
 
+class Solution:
+    def findFarmland(self, graph: List[List[int]]) -> List[List[int]]:
+        ROWS = len(graph)
+        COLS = len(graph[0])
+        seen = set()
+        ans = []
+        dirs = {(0, 1), (1, 0), (-1,0), (0,-1)}
+        def dfs(x, y, res):
+            if x < 0 or y < 0 or x == ROWS or y == COLS or (x, y) in seen or not graph[x][y]:
+                return
+            seen.add((x,y))
+            res[0] = min(res[0], x)
+            res[1] = min(res[1], y)
+            res[2] = max(res[2], x)
+            res[3] = max(res[3], y)
+            for dx, dy in dirs:
+                dfs(x+dx,y+dy, res)
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if graph[r][c] and (r,c) not in seen:
+                    res = [r,c,r,c]
+                    dfs(r,c,res)
+                    ans.append(res)
+        return ans
+
