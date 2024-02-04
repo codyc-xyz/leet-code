@@ -18,3 +18,20 @@ class Solution:
 
         return ans
         
+class Solution:
+    def processQueries(self, queries: List[int], m: int) -> List[int]:
+        permutations = deque(i for i in range(1, m + 1))
+        ans = []
+        for q in queries:
+            tmp = deque()
+            for i, p in enumerate(permutations):
+                if p == q:
+                    ans.append(i)
+                    curr = p
+                    continue
+                tmp.append(p)
+            tmp.appendleft(curr)
+            permutations = tmp
+
+        return ans
+        
