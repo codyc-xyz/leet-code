@@ -17,3 +17,8 @@ class Solution:
             return max(dp(i + 1, j - 1) + l, dp(i+1, j-1) + r)
 
         return dp(0, len(piles)-1) > 0
+    
+
+class Solution:
+    def stoneGame(self, piles: List[int]) -> bool:
+        return True
