@@ -8,3 +8,19 @@
 
 # A perfect binary tree is a tree where each node, except the leaf nodes, has exactly 2 children.
 # The cost of a path is the sum of costs of nodes in the path.
+
+class Solution:
+    def minIncrements(self, n: int, cost: List[int]) -> int:
+        
+        self.ans = 0
+        def constructTree(i, currCost):
+            if i >= n:
+                return 0
+            l = constructTree(2*i+1,currCost)
+            r = constructTree(2*i+2, currCost)
+            maxSum = max(l, r)
+            self.ans += maxSum - min(l, r)
+            return cost[i] + maxSum
+        constructTree(0, 0)
+        return self.ans
+    
