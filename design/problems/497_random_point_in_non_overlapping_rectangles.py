@@ -8,3 +8,21 @@
 
 # Solution(int[][] rects) Initializes the object with the given rectangles rects.
 # int[] pick() Returns a random integer point [u, v] inside the space covered by one of the given rectangles.
+
+class Solution:
+
+    def __init__(self, rects: List[List[int]]):
+        self.points = []
+        for a, b, x, y in rects:
+            for i in range(a, x+1):
+                for j in range(b,y+1):
+                    self.points.append([i,j])
+
+    def pick(self) -> List[int]:
+        return self.points[random.randint(0, len(self.points) - 1)]
+        
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(rects)
+# param_1 = obj.pick()
