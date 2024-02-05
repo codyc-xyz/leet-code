@@ -6,5 +6,12 @@
 
 # A substring is a contiguous non-empty sequence of characters within a string.
 
- 
-
+class Solution:
+    def longestString(self, x: int, y: int, z: int) -> int:
+        
+        if x > y:
+            return y * 4 + z * 2 + 2
+        elif y > x:
+            return x * 4 + z * 2 + 2
+        else:
+            return x * 4 + z * 2
