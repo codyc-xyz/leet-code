@@ -6,3 +6,14 @@
 
 # Assuming Alice and Bob play optimally, return true if Alice wins the game, or false if Bob wins.
 
+class Solution:
+    def stoneGame(self, piles: List[int]) -> bool:
+        @cache
+        def dp(i, j):
+            if i > j:
+                return 0
+            l, r = piles[i] - piles[j], piles[j] - piles[i]
+
+            return max(dp(i + 1, j - 1) + l, dp(i+1, j-1) + r)
+
+        return dp(0, len(piles)-1) > 0
