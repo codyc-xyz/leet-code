@@ -21,3 +21,24 @@ class Solution:
                     break
                 seen.add(curr)
         return max(hm.values())
+
+class Solution:
+    def arrayNesting(self, nums: List[int]) -> int:
+    
+        hm = {}
+        cache = {}
+        for i in range(len(nums)):
+            seen = set()
+            curr = i
+            while True:
+                curr = nums[curr]
+                if curr in cache:
+                    hm[i] = len(seen) + cache[c]
+                    break
+                if curr in seen:
+                    hm[i] = len(seen)
+                    break
+                seen.add(curr)
+            for i, c in enumerate(seen):
+                cache[c] = len(seen) - i + 1
+        return max(hm.values())
