@@ -26,3 +26,29 @@ class Solution:
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(rects)
 # param_1 = obj.pick()
+    
+class Solution:
+
+    def __init__(self, rects: List[List[int]]):
+        self.points = rects
+        self.weights = []
+        self.total_area = 0
+        for a, b, x, y in rects:
+            area = (x - a + 1) * (y - b + 1)
+            self.total_area += area
+            self.weights.append(self.total_area)
+
+    def pick(self) -> List[int]:
+        itemVal = random.randint(1, self.total_area)
+        low, high = 0, len(self.weights)-1
+        while low < high:
+            m = (low+high) // 2
+            if self.weights[m] < itemVal:
+                low = m + 1
+            else:
+                high = m
+        a, b, x, y = self.points[low]
+        xVal = random.randint(a, x)
+        yVal = random.randint(b, y)
+        return [xVal, yVal]
+        
