@@ -4,3 +4,10 @@
 # Every minute thereafter, color blue every uncolored cell that touches a blue cell.
 # Below is a pictorial representation of the state of the grid after minutes 1, 2, and 3.
 
+class Solution:
+    def coloredCells(self, n: int) -> int:
+        
+        ans = 1
+        for i in range(1, n):
+            ans += i * 4
+        return ans
