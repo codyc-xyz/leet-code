@@ -7,3 +7,17 @@
 # We stop adding right before a duplicate element occurs in s[k].
 # Return the longest length of a set s[k].
 
+class Solution:
+    def arrayNesting(self, nums: List[int]) -> int:
+    
+        hm = {}
+        for i in range(len(nums)):
+            seen = set()
+            curr = i
+            while True:
+                curr = nums[curr]
+                if curr in seen:
+                    hm[i] = len(seen)
+                    break
+                seen.add(curr)
+        return max(hm.values())
