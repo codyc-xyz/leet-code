@@ -4,3 +4,19 @@
 
 # The test cases are generated so that the answer will be less than or equal to 2 * 109.
 
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+
+        @cache
+        def dfs(i, j):
+            if i < 0 or j < 0 or i == m or j == n:
+                return 0
+            if i == m - 1 and j == n - 1:
+                return 1
+            r = dfs(i, j+1)
+            l = dfs(i+1, j)
+            return r + l
+        return dfs(0,0)
+        
+
+        
