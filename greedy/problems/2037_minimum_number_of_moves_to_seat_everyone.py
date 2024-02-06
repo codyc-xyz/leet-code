@@ -7,3 +7,11 @@
 
 # Note that there may be multiple seats or students in the same position at the beginning.
 
+class Solution:
+    def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:
+        students.sort()
+        seats.sort()
+        ans = 0
+        for se, st in zip(seats, students):
+            ans += abs(se-st)
+        return ans
