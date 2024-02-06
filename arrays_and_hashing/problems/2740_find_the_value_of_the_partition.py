@@ -11,3 +11,14 @@
 
 # Return the integer denoting the value of such partition.
 
+class Solution:
+    def findValueOfPartition(self, nums: List[int]) -> int:
+        N = len(nums)
+        nums.sort()
+        dp = [float('inf') for _ in range(N)]
+
+        for i in range(1, N):
+            dp[i] = min(dp[i-1], nums[i] - nums[i-1])
+            
+        return dp[-1]
+    
