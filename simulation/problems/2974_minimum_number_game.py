@@ -5,5 +5,14 @@
 # The game continues until nums becomes empty.
 # Return the resulting array arr.
 
- 
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        arr = []
 
+        nums.sort(reverse=True)
+        while nums:
+            a = nums.pop()
+            b = nums.pop()
+            arr.append(b)
+            arr.append(a)
+        return arr
