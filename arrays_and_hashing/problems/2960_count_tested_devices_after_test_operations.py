@@ -9,3 +9,10 @@
 # Otherwise, move to the next device without performing any test.
 # Return an integer denoting the number of devices that will be tested after performing the test operations in order.
 
+class Solution:
+    def countTestedDevices(self, batteryPercentages: List[int]) -> int:
+        dec = 0
+        for b in batteryPercentages:
+            if b - dec > 0:
+                dec += 1
+        return dec
