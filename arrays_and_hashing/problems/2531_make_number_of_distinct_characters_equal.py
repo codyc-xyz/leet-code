@@ -36,3 +36,33 @@ class Solution:
                     count2[j] += 1
                     count2[i] -= 1
         return False
+
+class Solution:
+    def isItPossible(self, word1: str, word2: str) -> bool:
+        
+        count1 = collections.Counter(word1)
+        count2 = collections.Counter(word2)
+        c1k = list(count1.keys())
+        c2k = list(count2.keys())
+        for c1 in c1k:
+            for c2 in c2k:
+                count1[c1] -= 1
+                count2[c1] += 1
+                count2[c2] -= 1
+                count1[c2] += 1
+                if not count1[c1]:
+                    del count1[c1]
+                if not count2[c2]:
+                    del count2[c2]
+                if len(count1) == len(count2):
+                    return True
+                count1[c1] += 1
+                count2[c1] -= 1
+                count1[c2] -= 1
+                count2[c2] += 1
+                if not count2[c1]:
+                    del count2[c1]
+                if not count1[c2]:
+                    del count1[c2]
+
+        return False
