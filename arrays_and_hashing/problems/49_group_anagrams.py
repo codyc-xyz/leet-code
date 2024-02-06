@@ -11,3 +11,13 @@ class Solution:
             res[tuple(ordered)].append(s)
         
         return res.values()
+    
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+
+        res = defaultdict(list)
+        for s in strs:
+            st = sorted(s)     
+            res[tuple(st)].append(s) 
+        return res.values()
+
