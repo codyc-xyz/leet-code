@@ -4,3 +4,7 @@
 // An empty array contains no elements.
 // You may assume the object or array is the output of JSON.parse.
 
+type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
+type Obj = Record<string, JSONValue> | JSONValue[]
+
+const isEmpty = (obj: Obj): boolean => Object.keys(obj).length === 0;
