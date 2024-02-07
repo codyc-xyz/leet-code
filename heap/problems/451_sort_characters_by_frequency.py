@@ -17,3 +17,18 @@ class Solution:
             count, char = heapq.heappop(heap)
             ans = char * count + ans
         return ans
+
+class Solution:
+    def frequencySort(self, s: str) -> str:
+
+        count = collections.Counter(s)
+        arr = []
+        for c in count:
+            arr.append([count[c], c])
+
+        arr.sort(key=lambda x: x[0], reverse=True)
+        ans = ""
+        for count, char in arr:
+            ans += char * count
+
+        return ans
