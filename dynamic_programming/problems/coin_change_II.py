@@ -8,14 +8,16 @@
 
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        @cache
+        dp = {}
         def dfs(i, rem):
+            if (i, rem) in dp:
+                return dp[(i, rem)]
             if rem == 0:
                 return 1
             if i == len(coins) or rem < 0:
                 return 0
-            res = 0
+            dp[(i, rem)] = 0
             for j in range(rem // coins[i] + 1):
-                res += dfs(i+1, rem - coins[i] * j)
-            return res
+                dp[(i, rem)] += dfs(i+1, rem - coins[i] * j)
+            return dp[(i, rem)]
         return dfs(0, amount)
