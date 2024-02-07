@@ -11,3 +11,29 @@
 
 # Return the resulting string after evaluating all of the bracket pairs.
 
+class Solution:
+    def evaluate(self, s: str, knowledge: List[List[str]]) -> str:
+        
+        k = defaultdict(str)
+
+        for key, val in knowledge:
+            k[key] = val
+
+        i = 0
+        ans = ""
+        while i < len(s):
+            if s[i] != '(':
+                ans += s[i]
+            else:
+                i += 1
+                tmp = ""
+                while s[i] != ')':
+                    tmp += s[i]
+                    i += 1
+                if tmp in k:
+                    ans += k[tmp]
+                else:
+                    ans += '?'
+            i += 1
+        return ans
+        
