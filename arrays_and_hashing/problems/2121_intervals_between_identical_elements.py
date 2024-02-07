@@ -4,3 +4,17 @@
 
 # Return an array intervals of length n where intervals[i] is the sum of intervals between arr[i] and each element in arr with the same value as arr[i].
 
+class Solution:
+    def getDistances(self, arr: List[int]) -> List[int]:
+        inter = []
+
+        idxs = defaultdict(list)
+        for i, n in enumerate(arr):
+            idxs[n].append(i)
+
+        for i, n in enumerate(arr):
+            currSum = 0
+            for j in idxs[n]:
+                currSum += abs(j - i)
+            inter.append(currSum)
+        return inter
