@@ -21,3 +21,20 @@ class Solution:
                 dp[(i, rem)] += dfs(i+1, rem - coins[i] * j)
             return dp[(i, rem)]
         return dfs(0, amount)
+    
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = {}
+        def dfs(i, rem):
+            if (i, rem) in dp:
+                return dp[(i, rem)]
+            if rem == 0:
+                dp[(i,rem)] = 1
+                return 1
+            if i == len(coins) or rem < 0:
+                return 0
+            l = dfs(i, rem - coins[i])
+            r = dfs(i+1, rem)
+            dp[(i, rem)] = l + r
+            return dp[(i, rem)]
+        return dfs(0, amount)
