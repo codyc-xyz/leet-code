@@ -2,3 +2,19 @@
 
 # Return the maximum strength of a group the teacher can create.
 
+class Solution:
+    def maxStrength(self, nums: List[int]) -> int:
+        
+        nums.sort()
+        self.ans = float('-inf')
+        def backtrack(i, res, path):
+            if i == len(nums):
+                if path:
+                    self.ans = max(self.ans, res)
+                return 
+            backtrack(i+1, res, path)
+            res *= nums[i]
+            path.add(nums[i])
+            backtrack(i+1, res, path)
+        backtrack(0, 1, set())
+        return self.ans
