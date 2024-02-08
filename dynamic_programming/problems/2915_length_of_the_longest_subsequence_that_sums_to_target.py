@@ -4,3 +4,18 @@
 
 # A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
 
+class Solution:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        
+        @cache
+        def dfs(i, currSum, steps):
+            if currSum == target:
+                return steps
+            if i == len(nums) or currSum > target:
+                return 0
+
+            take = dfs(i+1, currSum + nums[i], steps + 1)
+            nTake = dfs(i+1, currSum, steps)
+            return max(take, nTake)
+        ans = dfs(0, 0, 0) 
+        return ans if ans else -1
