@@ -8,3 +8,27 @@
 
 # Return the minimum number of minutes needed to pick up all the garbage.
 
+class Solution:
+    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
+        
+        tSum = [0]
+        for t in travel:
+            tSum.append(tSum[-1] + t)
+
+        ans = i = j = k = 0
+
+        for I, g in enumerate(garbage):
+            for t in g:
+                if t == "G" and i != I:
+                    ans += tSum[I] - tSum[i]
+                    i = I
+                if t == "P" and j != I:
+                    ans += tSum[I] - tSum[j]
+                    j = I
+                if t == "M" and k != I:
+                    ans += tSum[I] - tSum[k]
+                    k = I
+                ans += 1
+        return ans
+                
+
