@@ -19,3 +19,18 @@ class Solution:
             return max(take, nTake)
         ans = dfs(0, 0, 0) 
         return ans if ans else -1
+    
+class Solution:
+    def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
+        
+        @cache
+        def dfs(i, currSum):
+            if currSum == target:
+                return 0
+            if i >= len(nums) or currSum > target:
+                return -1001
+            return max(1+dfs(i+1, currSum+nums[i]), dfs(i+1,currSum))
+            
+        ans = dfs(0, 0)
+        dfs.cache_clear() 
+        return ans if ans > 0 else -1
