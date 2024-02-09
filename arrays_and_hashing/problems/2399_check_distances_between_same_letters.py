@@ -6,5 +6,20 @@
 
 # Return true if s is a well-spaced string, otherwise return false.
 
- 
+class Solution:
+    def checkDistances(self, s: str, distance: List[int]) -> bool:
+        S = set(s)
 
+        hm = {}
+
+        for i, c in enumerate(s):
+            if c not in S:
+                continue
+            if c in hm:
+                if i - hm[c] - 1 != distance[ord(c)- ord('a')]:
+                    return False
+            else:
+                hm[c] = i
+        return True
+
+        
