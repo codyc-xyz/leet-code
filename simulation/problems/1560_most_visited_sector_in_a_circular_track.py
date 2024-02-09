@@ -4,3 +4,23 @@
 
 # Notice that you circulate the track in ascending order of sector numbers in the counter-clockwise direction (See the first example).
 
+
+class Solution:
+    def mostVisited(self, n: int, rounds: List[int]) -> List[int]:
+
+        count = defaultdict(int)
+
+        for i in range(1, len(rounds)):
+            j = rounds[i-1]
+            while j != rounds[i]:
+                count[j] += 1
+                if j == n:
+                    j = 1
+                else:
+                    j += 1
+        count[rounds[-1]] += 1
+        
+        visited = defaultdict(list)
+        for c in count:
+            visited[count[c]].append(c)
+        return sorted(visited[max(visited)])
