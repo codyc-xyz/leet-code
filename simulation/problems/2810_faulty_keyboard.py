@@ -4,3 +4,13 @@
 
 # Return the final string that will be present on your laptop screen.
 
+class Solution:
+    def finalString(self, s: str) -> str:
+        ans = ""
+
+        for c in s:
+            if c == 'i':
+                ans = ans[::-1]
+            else:
+                ans += c
+        return ans
