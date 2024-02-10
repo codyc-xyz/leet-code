@@ -47,3 +47,27 @@ class Solution:
                     ans += 1       
         return ans 
 
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        
+        N = len(s)
+        ans = 0
+        cache = {}
+        def checkPali(i, j, res):
+            if (i, j) in cache:
+                return cache[(i, j)]
+            if i > j:
+                return 1
+            if s[i] != s[j]:
+                return 0
+            res += checkPali(i+1,j-1, res)
+            cache[(i, j)] = res
+            return cache[(i, j)]
+            
+
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                ans += checkPali(i, j, 0)
+        return ans
+
+        
