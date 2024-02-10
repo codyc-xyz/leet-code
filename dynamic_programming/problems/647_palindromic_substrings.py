@@ -35,3 +35,15 @@ class Solution:
                 l -= 1
                 r += 1
         return ans
+
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        
+        N = len(s)
+        ans = len(s)
+        for i in range(len(s)):
+            for j in range(i + 1, len(s)):
+                if s[i:j+1] == s[i:j+1][::-1]:
+                    ans += 1       
+        return ans 
+
