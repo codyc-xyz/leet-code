@@ -12,4 +12,34 @@
 # Both robots cannot move outside of the grid at any moment.
 # Both robots should reach the bottom row in grid.
  
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        ROWS = len(grid)
+        COLS = len(grid[0])
+        cache = {}
+        dirs = {(1,-1), (1, 0), (1,1)}
+        def dfs(i1,j1,i2,j2):
+            if i1 < 0 or j1 < 0 or i2 < 0 or j2 < 0 or i1 == ROWS or i2 == ROWS or j1 == COLS or j2 == COLS:
+                return 0
+            if (i1,j1,i2,j2) in cache:
+                return cache[(i1,j1,i2,j2)]
+            if i1==i2 and j1==j2:
+                curr1=grid[i1][j1]
+                curr2=0
+            else:
+                curr1=grid[i1][j1]
+                curr2=grid[i2][j2]
+            res=0
+            for d1, d2 in dirs:
+                for D1, D2 in dirs:
+                    tmp = dfs(i1+d1,j1+d2, i2+D1,j2+D2)
+                    if tmp > res:
+                        res=tmp
+            
+            cache[(i1,j1,i2,j2)] = curr1+curr2+res
+            return curr1+curr2+res
+        return dfs(0,0,0,COLS-1)
+ 
 
+
+            
