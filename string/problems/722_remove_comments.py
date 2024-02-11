@@ -21,3 +21,32 @@
 
 # After removing the comments from the source code, return the source code in the same format.
 
+class Solution:
+    def removeComments(self, source: List[str]) -> List[str]:
+        source = deque(source)
+        ans = []
+        flag = False
+        while source:
+            curr = source.popleft()
+            if not flag:
+                res = ""
+            i = 0
+            while i < len(curr):
+                if i + 1 < len(curr) and curr[i] == '/' and curr[i+1] == '/' and not flag:
+                    break
+                elif i + 1 < len(curr) and curr[i] == '/' and curr[i+1] == '*' and not flag:
+                    flag = True
+                    i += 1
+                elif i + 1 < len(curr) and curr[i] == '*' and curr[i+1] == '/' and flag:
+                    i += 1
+                    flag = False
+                elif i < len(curr) and not flag:
+                    res += curr[i]
+                i += 1
+            if res and not flag:
+                ans.append(res)
+
+        return ans
+                
+
+
