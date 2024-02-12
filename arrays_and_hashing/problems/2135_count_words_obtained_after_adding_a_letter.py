@@ -12,3 +12,35 @@
 
 # Note that you will only be verifying if the string in targetWords can be obtained from a string in startWords by performing the operations. The strings in startWords do not actually change during this process.
 
+class Solution:
+    def wordCount(self, startWords: List[str], targetWords: List[str]) -> int:
+        countStart = []
+        countTarget = []
+
+        for s in startWords:
+            arr = [0 for _ in range(26)]
+            for c in s:
+                arr[ord(c) - ord('a')] += 1
+            countStart.append(arr)
+
+        for t in targetWords:
+            arr = [0 for _ in range(26)]
+            for c in t:
+                arr[ord(c) - ord('a')] += 1
+            countTarget.append(arr)
+        ans = 0
+        for k, t in enumerate(countTarget):
+            for l, s in enumerate(countStart):
+                diff = len(targetWords[k]) - len(startWords[l])
+                if diff != 1:
+                    continue
+                flag = True
+                for i in range(26):
+                    if s[i] != t[i] and t[i] > 1 or s[i] and not t[i]:
+                        flag = False
+                        break
+                if flag:
+                    ans += 1
+                    break
+                
+        return ans
