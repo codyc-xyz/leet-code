@@ -13,3 +13,8 @@ class Solution:
             else:
                 hm[n] = 1
         return max(hm, key=hm.get) 
+    
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count = collections.Counter(nums)
+        return max(count, key=count.get)
