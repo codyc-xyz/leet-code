@@ -44,3 +44,17 @@ class Solution:
                     break
                 
         return ans
+
+class Solution:
+    def wordCount(self, startWords: List[str], targetWords: List[str]) -> int:
+        
+        start = set([''.join(sorted(s)) for s in startWords])
+
+        ans = 0
+        for t in targetWords:
+            curr = ''.join(sorted(t))
+            for i in range(len(curr)):
+                if curr[:i] + curr[i+1:] in start:
+                    ans += 1
+                    break
+        return ans
