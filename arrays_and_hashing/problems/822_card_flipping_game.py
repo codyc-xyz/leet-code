@@ -4,3 +4,24 @@
 
 # Return the minimum possible good integer after flipping the cards. If there are no good integers, return 0.
 
+class Solution:
+    def flipgame(self, fronts: List[int], backs: List[int]) -> int:
+        
+        if fronts == backs:
+            return 0
+
+        notAns = set()
+        ans = set()
+
+        for i in range(len(fronts)):
+            if fronts[i] == backs[i]:
+                if fronts[i] in ans:
+                    ans.remove(fronts[i])
+                notAns.add(fronts[i])
+            else:
+                if fronts[i] not in notAns:
+                    ans.add(fronts[i])
+                if backs[i] not in notAns:
+                    ans.add(backs[i])
+        return min(ans) if ans else 0
+
