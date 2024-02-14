@@ -19,3 +19,20 @@ class Solution:
                 arr[negative] = nums[i]
                 negative += 2
         return arr
+    
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        stackPos = deque()
+        stackNeg = deque()
+
+        for n in nums:
+            if n > 0:
+                stackPos.append(n)
+            else:
+                stackNeg.append(n)
+
+        ans = []
+        while stackPos and stackNeg:
+            ans.append(stackPos.popleft())
+            ans.append(stackNeg.popleft())
+        return ans
