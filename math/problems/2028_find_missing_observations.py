@@ -7,3 +7,20 @@
 
 # Note that mean is an integer, so the sum of the n + m rolls should be divisible by n + m.
 
+class Solution:
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        ans = []
+        currSum = sum(rolls)
+        total = n+len(rolls)
+        needed = mean*total-currSum
+        if needed >n*6 or n>needed:
+            return []
+        while n:
+            res = needed // n
+            ans.append(res)
+            needed -= res
+            n -= 1
+        return ans
+                
+
+
