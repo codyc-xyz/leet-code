@@ -24,7 +24,18 @@ class Solution:
                     ans = max(ans, sumL+nums[r])
         return ans
 
-
-
-
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
         
+        nums.sort()
+        ans = -1
+        sumL = sum(nums)
+        l = -1
+        for r in range(len(nums) - 1,1,-1):
+            sumL -= nums[l]
+            if sumL > nums[r]:
+                return sumL + nums[r]
+            l -= 1
+        return ans
+
+
