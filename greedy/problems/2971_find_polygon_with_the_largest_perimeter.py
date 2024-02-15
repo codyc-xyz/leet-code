@@ -8,3 +8,23 @@
 
 # Return the largest possible perimeter of a polygon whose sides can be formed from nums, or -1 if it is not possible to create a polygon.
 
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        
+        nums.sort()
+        ans = -1
+
+        for r in range(len(nums) - 1,1,-1):
+            sumL = sum(nums[:r])
+            if sumL > nums[r]:
+                ans = max(ans, sumL+nums[r])
+            for l in range(len(nums)-2,0,-1):
+                sumL -= nums[l]
+                if sumL > nums[r]:
+                    ans = max(ans, sumL+nums[r])
+        return ans
+
+
+
+
+        
