@@ -7,3 +7,20 @@
 
 # Note that all prices will contain at most 10 digits.
 
+class Solution:
+    def discountPrices(self, sentence: str, discount: int) -> str:
+
+        S = sentence.split(" ")
+        
+        for i, s in enumerate(S):
+            j = 0
+            if s[j] == '$':
+                j += 1
+                while j < len(s) and s[j].isdigit():
+                    j += 1
+                if j == len(s) and j != 1:
+                    digit = int(s[1:j])
+                    digit *= ((100 - discount) / 100)
+                    digit = format(digit, '.2f')
+                    S[i] = '$' + str(digit)
+        return " ".join(S)
