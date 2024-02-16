@@ -13,3 +13,25 @@
 
 # Return the minimum number of operations to make nums a beautiful array.
 
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        N = len(nums)
+        ans = 0
+        arr = []
+        def binSearch(arr, target):
+            l, r = 0, len(arr) - 1
+            while l <= r:
+                m = (l + r) // 2
+                if arr[m] <= target:
+                    l = m + 1
+                else:
+                    r = m - 1
+            return l
+
+        for i in range(N):
+            pos = binSearch(arr, nums[i])
+            if pos == len(arr):
+                arr.append(nums[i])
+            else:
+                arr[pos] = nums[i]
+        return N - len(arr)
