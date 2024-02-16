@@ -7,3 +7,17 @@
 
 # A subarray is a contiguous non-empty part of an array.
 
+class Solution:
+    def countCompleteSubarrays(self, nums: List[int]) -> int:
+        N = len(nums)
+        count = len(set(nums))
+        ans = 0
+        for i in range(N-count+1):
+            currSet = set()
+            for j in range(i, N):
+                currSet.add(nums[j])
+                if len(currSet) == count:
+                    ans += 1
+                elif len(currSet) > count:
+                    break
+        return ans
