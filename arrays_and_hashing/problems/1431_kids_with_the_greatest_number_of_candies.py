@@ -4,3 +4,12 @@
 
 # Note that multiple kids can have the greatest number of candies.
 
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        
+        maxCandies = max(candies)
+        ans = []
+        for c in candies:
+            ans.append(c + extraCandies >= maxCandies)
+
+        return ans
