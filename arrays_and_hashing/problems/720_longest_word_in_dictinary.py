@@ -4,3 +4,22 @@
 
 # Note that the word should be built from left to right with each additional character being added to the end of a previous word. 
 
+class Solution:
+    def longestWord(self, words: List[str]) -> str:
+        seen = set()
+        words.sort(reverse=True)
+
+        ans = ""
+        for w in words:
+            seen.add(w)
+
+        for w in words:
+            flag = True
+            if len(w) >= len(ans):
+                for k in range(1, len(w)):
+                    if w[:k] not in seen:
+                        flag = False
+                        break
+                if flag:
+                    ans = w
+        return ans
