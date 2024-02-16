@@ -21,3 +21,20 @@ class Solution:
                 elif len(currSet) > count:
                     break
         return ans
+
+class Solution:
+    def countCompleteSubarrays(self, nums: List[int]) -> int:
+        N = len(nums)
+        count = len(set(nums))
+        windowStart = ans = 0
+        curr = defaultdict(int)
+        for windowEnd in range(N):
+            curr[nums[windowEnd]] += 1
+            while len(curr) == count:
+                ans += N - windowEnd
+                curr[nums[windowStart]] -= 1
+                if curr[nums[windowStart]] == 0:
+                    del curr[nums[windowStart]]
+                windowStart += 1
+        return ans
+                
