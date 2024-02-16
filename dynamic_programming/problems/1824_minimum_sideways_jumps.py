@@ -10,3 +10,29 @@
 
 # Note: There will be no obstacles on points 0 and n.
 
+class Solution:
+    def minSideJumps(self, obstacles: List[int]) -> int:
+        
+        cache = {}
+        def dfs(i, lane):
+            if i == len(obstacles) -1:
+                return 0
+            if (i, lane) in cache:
+                return cache[(i, lane)]
+            res = 0
+            tmp = float('inf')
+            if i+1 < len(obstacles) and obstacles[i+1] == lane:
+                for k in range(1, 4):
+                    if k != lane and obstacles[i] != k:
+                        tmp = min(tmp, dfs(i+1,k) + 1)
+            else:
+                res += dfs(i+1, lane)               
+            if tmp != float('inf'):
+                cache[(i, lane)] = res + tmp
+            else:
+                cache[(i, lane)] = res
+            return cache[(i, lane)]
+        return dfs(0, 2)
+
+    
+            
