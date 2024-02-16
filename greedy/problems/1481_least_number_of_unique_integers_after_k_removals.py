@@ -32,3 +32,18 @@ class Solution:
             else:
                 return len(arr) - i
         return 0
+
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        count = collections.Counter(arr)
+        countItems = []
+        for c in count:
+            countItems.append(count[c])
+        countItems.sort()
+
+        for i, n in enumerate(countItems):
+            if k >= n:
+                k -= n
+            else:
+                return len(countItems) - i 
+        return 0
