@@ -11,3 +11,33 @@
 
 # Return the result string after sorting s with this algorithm.
 
+class Solution:
+    def sortString(self, s: str) -> str:
+        ans = ""
+        count = collections.Counter(s)
+        chars = []
+        finished = set()
+        seen = set()
+        for c in count:
+            if c not in seen:
+                chars.append(c)
+                seen.add(c)
+
+        chars.sort()
+
+        while len(count) > 0:
+            for c in chars:
+                if c in count:
+                    ans += c
+                    count[c] -= 1
+                    if count[c] == 0:
+                        del count[c]
+            for c in chars[::-1]:
+                if c in count:
+                    ans += c
+                    count[c] -= 1
+                    if count[c] == 0:
+                        del count[c]
+        return ans
+
+
