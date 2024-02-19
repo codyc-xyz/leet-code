@@ -12,3 +12,17 @@ class Solution:
             if n in seen:
                 return n
         return -1
+    
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+        
+        f1 = f2 = 0
+
+        while f1 < len(nums1) and f2 < len(nums2):
+            if nums1[f1] > nums2[f2]:
+                f2+=1
+            elif nums1[f1] < nums2[f2]:
+                f1+=1
+            else:
+                return nums1[f1]
+        return -1
