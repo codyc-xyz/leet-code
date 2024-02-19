@@ -11,3 +11,18 @@
 
 # Return the maximum number of enemy forts that can be captured. In case it is impossible to move your army, or you do not have any fort under your command, return 0.
 
+class Solution:
+    def captureForts(self, forts: List[int]) -> int:
+        prev = ans = 0
+        
+        for i, x in enumerate(forts):
+            if x == 1:
+                if forts[prev] == -1:
+                    ans = max(ans, i - prev - 1)
+                prev = i
+            elif x == -1:
+                if forts[prev] == 1:
+                    ans = max(ans, i - prev - 1)
+                prev = i
+        return ans
+
