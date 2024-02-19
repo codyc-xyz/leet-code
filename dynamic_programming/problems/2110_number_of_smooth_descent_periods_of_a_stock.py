@@ -4,3 +4,15 @@
 
 # Return the number of smooth descent periods.
 
+class Solution:
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        ans = len(prices)
+        for i in range(len(prices)):
+            prev = prices[i]
+            for j in range(i+1, len(prices)):
+                if prices[j] == prev - 1:
+                    ans += 1
+                    prev = prices[j]
+                else:
+                    break
+        return ans
