@@ -10,3 +10,21 @@
 
 # Return a list that contains the names of high-access employees with any order you want.
 
+class Solution:
+    def findHighAccessEmployees(self, access_times: List[List[str]]) -> List[str]:
+        
+        accesses = defaultdict(list)
+        access_times.sort(key=lambda x: int(x[1]))
+
+        for p, a in access_times:
+            accesses[p].append(int(a))
+        ans = []
+        for a in accesses:
+            i = 0
+            while i < len(accesses[a]) - 2:
+                if accesses[a][i+2] - accesses[a][i] < 100:
+                    ans.append(a)
+                    break
+                i += 1
+        return ans
+
