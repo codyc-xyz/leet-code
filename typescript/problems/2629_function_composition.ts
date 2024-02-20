@@ -6,5 +6,18 @@
 
 // You may assume each function in the array accepts one integer as input and returns one integer as output.
 
- 
 
+type F = (x: number) => number;
+
+function compose(functions: F[]): F {
+    
+    return function(x: number): number {
+        return functions.reduceRight((acc:number, func: F) => func(acc), x);
+        
+    }
+};
+
+/**
+ * const fn = compose([x => x + 1, x => 2 * x])
+ * fn(4) // 9
+ */
