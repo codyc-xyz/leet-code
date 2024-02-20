@@ -8,3 +8,27 @@
 
 // Please solve it without lodash's _.groupBy function.
 
+declare global {
+    interface Array<T> {
+        groupBy(fn: (item: T) => string): Record<string, T[]>
+    }
+}
+
+Array.prototype.groupBy = function<T>(fn: (item: T) => string): Record<string, T[]> {
+    let hash: Record<string, T[]> = {}
+
+    this.forEach((item: T) => {
+        const key = fn(item);
+        if (key in hash) {
+            hash[key].push(item);
+        }
+        else {
+            hash[key] = [item]
+        }
+    });
+    return hash
+    }
+
+/**
+ * [1,2,3].groupBy(String) // {"1":[1],"2":[2],"3":[3]}
+ */
