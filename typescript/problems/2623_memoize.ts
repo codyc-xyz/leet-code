@@ -7,3 +7,32 @@
 // sum accepts two integers a and b and returns a + b.
 // fib accepts a single integer n and returns 1 if n <= 1 or fib(n - 1) + fib(n - 2) otherwise.
 // factorial accepts a single integer n and returns 1 if n <= 1 or factorial(n - 1) * n otherwise.
+
+type Fn = (...params: number[]) => number
+
+function memoize(fn: Fn): Fn {
+    let memo: Record<string, number> = {};
+    return function(...args) {
+        const argString = JSON.stringify(args);
+        if (argString in memo) {
+            return memo[argString];
+        }
+        else {
+            memo[argString] = fn(...args)
+            return memo[argString];
+        }
+        
+    }
+}
+
+
+/** 
+ * let callCount = 0;
+ * const memoizedFn = memoize(function (a, b) {
+ *	 callCount += 1;
+ *   return a + b;
+ * })
+ * memoizedFn(2, 3) // 5
+ * memoizedFn(2, 3) // 5
+ * console.log(callCount) // 1 
+ */
