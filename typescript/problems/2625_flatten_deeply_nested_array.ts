@@ -6,3 +6,18 @@
 
 // Please solve it without the built-in Array.flat method.
 
+type MultiDimensionalArray = (number | MultiDimensionalArray)[];
+
+var flat = function (arr:  MultiDimensionalArray, n: number):  MultiDimensionalArray {
+    let ans: MultiDimensionalArray = [];
+
+    arr.forEach(item => {
+        if (n > 0 && Array.isArray(item)) {
+            ans.push(...flat(item, n - 1));
+        }
+        else {
+            ans.push(item);
+        }
+    })
+    return ans;
+}
