@@ -8,3 +8,56 @@
 
 // count(): returns the count of un-expired keys.
 
+class TimeLimitedCache {
+    private cache: Record<string, number|boolean>;
+    private countKeys: number;
+    private timeOutIds: Record<string, any>;
+    constructor() {
+        this.cache = {};
+        this.timeOutIds = {};
+        this.countKeys = 0;
+        
+    }
+    
+    set(key: number, value: number, duration: number): boolean {
+        if (key in this.cache && this.cache[key] != false) {
+            this.cache[key] = value;
+            clearTimeout(this.timeOutIds[key]);
+            this.timeOutIds[key] = setTimeout(() => {
+                this.cache[key] = false;
+                this.countKeys -= 1;
+            }, duration)
+            return true
+        }
+        else {
+            this.countKeys += 1;
+            this.cache[key] = value;
+            this.timeOutIds[key] = setTimeout(() => {
+                this.cache[key] = false
+                this.countKeys -= 1;
+            }, duration)
+            return false
+        }
+
+    }
+    
+    get(key: number): number|boolean {
+        if (key in this.cache && this.cache[key] !== false) {
+            return this.cache[key];
+        }
+        else {
+            return -1;
+        }
+    }
+    
+    count(): number {
+        return this.countKeys;
+    }
+}
+
+/**
+ * const timeLimitedCache = new TimeLimitedCache()
+ * timeLimitedCache.set(1, 42, 1000); // false
+ * timeLimitedCache.get(1) // 42
+ * timeLimitedCache.count() // 1
+ */
