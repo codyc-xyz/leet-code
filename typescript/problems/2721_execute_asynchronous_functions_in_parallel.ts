@@ -8,3 +8,35 @@
 // When any of the promises returned from functions were rejected. promise should also reject with the reason of the first rejection.
 // Please solve it without using the built-in Promise.all function.
 
+type Fn<T> = () => Promise<T>
+
+async function promiseAll<T>(functions: Fn<T>[]): Promise<T[]> {
+
+    return new Promise<T[]> ((resolve, reject) => {
+        if (functions.length === 0) {
+            resolve([])
+            return
+        }
+        else {
+            let ans: T[] = new Array(functions.length).fill(null);
+            let count: number = 0;
+            functions.forEach(async (item, idx) => {
+                try {
+
+                ans[idx] = await item();
+                count++
+                if (count === functions.length) {
+                    resolve(ans);
+                    }
+                }
+                catch(err) {
+                reject(err)
+                }
+            });
+        }});
+};
+
+/**
+ * const promise = promiseAll([() => new Promise(res => res(42))])
+ * promise.then(console.log); // [42]
+ */
