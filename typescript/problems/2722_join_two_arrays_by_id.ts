@@ -26,3 +26,30 @@ function join(arr1: ArrayType[], arr2: ArrayType[]): ArrayType[] {
     }
     return ans.sort((a, b) => a.id - b.id)
 };
+
+type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue };
+type ArrayType = { "id": number } & Record<string, JSONValue>;
+
+function join(arr1: ArrayType[], arr2: ArrayType[]): ArrayType[] {
+    let ans: ArrayType[] = [];
+    let hm: Object = {};
+    for (let i = 0; i < arr1.length; i++) {
+        hm[arr1[i].id] = arr1[i]
+    }
+
+    for (let i = 0; i < arr2.length; i++) {
+        let curr: ArrayType = arr2[i];
+        if (curr.id in hm) {
+            hm[curr.id] = {...hm[curr.id], ...curr}
+        }
+        else {
+            hm[curr.id] = arr2[i];
+        }
+    }
+    Object.keys(hm).forEach(key => {
+        if (hm[key] !== undefined) {
+            ans.push(hm[key])
+        }
+    })
+    return ans.sort((a, b) => a.id - b.id);
+};
