@@ -6,3 +6,24 @@
 
 # The frequency of a letter x is the number of times it occurs in the string.
 # You must remove exactly one letter and cannot choose to do nothing.
+
+class Solution:
+    def equalFrequency(self, word: str) -> bool:
+        
+        count = collections.Counter(word)
+        tmp = count.copy()
+        
+        for c in count:
+            tmp[c] -= 1
+            if tmp[c] == 0:
+                del tmp[c]
+            curr = set(tmp.values())
+            if len(curr) == 1:
+                return True
+            if not tmp[c]:
+                tmp[c] = 1
+            else:
+                tmp[c] += 1
+        return False
+
+
