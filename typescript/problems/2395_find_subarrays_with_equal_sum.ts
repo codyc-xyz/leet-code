@@ -4,3 +4,17 @@
 
 // A subarray is a contiguous non-empty sequence of elements within an array.
 
+function findSubarrays(nums: number[]): boolean {
+    
+    let count: Record<number, number> = {};
+
+    for (let i = 0; i < nums.length - 1; i++) {
+        if (nums[i] + nums[i+1] in count) {
+            return true
+        }
+        else {
+            count[nums[i] + nums[i+1]] = 1
+        }
+    }
+    return false
+};
