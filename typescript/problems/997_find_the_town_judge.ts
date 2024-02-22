@@ -9,5 +9,23 @@
 
 // Return the label of the town judge if the town judge exists and can be identified, or return -1 otherwise.
 
- 
+function findJudge(n: number, trust: number[][]): number {
+    let trusted: Record<number, number> = {};
+    let trusts: Record<number, number> = {};
 
+    for (let i = 1; i <= n; i++) {
+        trusted[i] = 0;
+        trusts[i] = 0
+    }
+    for (const [a, b] of trust) {
+        trusts[a] += 1
+        trusted[b] += 1
+    }
+
+    for (let i = 1; i <= n; i++) {
+        if (trusts[i] === 0 && trusted[i] === n-1) {
+            return i
+        }
+    }
+    return -1
+};
