@@ -4,3 +4,25 @@
 
  
 
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        
+        adj = defaultdict(list)
+
+        for f, t, p in flights:
+            adj[f].append((p, t))
+
+        @cache
+        def dfs(curr, depth):
+            if curr == dst:
+                return 0
+            elif depth < 0:
+                return float('inf')
+
+            res = float('inf')
+            for p, t in adj[curr]:
+                res = min(res, p + dfs(t, depth - 1))
+            return res
+        ans = dfs(src, k)
+        return ans if ans != float('inf') else -1
+
