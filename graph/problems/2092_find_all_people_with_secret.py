@@ -6,3 +6,29 @@
 
 # Return a list of all the people that have the secret after all the meetings have taken place. You may return the answer in any order.
 
+class Solution:
+    def findAllPeople(self, n: int, meetings: List[List[int]], firstPerson: int) -> List[int]:
+
+        hasSecret = {}
+        adj = defaultdict(list)
+
+        for p1, p2, t in meetings:
+            heapq.heappush(adj[p1], [t, p2])
+            heapq.heappush(adj[p2], [t, p1])
+
+        dq = deque()
+
+        dq.append((0, 0))
+        dq.append((firstPerson, 0))
+        res = [float('inf') for _ in range(n)]
+        res[0] = 0
+        res[firstPerson] = 0
+
+        while dq:
+            p, t = dq.popleft()
+            for time, person in adj[p]:
+                if time >= t and res[person] > time:
+                    res[person] = time
+                    dq.append((person, time))
+        
+        return [i for i in range(len(res)) if res[i] != float('inf')]
