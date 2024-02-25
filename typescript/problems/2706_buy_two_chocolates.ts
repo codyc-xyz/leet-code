@@ -4,3 +4,11 @@
 
 // Return the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.
 
+function buyChoco(prices: number[], money: number): number {
+    prices.sort((a,b) => a - b);
+    const smallest: number = prices[0] + prices[1];
+    if (smallest <= money) {
+        return money - smallest
+    }
+    return money
+};
