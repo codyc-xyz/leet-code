@@ -6,3 +6,18 @@
 
 // Return the number of rectangles that can make a square with a side length of maxLen.
 
+function countGoodRectangles(rectangles: number[][]): number {
+    let hm: Record<number, number> = {};
+
+    for (let i = 0; i < rectangles.length; i++) {
+        let curr = Math.min(...rectangles[i])
+        if (curr in hm) {
+            hm[curr]++
+        }
+        else {
+            hm[curr] = 1
+        }
+    }
+    const keys: number[] = Object.keys(hm).map(key => Number(key))
+    return hm[Math.max(...keys)]
+};
