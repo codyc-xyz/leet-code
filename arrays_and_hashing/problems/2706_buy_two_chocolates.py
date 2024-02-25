@@ -4,4 +4,11 @@
 
 # Return the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.
 
- 
+class Solution:
+    def buyChoco(self, prices: List[int], money: int) -> int:
+        prices.sort()
+        smallest = prices[0] + prices[1]
+        if smallest <= money:
+            return money - smallest
+        else:
+            return money
