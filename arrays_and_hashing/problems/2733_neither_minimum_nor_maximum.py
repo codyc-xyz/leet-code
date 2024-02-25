@@ -2,3 +2,13 @@
 
 # Return the selected integer.
 
+class Solution:
+    def findNonMinOrMax(self, nums: List[int]) -> int:
+        maxN = max(nums)
+        minN = min(nums)
+
+        for n in nums:
+            if n is not maxN and n is not minN:
+                return n
+        return -1
+        
