@@ -2,3 +2,14 @@
 
 // Return the selected integer.
 
+function findNonMinOrMax(nums: number[]): number {
+    const maxN: number = Math.max(...nums);
+    const minN: number = Math.min(...nums);
+
+    for (const n of nums) {
+        if (n !== maxN && n !== minN) {
+            return n
+        }
+    }
+    return -1
+};
