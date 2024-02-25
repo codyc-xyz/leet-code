@@ -6,5 +6,12 @@
 
 # Return the number of rectangles that can make a square with a side length of maxLen.
 
- 
-
+class Solution:
+    def countGoodRectangles(self, rectangles: List[List[int]]) -> int:
+        
+        count = defaultdict(int)
+        for l, w in rectangles:
+            curr = min(l, w)
+            count[curr] += 1
+        
+        return count[max(count)]
