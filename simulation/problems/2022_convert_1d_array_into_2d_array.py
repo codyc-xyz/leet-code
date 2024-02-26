@@ -4,5 +4,14 @@
 
 # Return an m x n 2D array constructed according to the above procedure, or an empty 2D array if it is impossible.
 
- 
-
+class Solution:
+    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
+        if m*n != len(original):
+            return []
+        count = -n
+        ans = [[None for _ in range(n)] for _ in range(m)]
+        for i in range(m):
+            count += n
+            for j in range(n):
+                ans[i][j] = original[j+count]
+        return ans
