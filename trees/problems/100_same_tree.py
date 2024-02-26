@@ -41,3 +41,19 @@ class Solution:
             return False
         
         return (self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right))
+    
+class Solution:
+    def isSameTree(self, s: Optional[TreeNode], t: Optional[TreeNode]) -> bool:
+
+        def dfs(n):
+            if n == None:
+                return None
+            if not n.left and not n.right:
+                return [n.val]
+            l = dfs(n.left)
+            r = dfs(n.right)
+            return [n.val] + [l] + [r]
+            
+        return dfs(s) == dfs(t)
+  
+        
