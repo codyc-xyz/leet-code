@@ -6,3 +6,15 @@
 
 // Given the string s, the size of each group k and the character fill, return a string array denoting the composition of every group s has been divided into, using the above procedure.
 
+function divideString(s: string, k: number, fill: string): string[] {
+    let ans: string[] = [];
+
+    for (let i = 0; i < s.length; i+=k) {
+        ans.push(s.slice(i,i+k))
+    };
+    
+    while (ans[ans.length-1].length < k) {
+        ans[ans.length-1] += fill
+    }
+    return ans
+};
