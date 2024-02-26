@@ -5,3 +5,20 @@
 
 # Return true if so, or false otherwise.
 
+class Solution:
+    def areNumbersAscending(self, s: str) -> bool:
+        prev = float('-inf')
+        i = 0
+        while i < len(s):
+            if s[i].isdigit():
+                curr = s[i]
+                while i + 1 < len(s) and s[i+1].isdigit():
+                    i += 1
+                    curr += s[i]
+                curr = int(curr)
+                if curr > prev:
+                    prev = curr
+                else:
+                    return False
+            i += 1
+        return True
