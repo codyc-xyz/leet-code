@@ -5,3 +5,24 @@
 
 // Return true if so, or false otherwise.
 
+function areNumbersAscending(s: string): boolean {
+    let prev: number = -Infinity;
+
+    for (let i = 0; i < s.length; i++) {
+        let curr: string = ""
+        while (i < s.length && !isNaN(Number(s[i])) && s[i] !== " ") {            
+            curr += s[i]
+            i += 1
+        }
+        if (curr != "") {
+            const res: number = Number(curr);
+            if (res <= prev) {
+                return false
+            }
+            else {
+                prev = res
+            }
+        }
+    }
+    return true
+};
