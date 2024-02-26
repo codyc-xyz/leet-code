@@ -4,3 +4,24 @@
 
 // Return an m x n 2D array constructed according to the above procedure, or an empty 2D array if it is impossible.
 
+function construct2DArray(original: number[], m: number, n: number): number[][] {
+    if (m*n != original.length) {
+        return []
+    }
+    let ans: number[][] = new Array(m);
+
+    for (let i = 0; i < m; i++) {
+        ans[i] = new Array(n).fill(0);
+    }
+
+    let curr: number = -n;
+
+    for (let i = 0; i < m; i++) {
+        curr += n
+        for (let j = 0; j < n; j++) {
+            ans[i][j] = original[j+curr]
+        }
+    }
+
+    return ans
+};
