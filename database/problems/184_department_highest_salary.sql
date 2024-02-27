@@ -1,4 +1,4 @@
-# Table: Employee
+ # Table: Employee
 
 # +--------------+---------+
 # | Column Name  | Type    |
