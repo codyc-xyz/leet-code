@@ -13,3 +13,23 @@
 
 # If there are multiple ways for Bob to earn the maximum total points, return any one of them.
 
+class Solution:
+    def maximumBobPoints(self, numArrows: int, aliceArrows: List[int]) -> List[int]:
+        self.res = 0
+        self.ans = []
+        def backtrack(i, points, path, remaining):
+            if i == 12 or remaining == 0:
+                if points > self.res:
+                    self.res = points
+                    self.ans = path
+                return
+            if aliceArrows[i] <= remaining - 1:
+                backtrack(i + 1, points+i, path + [aliceArrows[i] + 1], remaining - aliceArrows[i] - 1)
+            backtrack(i+1, points, path + [0], remaining)
+        backtrack(0, 0, [], numArrows)
+        while len(self.ans) < 12:
+            self.ans.append(0)
+        currSum = sum(self.ans)
+        if currSum < numArrows:
+            self.ans[-1] += numArrows-currSum
+        return self.ans
