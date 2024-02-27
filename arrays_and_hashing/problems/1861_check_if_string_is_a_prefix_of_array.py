@@ -4,5 +4,14 @@
 
 # Return true if s is a prefix string of words, or false otherwise.
 
- 
+class Solution:
+    def isPrefixString(self, s: str, words: List[str]) -> bool:
+        res = ""
 
+        for w in words:
+            res += w
+            if len(res) > len(s):
+                return False
+            if res == s:
+                return True
+        return False
