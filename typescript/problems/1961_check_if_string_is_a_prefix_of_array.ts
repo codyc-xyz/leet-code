@@ -4,3 +4,16 @@
 
 // Return true if s is a prefix string of words, or false otherwise.
 
+function isPrefixString(s: string, words: string[]): boolean {
+    let res: string = ""
+    for (const w of words) {
+        res += w
+        if (res === s) {
+            return true
+        }
+        else if (res.length >= s.length) {
+            return false
+        }   
+    }
+    return false
+};
