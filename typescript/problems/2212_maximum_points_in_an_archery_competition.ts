@@ -13,3 +13,31 @@
 
 // If there are multiple ways for Bob to earn the maximum total points, return any one of them.
 
+function maximumBobPoints(numArrows: number, aliceArrows: number[]): number[] {
+    let res: number = 0
+    let ans: number[] = [];
+    let path: number[] = new Array(12).fill(0);
+    function backtrack(i: number, points: number, remaining: number) {
+        if (i === 12 || remaining === 0) {
+            if (points > res) {
+                res = points
+                ans = [...path]
+            }
+            return
+        }
+        if (remaining > aliceArrows[i]) {
+            let cost: number = aliceArrows[i] + 1;
+            path[i] = cost
+            backtrack(i+1, points + i, remaining - cost)
+            path[i] = 0
+        }
+        backtrack(i+1, points, remaining)
+        }
+    backtrack(0, 0, numArrows)
+    
+    let currSum = ans.reduce((sum, n) => sum += n, 0);
+    if (currSum < numArrows) {
+        ans[0] += numArrows - currSum
+    }
+    return ans
+};
