@@ -29,3 +29,21 @@ class Solution:
             if node.right: dq.append(node.right)
             if node.left: dq.append(node.left)
         return node.val
+    
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        
+        dq = deque(([root]))
+
+        while dq:
+            lenDq = len(dq)
+            while lenDq:
+                curr = dq.popleft()
+                ans = curr.val
+                if curr.right:
+                    dq.append(curr.right)
+                if curr.left:
+                    dq.append(curr.left)
+                lenDq -= 1
+        return ans
+
