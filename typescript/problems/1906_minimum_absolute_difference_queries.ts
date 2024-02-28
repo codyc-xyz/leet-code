@@ -11,3 +11,46 @@
 
 // x if x >= 0.
 // -x if x < 0.
+
+function minDifference(nums: number[], queries: number[][]): number[] {
+    const N: number = nums.length;
+    let res: number[][] = new Array(N+1);
+
+    for (let i = 0; i < N + 1; i++) {
+        res[i] = new Array(101).fill(0);
+    }
+
+    let ans: number[] = [];
+    for (let i = 1; i < N+1; i++) {
+        let n: number = nums[i-1];
+        for (let j = 0; j < 101; j++) {
+            if (n === j) {
+                res[i][j] = res[i-1][j] + 1;
+            }
+            else {
+                res[i][j] = res[i-1][j];
+            }
+        }
+    }
+    for (const q of queries) {
+        let a: number = q[0];
+        let b: number = q[1];
+        let prev: number = -1;
+        let currMin: number = Infinity;
+        for (let i = 1; i < 101; i++) {
+            if (res[b+1][i] - res[a][i] > 0) {
+                if (prev != -1) {
+                    currMin = Math.min(currMin, i - prev);
+                }
+                prev = i
+            }
+        }
+        if (currMin !== Infinity) {
+            ans.push(currMin)
+        }
+        else {
+            ans.push(-1)
+        }
+    }
+    return ans;
+};
