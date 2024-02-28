@@ -32,6 +32,27 @@ class Solution:
             ans.append(currMin) if currMin != float('inf') else ans.append(-1)
         return ans
         
+class Solution:
+    def minDifference(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        N = len(nums)
+        res = [[0 for _ in range(101)] for _ in range(N+1)]
+        ans = []
+
+        for i in range(1, N + 1):
+            for j in range(101):
+                res[i][j] = res[i-1][j] + (1 if nums[i-1] == j else 0)
+
+        for a, b in queries:
+            prev = -1
+            currMin = float('inf')
+            for i in range(101):
+                if res[b+1][i] - res[a][i] > 0:
+                    if prev != -1:
+                        currMin = min(currMin, i-prev)
+                    prev = i
+            ans.append(currMin) if currMin != float('inf') else ans.append(-1)
+        return ans
+
                 
 
 
