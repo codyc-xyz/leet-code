@@ -11,3 +11,29 @@
 
 # x if x >= 0.
 # -x if x < 0.
+
+class Solution:
+    def minDifference(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        N = len(nums)
+        minDiff = defaultdict(list)
+        ans = []
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i] == nums[j]:
+                    minDiff[i].append(float('inf'))
+                else:
+                    minDiff[i].append(abs(nums[i] - nums[j]))
+                
+            
+        for a, b in queries:
+            currMin = float('inf')
+            for i in range(a, b):
+                currMin = min(currMin, min(minDiff[i][:b-i]))
+            ans.append(currMin) if currMin != float('inf') else ans.append(-1)
+        return ans
+        
+                
+
+
+        
+
