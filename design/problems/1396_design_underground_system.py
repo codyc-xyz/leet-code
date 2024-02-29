@@ -15,3 +15,34 @@ The time it takes to travel from startStation to endStation may be different fro
 There will be at least one customer that has traveled from startStation to endStation before getAverageTime is called.
 You may assume all calls to the checkIn and checkOut methods are consistent. If a customer checks in at time t1 then checks out at time t2, then t1 < t2. All events happen in chronological order.
 '''
+class UndergroundSystem:
+
+    def __init__(self):
+        self.checkins = {}
+        self.times = {}
+        
+
+    def checkIn(self, id: int, startStation: str, t: int) -> None:
+        self.checkins[id] = (startStation, t)
+        
+
+    def checkOut(self, id: int, endStation: str, endTime: int) -> None:
+        startStation, startTime = self.checkins[id]
+        if (startStation, endStation) in self.times:
+            self.times[(startStation, endStation)][0] += endTime - startTime
+            self.times[(startStation, endStation)][1] += 1
+        else:
+            self.times[(startStation, endStation)] = [endTime - startTime, 1]
+        
+
+    def getAverageTime(self, startStation: str, endStation: str) -> float:
+        totTime, numPeople = self.times[(startStation, endStation)]
+        return totTime / numPeople
+        
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)
