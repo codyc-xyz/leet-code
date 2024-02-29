@@ -36,3 +36,33 @@ class Solution:
                 prev = node.val
             depth += 1
         return True
+    
+
+class Solution:
+    def isEvenOddTree(self, root: Optional[TreeNode]) -> bool:
+
+
+        dq = deque(([root]))
+        level = 0
+        while dq:
+            lenDq = len(dq)
+            prev = float('inf') if level % 2 else float('-inf')
+            
+            while lenDq:
+                curr = dq.popleft()
+                if level % 2:
+                    if curr.val % 2 or curr.val >= prev:
+                        return False
+                else:
+                    if not curr.val % 2 or curr.val <= prev:
+                        return False
+                prev = curr.val
+                if curr.left:
+                    dq.append(curr.left)
+                if curr.right:
+                    dq.append(curr.right)
+                lenDq -= 1
+            level += 1
+        return True
+
+
