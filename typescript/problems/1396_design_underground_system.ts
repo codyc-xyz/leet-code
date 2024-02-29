@@ -16,3 +16,47 @@ There will be at least one customer that has traveled from startStation to endSt
 You may assume all calls to the checkIn and checkOut methods are consistent. If a customer checks in at time t1 then checks out at time t2, then t1 < t2. All events happen in chronological order.
 
  */
+
+class UndergroundSystem {
+    checkIns: Record<string, [number, string]>;
+    avgTime: Record<string, [number, number]>;
+    
+    constructor() {
+        this.checkIns = {};
+        this.avgTime = {};
+    }
+
+    checkIn(id: number, stationName: string, t: number): void {
+        this.checkIns[id] = [t, stationName];
+    }
+
+    checkOut(id: number, endStation: string, endTime: number): void {
+        const [startTime, startStation] = this.checkIns[id];
+        
+        const key: string = `${startStation},${endStation}`;
+
+        if (key in this.avgTime) {
+            this.avgTime[key][0] += endTime - startTime;
+            this.avgTime[key][1] += 1
+        }
+        else {
+            this.avgTime[key] = [endTime - startTime, 1];
+        }
+        delete this.checkIns[id];
+        
+    }
+    getAverageTime(startStation: string, endStation: string): number {
+        const key: string = `${startStation},${endStation}`;
+        let [totTime, numTrips] = this.avgTime[key];
+        return totTime / numTrips
+        
+    }
+}
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * var obj = new UndergroundSystem()
+ * obj.checkIn(id,stationName,t)
+ * obj.checkOut(id,stationName,t)
+ * var param_3 = obj.getAverageTime(startStation,endStation)
+ */
