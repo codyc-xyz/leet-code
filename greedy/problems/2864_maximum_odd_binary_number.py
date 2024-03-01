@@ -7,3 +7,15 @@ Return a string representing the maximum odd binary number that can be created f
 
 Note that the resulting string can have leading zeros.
 '''
+
+class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        count = collections.Counter(s)
+        ans = ""
+        for i in range(len(s)-1):
+            if count['1'] > 1:
+                ans += '1'
+                count['1'] -= 1
+            else:
+                ans += '0'
+        return ans + '1'
