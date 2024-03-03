@@ -50,3 +50,16 @@ class Solution:
             k -= 1
         curr.next = curr.next.next
         return dummy.next
+    
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+
+        dummy = curr = ListNode(next=head)
+        i = 0
+        while head:
+            head = head.next
+            i+=1
+        for _ in range(i-n):
+            dummy = dummy.next
+        dummy.next = dummy.next.next
+        return curr.next
