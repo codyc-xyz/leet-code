@@ -28,3 +28,20 @@ class Solution:
             else:
                 break
         return length
+    
+class Solution:
+    def minimumLength(self, s: str) -> int:
+        l, r = 0, len(s) - 1
+        ans = len(s)
+
+        while l < r:
+            if s[l] == s[r]:
+                while l < r and s[l] == s[r]:
+                    l += 1
+                    ans -= 1
+                while l > 0 and l - 1 < r and s[r] == s[l-1]:
+                    r -= 1
+                    ans -= 1
+            else:
+                break
+        return ans
