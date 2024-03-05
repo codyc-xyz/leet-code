@@ -7,3 +7,24 @@ Face-up: If your current power is at least tokens[i], you may play tokeni, losin
 Face-down: If your current score is at least 1, you may play tokeni, gaining tokens[i] power and losing 1 score.
 Return the maximum possible score you can achieve after playing any number of tokens.
 '''
+
+class Solution:
+    def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
+        tokens.sort()
+        score = 0
+
+        l, r = 0, len(tokens) - 1
+
+        while l <= r:
+            if power >= tokens[l]:
+                score += 1
+                power -= tokens[l]
+                l += 1
+            elif r - l > 1 and score > 0:
+                score -= 1
+                power += tokens[r]
+                r -= 1
+            else:
+                break
+        return score
+
