@@ -5,3 +5,15 @@ Given an integer array nums, return the length of its longest harmonious subsequ
 
 A subsequence of array is a sequence that can be derived from the array by deleting some or no elements without changing the order of the remaining elements.
 '''
+
+class Solution:
+    def findLHS(self, nums: List[int]) -> int:
+        count = collections.Counter(nums)
+        ans = 0
+        for c in count:
+            curr = count[c]
+            if c - 1 in count:
+                ans = max(ans, curr + count[c-1])
+            if c + 1 in count:
+                ans = max(ans, curr + count[c+1])
+        return ans
