@@ -5,3 +5,11 @@ Return the time when the train will arrive at the station.
 
 Note that the time in this problem is in 24-hours format.
 */
+
+function findDelayedArrivalTime(arrivalTime: number, delayedTime: number): number {
+        let res: number = arrivalTime + delayedTime
+        if (res >= 24) {
+            return res - 24
+        }
+        return res
+};
