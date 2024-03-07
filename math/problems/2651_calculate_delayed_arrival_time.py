@@ -5,3 +5,9 @@ Return the time when the train will arrive at the station.
 
 Note that the time in this problem is in 24-hours format.
 '''
+
+class Solution:
+    def findDelayedArrivalTime(self, arrivalTime: int, delayedTime: int) -> int:
+        if arrivalTime + delayedTime >= 24:
+            return arrivalTime + delayedTime - 24
+        return arrivalTime + delayedTime
