@@ -17,3 +17,13 @@ class Solution:
                 ans += maxCount
         return ans
         
+class Solution:
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+
+        count = collections.Counter(nums)
+        maxCount = max(count.values())
+        ans = 0
+        for c in count:
+            if count[c] == maxCount:
+                ans += maxCount
+        return ans
