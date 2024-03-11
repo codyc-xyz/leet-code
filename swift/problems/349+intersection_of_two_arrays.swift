@@ -16,3 +16,15 @@ class Solution {
         return ans
     }
 }
+
+class Solution {
+    func intersection(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+        let N1: Set<Int> = Set(nums1)
+        let N2: Set<Int> = Set(nums2)
+        var ans: [Int] = []
+
+        let intersection = N1.intersection(N2)
+        
+        return Array(intersection)
+    }
+}
