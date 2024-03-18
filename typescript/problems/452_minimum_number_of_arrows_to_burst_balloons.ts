@@ -5,3 +5,19 @@ Arrows can be shot up directly vertically (in the positive y-direction) from dif
 
 Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
  */
+
+function findMinArrowShots(points: number[][]): number {
+    
+    points.sort((a, b) => a[1] - b[1])
+
+    let currEnd: number = points[0][1]
+    let ans: number = 1
+
+    for (let i = 1; i < points.length; i++) {
+        if (points[i][0] > currEnd) {
+            currEnd = points[i][1]
+            ans++
+        }
+    }
+    return ans
+};
