@@ -5,3 +5,22 @@ Arrows can be shot up directly vertically (in the positive y-direction) from dif
 
 Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
 **/
+
+class Solution {
+    func findMinArrowShots(_ points: [[Int]]) -> Int {
+        var points: [[Int]] = points
+        var ans: Int = 1
+        points.sort(by: { (a: [Int], b: [Int]) -> Bool in
+            return a[1] < b[1]
+        })
+        var currEnd: Int = points[0][1]
+
+        for i in 0...points.count-1 {
+            if points[i][0] > currEnd {
+                currEnd = points[i][1]
+                ans += 1
+            }
+        }
+        return ans
+    }
+}
