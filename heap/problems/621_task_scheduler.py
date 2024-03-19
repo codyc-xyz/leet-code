@@ -51,3 +51,24 @@ class Solution:
                 heapq.heappush(maxHeap, q.popleft()[0])
 
         return time
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = collections.Counter(tasks)
+
+        maxHeap = [-1 * c for c in count.values()]
+        heapq.heapify(maxHeap)
+        q = deque()
+        time = 0
+        while q or maxHeap:
+            time += 1
+            if maxHeap:
+                curr = heapq.heappop(maxHeap) + 1
+                if curr < 0:
+                    q.append((curr, time + n))
+            if q and time == q[0][1]:
+                heapq.heappush(maxHeap, q.popleft()[0])
+        return time
+        
+
+                
