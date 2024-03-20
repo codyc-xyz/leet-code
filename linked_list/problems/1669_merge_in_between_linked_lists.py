@@ -30,3 +30,24 @@ class Solution:
         curr.next = tail
         return dummy.next
         
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        tail = curr = dummy = ListNode(next=list1)
+        
+        head = ListNode(next=list2)
+        while b >= -1:
+            tail = tail.next
+            b -= 1
+
+        length = 0
+        while curr:
+            if length == a:
+                curr.next = head.next
+                while curr.next:
+                    curr = curr.next
+                curr.next = tail
+                break
+            curr = curr.next
+            length += 1
+        return dummy.next
+
