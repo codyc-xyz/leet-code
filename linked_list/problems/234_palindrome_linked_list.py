@@ -42,3 +42,22 @@ class Solution:
             prev = prev.next
             head = head.next
         return True
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        
+        fast = slow = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        firstHalf = []
+        secondHalf = []
+        while slow:
+            firstHalf.append(head.val)
+            secondHalf.append(slow.val)
+            head = head.next
+            slow = slow.next
+
+        return firstHalf == secondHalf[::-1]
