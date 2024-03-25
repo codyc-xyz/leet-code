@@ -3,3 +3,16 @@ Given an integer array nums of length n where all the integers of nums are in th
 
 You must write an algorithm that runs in O(n) time and uses only constant extra space.
 */
+
+function findDuplicates(nums: number[]): number[] {
+    
+    let seen: Record<number, boolean> = {}
+    let ans: number[] = []
+    for (const n of nums) {
+        if (seen[n] === true) {
+            ans.push(n)
+        }
+        seen[n] = true
+    }
+    return ans
+};
