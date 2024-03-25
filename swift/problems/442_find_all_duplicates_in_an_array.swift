@@ -3,3 +3,17 @@ Given an integer array nums of length n where all the integers of nums are in th
 
 You must write an algorithm that runs in O(n) time and uses only constant extra space.
 **/
+class Solution {
+    func findDuplicates(_ nums: [Int]) -> [Int] {
+        var seen: [Int:Bool] = [:]
+        var ans: [Int] = []
+
+        for n in nums {
+            if seen[n] == true {
+                ans.append(n)
+            }
+            seen[n] = true
+        }
+        return ans
+    }
+}
