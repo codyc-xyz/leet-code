@@ -32,3 +32,18 @@ class Solution:
                 return idx + 1
         return len(nums) + 1
                 
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        nums.sort()
+        j = 1
+        prev = None
+    
+        for i in range(len(nums)):
+            if prev == nums[i] or nums[i] <= 0:
+                continue
+            if j != nums[i]:
+                return j
+            prev = nums[i]
+            j += 1
+                
+        return j + 1 if nums[-1] == j else j
